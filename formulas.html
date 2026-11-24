@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《大学物理》保姆级公式精讲百科（零基础逐字拆解）</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root {
+      --bg: #f1f5f9; --surface: #ffffff; --surface-2: #f8fafc; --text: #0f172a;
+      --muted: #475569; --border: #e2e8f0; --primary: #2563eb; --primary-soft: #eff6ff;
+      --success: #16a34a; --success-soft: #f0fdf4; --warn: #d97706; --warn-soft: #fffbeb;
+      --danger: #dc2626; --danger-soft: #fef2f2; --shadow: 0 2px 10px rgba(15,23,42,0.06);
+    }
+    body.dark {
+      --bg: #0f172a; --surface: #1e293b; --surface-2: #0f172a; --text: #f1f5f9;
+      --muted: #94a3b8; --border: #334155; --primary: #60a5fa; --primary-soft: rgba(59,130,246,0.16);
+      --success: #4ade80; --success-soft: rgba(34,197,94,0.14); --warn: #fbbf24; --warn-soft: rgba(245,158,11,0.14);
+      --danger: #f87171; --danger-soft: rgba(239,68,68,0.14); --shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.7; }
+    header { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 12px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .nav-inner h1 { margin: 0; font-size: 16.5px; }
+    .nav-inner small { color: var(--muted); font-size: 12px; }
+    .btn { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 6px 12px; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn-primary:hover { color: #fff; opacity: 0.92; }
+    main { max-width: 1080px; margin: 18px auto 60px auto; padding: 0 18px; }
+    .filter-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 18px; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; box-shadow: var(--shadow); }
+    .chip { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 5px 12px; border-radius: 999px; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .f-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 20px 22px; margin-bottom: 20px; box-shadow: var(--shadow); }
+    .f-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 2px solid var(--border); }
+    .f-head h2 { margin: 0; font-size: 17px; color: var(--primary); }
+    .badge { font-size: 12px; padding: 2px 10px; border-radius: 999px; font-weight: 600; background: var(--primary-soft); color: var(--primary); }
+    .eq-banner { background: var(--primary-soft); border: 1px solid var(--primary); border-radius: 10px; padding: 12px 16px; text-align: center; font-size: 16px; margin-bottom: 14px; overflow-x: auto; }
+    .sec-title { font-weight: 700; font-size: 14px; margin: 14px 0 6px 0; color: var(--text); display: flex; align-items: center; gap: 6px; }
+    .plain-box { background: var(--surface-2); border-left: 4px solid var(--primary); padding: 10px 14px; border-radius: 6px; font-size: 14px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 6px; font-size: 13.5px; }
+    th, td { border: 1px solid var(--border); padding: 7px 10px; text-align: left; vertical-align: top; }
+    th { background: var(--surface-2); font-weight: 700; }
+    .when-box { background: var(--warn-soft); border-left: 4px solid var(--warn); padding: 9px 14px; border-radius: 6px; font-size: 13.8px; }
+    .example-box { background: var(--success-soft); border-left: 4px solid var(--success); padding: 10px 14px; border-radius: 6px; font-size: 13.8px; }
+    .example-box p { margin: 4px 0; }
+    .pitfall-box { background: var(--danger-soft); border-left: 4px solid var(--danger); padding: 9px 14px; border-radius: 6px; font-size: 13.5px; margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div>
+        <h1>📘 《大学物理》保姆级公式精讲百科（零基础逐字拆解）</h1>
+        <small>涵盖全书 16 个核心公式：大白话原理 + 逐个符号表（含读音/单位）+ 审题关键词 + 手把手分步例题 + 避坑指南</small>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="./index.html">⬅️ 返回复习台首页</a>
+        <a class="btn" href="./questions.html">📚 51题全题库</a>
+        <button class="btn" id="themeBtn">🌙 夜间模式</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="filter-bar" id="chFilters">
+      <button class="chip active" data-ch="all">全部 16 个核心公式</button>
+      <button class="chip" data-ch="2">第二章 流体力学 (3)</button>
+      <button class="chip" data-ch="3">第三章 表面现象 (3)</button>
+      <button class="chip" data-ch="4">第四章 振动波动 (3)</button>
+      <button class="chip" data-ch="5">第五章 静电场 (2)</button>
+      <button class="chip" data-ch="6">第六章 稳恒磁场 (3)</button>
+      <button class="chip" data-ch="7">第七章 电磁感应 (2)</button>
+    </div>
+
+    <div id="content"></div>
+  </main>
+
+  <script>
+    const FORMULAS = [
+  {
+    "ch": "2",
+    "chName": "第二章 流体力学基础",
+    "name": "1. 连续性方程（流量守恒）",
+    "eq": "S_1 v_1 = S_2 v_2 = Q",
+    "plain": "水管里流着不可压缩的水，中间没有漏水也没有支管，那么<strong>每秒钟流过粗管的水量，一定等于每秒钟流过细管的水量</strong>。所以管子越细（$S$ 越小），水就必须跑得越快（$v$ 越大），就像用手指捏住浇花水管口，水会飙得更快一样。",
+    "symbols": [
+      [
+        "$S_1, S_2$",
+        "S",
+        "管道两处的横截面积",
+        "$\\text{m}^2$",
+        "注意把 $\\text{cm}^2$ 乘以 $10^{-4}$ 换算成 $\\text{m}^2$；若给圆管半径 $r$，则 $S=\\pi r^2$"
+      ],
+      [
+        "$v_1, v_2$",
+        "v",
+        "对应位置处水的流速",
+        "$\\text{m/s}$",
+        "题目常给一处流速，让你求另一处"
+      ],
+      [
+        "$Q$",
+        "Q",
+        "体积流量（每秒流过多少立方米水）",
+        "$\\text{m}^3/\\text{s}$",
+        "只要知道任意一处的 $S$ 和 $v$，相乘就是 $Q$"
+      ]
+    ],
+    "when": "题目里出现“截面不同的管子”、“最细处截面积是出口的 $1/3$”、“求另一处流速”或“求流量”。",
+    "steps": [
+      "<strong>题目</strong>：水平管出口截面积是管最细处的 3 倍（$S_{\\text{出}} = 3S_{\\text{细}}$），出口流速 $v_{\\text{出}} = 2\\text{ m/s}$，求最细处流速 $v_{\\text{细}}$。",
+      "<strong>第 1 步（列方程）</strong>：写下 $S_{\\text{细}} v_{\\text{细}} = S_{\\text{出}} v_{\\text{出}}$。",
+      "<strong>第 2 步（代入比例）</strong>：把 $S_{\\text{出}} = 3S_{\\text{细}}$ 代入，得 $S_{\\text{细}} v_{\\text{细}} = 3 S_{\\text{细}} \\times 2$。",
+      "<strong>第 3 步（约分出答案）</strong>：两边消掉 $S_{\\text{细}}$，得 $v_{\\text{细}} = 3 \\times 2 = \\mathbf{6\\text{ m/s}}$。"
+    ],
+    "pitfall": "如果题目给的是<strong>直径比</strong>（比如粗管直径是细管的 2 倍），截面积是 $S=\\pi (d/2)^2$，面积比是直径比的<strong>平方</strong>（4 倍），千万别直接用 2 倍！"
+  },
+  {
+    "ch": "2",
+    "chName": "第二章 流体力学基础",
+    "name": "2. 伯努利方程（能量守恒）",
+    "eq": "p_1 + \\frac{1}{2}\\rho v_1^2 + \\rho g h_1 = p_2 + \\frac{1}{2}\\rho v_2^2 + \\rho g h_2",
+    "plain": "这是流体版的机械能守恒：左边三项分别是<strong>静压能</strong>（水压着管壁的力）、<strong>动能</strong>（水流跑得多快）、<strong>重力势能</strong>（管子有多高）。如果管子是<strong>水平</strong>的（$h_1=h_2$），高度项直接划掉，变成 $p + \\frac{1}{2}\\rho v^2 = \\text{常量}$——<strong>流速越快的地方，压强越小</strong>（水忙着往前冲，顾不上往管壁上压）。",
+    "symbols": [
+      [
+        "$p_1, p_2$",
+        "p",
+        "两处管内的绝对压强",
+        "$\\text{Pa}$",
+        "管口直接通向空气时，该处压强就是大气压 $p_0 = 1.013\\times 10^5\\text{ Pa}$"
+      ],
+      [
+        "$\\rho$",
+        "读 rōu",
+        "液体密度",
+        "$\\text{kg/m}^3$",
+        "水的密度必背：$\\rho_{\\text{水}} = 1.0\\times 10^3\\text{ kg/m}^3$"
+      ],
+      [
+        "$v_1, v_2$",
+        "v",
+        "两处流速",
+        "$\\text{m/s}$",
+        "常先用连续性方程算出来再代进来"
+      ],
+      [
+        "$g$",
+        "g",
+        "重力加速度",
+        "$\\text{m/s}^2$",
+        "默认取 $9.8\\text{ m/s}^2$"
+      ],
+      [
+        "$h_1, h_2$",
+        "h",
+        "两处距离参考面的高度",
+        "$\\text{m}$",
+        "水平管 $h_1=h_2$ 直接消掉；倾斜管通常把低处设为 $h_1=0$"
+      ]
+    ],
+    "when": "题目让你求管子某处的<strong>压强</strong>，或者问“在最细处开一小孔，水会不会流出来”。",
+    "steps": [
+      "<strong>题目</strong>：接上题，水平管出口通大气（$p_0=1.013\\times 10^5\\text{ Pa}, v_{\\text{出}}=2\\text{ m/s}$），最细处 $v_{\\text{细}}=6\\text{ m/s}$，求最细处压强 $p_{\\text{细}}$，并判断开孔会不会出水。",
+      "<strong>第 1 步（划掉高度项）</strong>：因为是水平管，$h_1=h_2$，写成 $p_{\\text{细}} + \\frac{1}{2}\\rho v_{\\text{细}}^2 = p_0 + \\frac{1}{2}\\rho v_{\\text{出}}^2$。",
+      "<strong>第 2 步（移项代入数字）</strong>：$p_{\\text{细}} = 1.013\\times 10^5 + \\frac{1}{2}\\times 1000\\times(2^2 - 6^2) = 1.013\\times 10^5 + 500\\times(4-36) = 1.013\\times 10^5 - 16000 = \\mathbf{8.53\\times 10^4\\text{ Pa}}$。",
+      "<strong>第 3 步（判断开孔）</strong>：最细处管内压强 $8.53\\times 10^4\\text{ Pa}$ <strong>小于</strong>外面大气压 $1.013\\times 10^5\\text{ Pa}$，外面气压更大，所以<strong>水不会流出，反而外界空气会被压进管里</strong>！"
+    ],
+    "pitfall": "减法顺序别写反！是 $\\frac{1}{2}\\rho(v_{\\text{出}}^2 - v_{\\text{细}}^2)$，最细处流速大，算出来压强一定比粗处<strong>小</strong>。"
+  },
+  {
+    "ch": "2",
+    "chName": "第二章 流体力学基础",
+    "name": "3. 托里拆利公式（小孔出流）",
+    "eq": "v = \\sqrt{2gh}, \\qquad Q = S v = S\\sqrt{2gh}",
+    "plain": "大水桶侧壁或底部开个小孔，水喷出来的速度，和一块石头从水面自由落体掉到小孔高度时的速度<strong>一模一样</strong>（$v=\\sqrt{2gh}$）！因为大水面几乎不动（$v_1\\approx 0$），且水面和孔口都接触大气（$p_1=p_2=p_0$），伯努利方程直接化简出这个公式。",
+    "symbols": [
+      [
+        "$h$",
+        "h",
+        "小孔到<strong>液面</strong>的垂直深度",
+        "$\\text{m}$",
+        "如果求“容器至少多深水才不溢出”，$h$ 就是容器深度"
+      ],
+      [
+        "$v$",
+        "v",
+        "水从小孔喷出的速度",
+        "$\\text{m/s}$",
+        "只与水深 $h$ 有关，与液体密度无关"
+      ],
+      [
+        "$S$",
+        "S",
+        "小孔的面积",
+        "$\\text{m}^2$",
+        "注意 $1\\text{ cm}^2 = 10^{-4}\\text{ m}^2$"
+      ],
+      [
+        "$Q$",
+        "Q",
+        "小孔每秒流出的水量（流量）",
+        "$\\text{m}^3/\\text{s}$",
+        "若顶部同时注水，不溢出条件是：流出流量 $Q_{\\text{出}} = Q_{\\text{注}}$"
+      ]
+    ],
+    "when": "看到“容器侧壁/底部有一小孔”、“求小孔出流速度/流量”、“一边注水一边漏水求最小容器深度”。",
+    "steps": [
+      "<strong>题目</strong>：以 $Q=1.5\\times 10^{-4}\\text{ m}^3/\\text{s}$ 向容器注水，底孔面积 $S=0.5\\times 10^{-4}\\text{ m}^2$，求容器最小深度 $h$。",
+      "<strong>第 1 步（找平衡条件）</strong>：水面涨到临界高度 $h$ 时，漏水速度刚好等于注水速度：$Q = S\\sqrt{2gh}$。",
+      "<strong>第 2 步（两边平方解 $h$）</strong>：$\\frac{Q}{S} = \\sqrt{2gh} \\implies h = \\frac{(Q/S)^2}{2g}$。",
+      "<strong>第 3 步（算数字）</strong>：先算 $\\frac{Q}{S} = \\frac{1.5\\times 10^{-4}}{0.5\\times 10^{-4}} = 3\\text{ m/s}$，再算 $h = \\frac{3^2}{2\\times 9.8} = \\frac{9}{19.6} \\approx \\mathbf{0.459\\text{ m}}$。"
+    ],
+    "pitfall": "先算 $Q/S$ 可以直接把 $10^{-4}$ 约掉，避免平方算错数量级！"
+  },
+  {
+    "ch": "3",
+    "chName": "第三章 液体的表面现象",
+    "name": "4. 表面能与吹泡做功",
+    "eq": "W = \\Delta E = \\alpha \\Delta S \\quad \\begin{cases} \\text{水滴/水中气泡（1个面）：} \\Delta S = 4\\pi r^2 \\\\ \\text{肥皂泡（内外2个面）：} \\Delta S = 2\\times 4\\pi r^2 = 8\\pi r^2 \\end{cases}",
+    "plain": "液体表面像一张绷紧的橡皮膜，你要把橡皮膜撑大（比如吹出一个肥皂泡），就必须做功，面积撑大多少（$\\Delta S$），乘以“橡皮膜的紧绷程度”（$\\alpha$），就是你要做的功；反过来，很多小雨滴落进湖里合并成一大片水，表面积瞬间消失，就会把这部分能量<strong>释放</strong>出来。",
+    "symbols": [
+      [
+        "$W$ 或 $\\Delta E$",
+        "W / ΔE",
+        "做的功或释放的能量",
+        "$\\text{J}$（焦耳）",
+        "表面积变大需要外界做功；表面积变小会释放能量"
+      ],
+      [
+        "$\\alpha$",
+        "读阿尔法",
+        "液体的表面张力系数",
+        "$\\text{N/m}$",
+        "题目会直接给你（水约 $7.3\\times 10^{-2}$，肥皂液约 $40\\times 10^{-3}$）"
+      ],
+      [
+        "$\\Delta S$",
+        "ΔS",
+        "液体<strong>总表面积</strong>的变化量",
+        "$\\text{m}^2$",
+        "球体单个表面积 $4\\pi r^2$；肥皂泡有内外两层皮，必须乘以 2！"
+      ],
+      [
+        "$r$",
+        "r",
+        "球体的<strong>半径</strong>",
+        "$\\text{m}$",
+        "题目给直径 $d$ 时，第一步立刻 $r = d/2$，再把 $\\text{cm}/\\text{mm}$ 换成 $\\text{m}$"
+      ]
+    ],
+    "when": "看到“吹一个肥皂泡需要做多少功”、“小雨滴落入湖中/两水银滴合并释放多少能量”。",
+    "steps": [
+      "<strong>题目</strong>：吹一个直径 $10\\text{ cm}$ 的肥皂泡，$\\alpha=40\\times 10^{-3}\\text{ N/m}$，求做功 $W$。",
+      "<strong>第 1 步（直径变半径+换单位）</strong>：$r = \\frac{10\\text{ cm}}{2} = 5\\text{ cm} = 0.05\\text{ m}$。",
+      "<strong>第 2 步（数液面个数）</strong>：肥皂泡内外都是空气，有 <strong>2 个球面</strong>，所以 $\\Delta S = 2\\times 4\\pi r^2 = 8\\pi r^2$。",
+      "<strong>第 3 步（代入计算）</strong>：$W = 8\\pi \\times (40\\times 10^{-3}) \\times (0.05)^2 = 8\\pi \\times 0.04 \\times 0.0025 \\approx \\mathbf{2.51\\times 10^{-3}\\text{ J}}$。"
+    ],
+    "pitfall": "肥皂泡 vs 水滴/水中气泡是期末头号陷阱：<strong>肥皂泡乘 2（$8\\pi\\alpha r^2$）</strong>，<strong>水滴或水下气泡只有 1 个面（$4\\pi\\alpha r^2$）</strong>！"
+  },
+  {
+    "ch": "3",
+    "chName": "第三章 液体的表面现象",
+    "name": "5. 弯曲液面附加压强（拉普拉斯公式）",
+    "eq": "\\Delta p = \\frac{2\\alpha}{r}\\text{（1个液面）}, \\qquad \\Delta p = \\frac{4\\alpha}{r}\\text{（肥皂泡2个液面）}",
+    "plain": "只要液面是弯的，表面张力就会像拉满的弓一样，永远朝着<strong>凹进去的那一侧</strong>多挤出一份额外的压强 $\\Delta p$。球越小（$r$ 越小），弯得越厉害，内部压强就越大！这就是为什么把一大一小两个肥皂泡连起来，反而是<strong>小泡把气吹进大泡里</strong>。",
+    "symbols": [
+      [
+        "$\\Delta p$",
+        "Δp",
+        "弯曲液面两侧的压强差（凹侧 − 凸侧）",
+        "$\\text{Pa}$",
+        "球形液滴/气泡内部是凹侧，所以内部压强永远大于外部"
+      ],
+      [
+        "$\\alpha$",
+        "阿尔法",
+        "表面张力系数",
+        "$\\text{N/m}$",
+        "题干给出"
+      ],
+      [
+        "$r$ 或 $R$",
+        "r / R",
+        "弯曲液面的曲率半径",
+        "$\\text{m}$",
+        "球面就是球的半径；毛细管完全润湿时，液面曲率半径等于管内半径"
+      ]
+    ],
+    "when": "看到“求肥皂泡内外压强差”、“水下气泡内部压强”、“大小肥皂泡连通”、“毛细管下端挂着一滴凸弧面水柱”。",
+    "steps": [
+      "<strong>题目</strong>：毛细管半径 $r=0.3\\text{ mm}$，上端是凹液面，下端挂着半径 $R=3.0\\text{ mm}$ 的凸弧面，求悬停水柱高度 $h$（$\\alpha=7.3\\times 10^{-2}\\text{ N/m}$）。",
+      "<strong>第 1 步（看上端凹液面）</strong>：空气在凹侧，所以水柱顶端压强比大气压<strong>小</strong>：$p_{\\text{上}} = p_0 - \\frac{2\\alpha}{r}$。",
+      "<strong>第 2 步（看下端凸液面）</strong>：水在凹侧，所以水柱底端压强比大气压<strong>大</strong>：$p_{\\text{下}} = p_0 + \\frac{2\\alpha}{R}$。",
+      "<strong>第 3 步（水柱静压平衡）</strong>：底端比顶端多出来的压强托住了水柱：$p_{\\text{下}} - p_{\\text{上}} = \\rho g h \\implies \\frac{2\\alpha}{r} + \\frac{2\\alpha}{R} = \\rho g h$，代入 $r=3\\times 10^{-4}\\text{ m}, R=3\\times 10^{-3}\\text{ m}$ 解得 $h \\approx \\mathbf{5.46\\text{ cm}}$。"
+    ],
+    "pitfall": "判断正负号只认一条铁律：<strong>哪边是凹进去的（圆心在哪边），哪边压强就大！</strong>"
+  },
+  {
+    "ch": "3",
+    "chName": "第三章 液体的表面现象",
+    "name": "6. 毛细现象高度公式",
+    "eq": "h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}",
+    "plain": "把一根很细的玻璃管插进水里，水会自动往上爬（毛细上升）；插进水银里，水银面反而会往下掉（毛细下降）。管子越细（$r$ 越小），爬得越高或掉得越深。",
+    "symbols": [
+      [
+        "$h$",
+        "h",
+        "管内液面相对管外液面的高度",
+        "$\\text{m}$",
+        "算出来是正数=上升，负数=下降"
+      ],
+      [
+        "$\\theta$",
+        "读西塔",
+        "接触角（液体润湿管壁的程度）",
+        "度",
+        "完全润湿(水-玻璃) $\\theta=0^\\circ \\Rightarrow \\cos\\theta=1$；完全不润湿(水银-玻璃) $\\theta=180^\\circ \\Rightarrow \\cos\\theta=-1$"
+      ],
+      [
+        "$\\rho$",
+        "rōu",
+        "液体密度",
+        "$\\text{kg/m}^3$",
+        "水 $1.0\\times 10^3$；水银 $13.6\\times 10^3$（必背！）"
+      ],
+      [
+        "$r$",
+        "r",
+        "毛细管的<strong>内半径</strong>",
+        "$\\text{m}$",
+        "题目极爱给内径 $d$，务必除以 2！"
+      ]
+    ],
+    "when": "看到“毛细管插入水/水银中”、“求上升/下降高度”、“U 形管两臂粗细不同求液面高度差”。",
+    "steps": [
+      "<strong>题目</strong>：内径 $d=10^{-4}\\text{ m}$ 的管子插入水银（完全不润湿，$\\alpha=0.49\\text{ N/m}$），求下降高度。",
+      "<strong>第 1 步（整理已知量）</strong>：$r = d/2 = 0.5\\times 10^{-4}\\text{ m}$，$\\cos 180^\\circ = -1$，$\\rho_{\\text{Hg}} = 13.6\\times 10^3\\text{ kg/m}^3$。",
+      "<strong>第 2 步（直接代入公式）</strong>：$h = \\frac{2\\times 0.49\\times (-1)}{13.6\\times 10^3 \\times 9.8 \\times 0.5\\times 10^{-4}} = \\frac{-0.98}{6.664} \\approx \\mathbf{-0.147\\text{ m}}$。",
+      "<strong>第 3 步（写结论）</strong>：负号表示下降，故水银面下降 $0.147\\text{ m}$（$14.7\\text{ cm}$）。"
+    ],
+    "pitfall": "U 形管两管半径不同求高度差时，直接算 $\\Delta h = h_1 - h_2 = \\frac{2\\alpha}{\\rho g}\\left(\\frac{1}{r_1} - \\frac{1}{r_2}\\right)$，细管液面高，粗管液面低！"
+  },
+  {
+    "ch": "4",
+    "chName": "第四章 振动与波动",
+    "name": "7. 简谐振动方程与旋转矢量法",
+    "eq": "y = A\\cos(\\omega t + \\varphi_0), \\qquad \\omega = \\frac{2\\pi}{T} = 2\\pi\\nu",
+    "plain": "想象一个挂在弹簧上的小球上下做周期性晃动，它在任意时刻 $t$ 的高度 $y$ 就是一个余弦波。为了不死算三角函数，物理学家发明了<strong>旋转矢量法</strong>：画一个半径为 $A$ 的圆，让一根指针以角速度 $\\omega$ 逆时针匀速转圈，指针在坐标轴上的投影就是小球的位置！",
+    "symbols": [
+      [
+        "$y$",
+        "y",
+        "时刻 $t$ 质点偏离平衡位置的位移",
+        "$\\text{m}$ 或 $\\text{cm}$",
+        "在正负最大振幅 $[-A, +A]$ 之间来回变"
+      ],
+      [
+        "$A$",
+        "A",
+        "振幅（能晃到的最大距离）",
+        "$\\text{m}$ 或 $\\text{cm}$",
+        "直接看图上的波峰高度"
+      ],
+      [
+        "$\\omega$",
+        "读欧米伽",
+        "角频率（每秒转过多少弧度）",
+        "$\\text{rad/s}$",
+        "看图读出一个完整周期 $T$，再用 $\\omega = 2\\pi/T$ 算"
+      ],
+      [
+        "$\\varphi_0$",
+        "读 fai-零",
+        "初相（$t=0$ 时刻指针指向的角度）",
+        "$\\text{rad}$",
+        "最关键！看 $t=0$ 时的位移 $y_0$ 和运动方向 $v_0$ 决定它在圆的哪一象限"
+      ]
+    ],
+    "when": "给一张 $y-t$ 振动曲线图，让你求初相 $\\varphi_0$、角频率 $\\omega$、写振动方程、求某两点间经过的时间。",
+    "steps": [
+      "<strong>题目</strong>：图上振幅 $A=6\\text{ m}$，周期 $T=2\\text{ s}$，$t=0$ 时 $y=-3\\text{ m}$ 且曲线向下走（$v_0 &lt; 0$），写振动方程。",
+      "<strong>第 1 步（求 $\\omega$）</strong>：$\\omega = \\frac{2\\pi}{T} = \\frac{2\\pi}{2} = \\pi\\text{ rad/s}$。",
+      "<strong>第 2 步（用口诀定初相 $\\varphi_0$）</strong>：$t=0$ 时 $\\cos\\varphi_0 = \\frac{y_0}{A} = \\frac{-3}{6} = -\\frac{1}{2}$，满足 $\\cos = -\\frac{1}{2}$ 的角有两个：$+\\frac{2\\pi}{3}$（第二象限，上半圆）和 $-\\frac{2\\pi}{3}$（第三象限，下半圆）。因为 $v_0 &lt; 0$（向下走），套口诀<strong>“向下选上半圆、向上选下半圆”</strong> $\\Rightarrow$ 选 $\\varphi_0 = \\frac{2\\pi}{3}$！",
+      "<strong>第 3 步（拼出方程）</strong>：$y = \\mathbf{6\\cos\\left(\\pi t + \\frac{2\\pi}{3}\\right)\\text{ m}}$。"
+    ],
+    "pitfall": "为什么向下选上半圆？因为速度是位移求导：$v = -\\omega A\\sin(\\omega t + \\varphi_0)$。$v_0 &lt; 0$ 意味着 $\\sin\\varphi_0 &gt; 0$，正弦为正就在<strong>上半圆（$0$ 到 $\\pi$）</strong>！去“物理直觉实验室”拖动滑块看一眼动画立刻就懂！"
+  },
+  {
+    "ch": "4",
+    "chName": "第四章 振动与波动",
+    "name": "8. 平面简谐波方程（波函数）",
+    "eq": "y(x,t) = A\\cos\\left[\\omega\\left(t \\mp \\frac{x}{u}\\right) + \\varphi_0\\right], \\qquad u = \\lambda \\nu = \\frac{\\lambda}{T}",
+    "plain": "波动就是“排成一排的小球，前面一个带动后面一个延时振动”。如果波向右（$+x$ 方向）以速度 $u$ 传播，那么在右边位置 $x$ 处的小球，比原点 $O$ 的小球<strong>晚了 $\\frac{x}{u}$ 秒</strong>才做出同样的动作——所以直接把原点振动方程里的 $t$ 替换成 $t - \\frac{x}{u}$ 就变成了整个波的方程！",
+    "symbols": [
+      [
+        "$y(x,t)$",
+        "y",
+        "位置 $x$ 处的质点在时刻 $t$ 的位移",
+        "$\\text{m}$",
+        "同时含 $x$ 和 $t$ 两个变量"
+      ],
+      [
+        "$u$",
+        "u",
+        "波的传播速度（波速）",
+        "$\\text{m/s}$",
+        "等于波长 $\\lambda$ 乘以频率 $\\nu$，或波长除以周期 $T$"
+      ],
+      [
+        "$\\lambda$",
+        "读拉姆达",
+        "波长（相邻两个波峰的距离）",
+        "$\\text{m}$",
+        "直接从 $y-x$ 波形图上读出"
+      ],
+      [
+        "$\\mp$",
+        "减或加",
+        "传播方向符号",
+        "无",
+        "沿 <strong>$+x$（向右）</strong>传取 <strong>$-$</strong> 号；沿 <strong>$-x$（向左）</strong>传取 <strong>$+$</strong> 号"
+      ]
+    ],
+    "when": "“由振求波”（给你波源条件写波动方程）或“由波形图求波函数及某点振动方程”。",
+    "steps": [
+      "<strong>题目</strong>：波向右传，波速 $u=400\\text{ m/s}$，频率 $\\nu=100\\text{ Hz}$，振幅 $5\\text{ cm}$，$t=0$ 时原点 $y_0=0$ 且向上动（$v_0 &gt; 0$），求波动方程。",
+      "<strong>第 1 步（先写原点振动方程）</strong>：$\\omega = 2\\pi\\nu = 200\\pi\\text{ rad/s}$；$y_0=0, v_0 &gt; 0$（向上选下半圆）$\\Rightarrow \\varphi_0 = -\\frac{\\pi}{2}$，所以 $y_0(t) = 0.05\\cos(200\\pi t - \\frac{\\pi}{2})\\text{ m}$。",
+      "<strong>第 2 步（把 $t$ 换成 $t - x/u$）</strong>：$y(x,t) = 0.05\\cos\\left[200\\pi\\left(t - \\frac{x}{400}\\right) - \\frac{\\pi}{2}\\right]$。",
+      "<strong>第 3 步（化简括号）</strong>：$200\\pi \\times \\frac{x}{400} = \\frac{\\pi}{2}x$，最终得 $y(x,t) = \\mathbf{0.05\\cos\\left(200\\pi t - \\frac{\\pi}{2}x - \\frac{\\pi}{2}\\right)\\text{ m}}$。"
+    ],
+    "pitfall": "看 $y-x$ 波形图判断某质点此刻往上还是往下动，背死口诀：<strong>波向右传时，“上坡下、下坡上”</strong>（顺着向右看，爬坡的点正在向下动，下坡的点正在向上动）。"
+  },
+  {
+    "ch": "4",
+    "chName": "第四章 振动与波动",
+    "name": "9. 波的干涉相消 / 加强条件",
+    "eq": "\\Delta r = r_2 - r_1 = \\begin{cases} k\\lambda & \\text{干涉加强（声音最响）} \\\\ (2k+1)\\frac{\\lambda}{2} & \\text{干涉相消（静音/消音）} \\end{cases} \\quad (k=0,1,2\\dots)",
+    "plain": "两列一模一样的声波从同一点出发，走了两条长短不同的路（比如消音器的直管和弯管）再汇合。如果弯管比直管刚好长了<strong>半个波长（$\\frac{\\lambda}{2}$）</strong>，那么一列波的波峰刚好撞上另一列波的波谷，两列波互相抵消，噪声就消失了！",
+    "symbols": [
+      [
+        "$\\Delta r$",
+        "Δr",
+        "两路波走过的路程差（波程差）",
+        "$\\text{m}$",
+        "消音器里就是“弯管长度 − 直管长度”"
+      ],
+      [
+        "$\\lambda$",
+        "拉姆达",
+        "波长",
+        "$\\text{m}$",
+        "如果没直接给 $\\lambda$，立刻用 $\\lambda = u/\\nu$ 算（声速 $u$ 一般为 $340\\text{ m/s}$）"
+      ],
+      [
+        "$k$",
+        "k",
+        "整数 $0, 1, 2, \\dots$",
+        "无",
+        "求“至少相差多少（最小长度差）”时，直接取 $k=0$，即 $\\Delta r_{\\min} = \\frac{\\lambda}{2}$"
+      ]
+    ],
+    "when": "看到“干涉型消音器”、“消除某频率噪声”、“求两管长度差至少多少”。",
+    "steps": [
+      "<strong>题目</strong>：消除频率 $\\nu=300\\text{ Hz}$ 的排气噪声，声速 $u=340\\text{ m/s}$，求弯道与直管长度差至少多少？",
+      "<strong>第 1 步（先算波长）</strong>：$\\lambda = \\frac{u}{\\nu} = \\frac{340}{300} = \\frac{17}{15}\\text{ m}$。",
+      "<strong>第 2 步（最小相消差 = 半波长）</strong>：$\\Delta l_{\\min} = \\frac{\\lambda}{2} = \\frac{17}{30}\\text{ m} \\approx \\mathbf{0.567\\text{ m}}$。"
+    ],
+    "pitfall": "注意题目问的是“相消（静音）”还是“加强”，相消最小差是半波长 $\\lambda/2$，千万别写成整波长 $\\lambda$！"
+  },
+  {
+    "ch": "5",
+    "chName": "第五章 静电场",
+    "name": "10. 静电场高斯定理（对称性神器）",
+    "eq": "\\Phi = \\oint \\mathbf{E}\\cdot d\\mathbf{S} = \\frac{\\sum q_{\\text{内}}}{\\varepsilon_0}",
+    "plain": "想象把电荷装在一个完全封闭的盒子里，电场线就像从正电荷里喷出来的水流。<strong>不管盒子长什么样、多大，从盒子表面穿出来的总电场线条数（电通量 $\\Phi$），只取决于盒子里一共包住了多少电荷（$\\sum q_{\\text{内}}$）</strong>，跟盒子外面的电荷完全没关系！",
+    "symbols": [
+      [
+        "$\\Phi$",
+        "读大 fai",
+        "穿出封闭曲面的总电通量",
+        "$\\text{N}\\cdot\\text{m}^2/\\text{C}$",
+        "若 $\\mathbf{E}$ 垂直于某平面，则该面通量 $\\Phi = E \\cdot S$；若 $\\mathbf{E}$ 平行于该面，通量为 $0$"
+      ],
+      [
+        "$\\mathbf{E}$",
+        "E",
+        "电场强度（矢量，有大小和方向）",
+        "$\\text{N/C}$ 或 $\\text{V/m}$",
+        "正电荷产生场强向外，负电荷向里"
+      ],
+      [
+        "$\\sum q_{\\text{内}}$",
+        "Σq内",
+        "封闭曲面<strong>内部</strong>包含的所有电荷代数和",
+        "$\\text{C}$（库仑）",
+        "外面的电荷一概不算！"
+      ],
+      [
+        "$\\varepsilon_0$",
+        "读艾普西隆-零",
+        "真空介电常数",
+        "$\\text{C}^2/(\\text{N}\\cdot\\text{m}^2)$",
+        "$\\varepsilon_0 = 8.85\\times 10^{-12}$；记住 $k = \\frac{1}{4\\pi\\varepsilon_0} = 9.0\\times 10^9$"
+      ]
+    ],
+    "when": "遇到<strong>同心球壳</strong>、<strong>均匀带电实心球</strong>、<strong>无限长圆柱/直导线</strong>、<strong>无限大平板</strong>、或者给你 $\\mathbf{E}$ 求立方体内的净电量 $Q$。",
+    "steps": [
+      "<strong>题目</strong>：同心球壳内球 $R_1=0.1\\text{ m}$ 带电 $q_1=10^{-8}\\text{ C}$，外球 $R_2=0.3\\text{ m}$ 带电 $q_2=1.5\\times 10^{-8}\\text{ C}$，求 $r=0.2\\text{ m}$ 处的场强 $E_2$。",
+      "<strong>第 1 步（画高斯球面）</strong>：以球心为圆心画半径 $r=0.2\\text{ m}$ 的虚线球面，面积 $S=4\\pi r^2$。",
+      "<strong>第 2 步（数球面包住了谁）</strong>：$0.2\\text{ m}$ 在内球外、外球内，只包住了内球 $q_1$（外球 $q_2$ 在外面，不算！）。",
+      "<strong>第 3 步（套公式计算）</strong>：$E_2 \\cdot 4\\pi r^2 = \\frac{q_1}{\\varepsilon_0} \\implies E_2 = \\frac{q_1}{4\\pi\\varepsilon_0 r^2} = k\\frac{q_1}{r^2} = \\frac{9\\times 10^9 \\times 10^{-8}}{0.2^2} = \\mathbf{2.25\\times 10^3\\text{ N/C}}$（径向向外）。"
+    ],
+    "pitfall": "在球壳内部（$r &lt; R_1$）时，高斯球面里<strong>一个电荷也没包住</strong>（$q_{\\text{内}}=0$），所以场强直接等于 $0$！"
+  },
+  {
+    "ch": "5",
+    "chName": "第五章 静电场",
+    "name": "11. 无限大带电平板场强 & 电势标量叠加",
+    "eq": "E_{\\text{单板}} = \\frac{\\sigma}{2\\varepsilon_0}, \\qquad U = \\int \\frac{dq}{4\\pi\\varepsilon_0 r}\\ \\Big(\\text{圆环圆心 } U = \\frac{\\lambda}{2\\varepsilon_0}\\Big)",
+    "plain": "一块无限大的均匀带电平板非常神奇：不管你站得离它近还是远，感受到的电场强度<strong>处处一样大</strong>（$\\frac{\\sigma}{2\\varepsilon_0}$），正板往外推、负板往里吸。而<strong>电势 $U$ 是个纯数字（标量，没有方向）</strong>，求圆环圆心电势时，圆环上每个点到圆心距离都是 $R$，直接把总电量除以 $4\\pi\\varepsilon_0 R$ 就出答案，连积分都不用算！",
+    "symbols": [
+      [
+        "$\\sigma$",
+        "读西格玛",
+        "电荷面密度（每平方米带多少电）",
+        "$\\text{C/m}^2$",
+        "两块平行板叠加时，先画箭头看方向：同向相加，反向相减"
+      ],
+      [
+        "$\\lambda$",
+        "读拉姆达",
+        "电荷线密度（每米长带多少电）",
+        "$\\text{C/m}$",
+        "圆环总电量 $Q = \\lambda \\times \\text{周长} = \\lambda \\cdot 2\\pi R$"
+      ],
+      [
+        "$U$",
+        "U",
+        "电势（相当于电路里的电压）",
+        "$\\text{V}$（伏特）",
+        "以无穷远处为电势零点；标量直接代数相加，不画箭头"
+      ]
+    ],
+    "when": "看到“两块平行无限大带电平板求板间场强”或“均匀带电圆环求圆心电势”。",
+    "steps": [
+      "<strong>例 1（平板）</strong>：两平行板分别带 $+\\sigma$ 和 $+2\\sigma$。在两板之间，$+\\sigma$ 板向右推（$\\frac{\\sigma}{2\\varepsilon_0}$），$+2\\sigma$ 板向左推（$\\frac{2\\sigma}{2\\varepsilon_0}$），方向相反相减得 $E = \\frac{2\\sigma}{2\\varepsilon_0} - \\frac{\\sigma}{2\\varepsilon_0} = \\mathbf{\\frac{\\sigma}{2\\varepsilon_0}}$。",
+      "<strong>例 2（圆环电势）</strong>：半径 $R$、线密度 $\\lambda$ 的圆环，总电量 $Q=\\lambda\\cdot 2\\pi R$，圆心电势 $U = \\frac{Q}{4\\pi\\varepsilon_0 R} = \\frac{\\lambda\\cdot 2\\pi R}{4\\pi\\varepsilon_0 R} = \\mathbf{\\frac{\\lambda}{2\\varepsilon_0}}$。"
+    ],
+    "pitfall": "注意区分<strong>场强 $E$（矢量，要画方向，圆环圆心场强对称抵消为 0）</strong>和<strong>电势 $U$（标量，不抵消，圆环圆心电势为 $\\frac{\\lambda}{2\\varepsilon_0}$）</strong>！"
+  },
+  {
+    "ch": "6",
+    "chName": "第六章 稳恒磁场",
+    "name": "12. 经典电流的磁场结论（必背分段叠加）",
+    "eq": "B_{\\text{无限长直}} = \\frac{\\mu_0 I}{2\\pi r}, \\quad B_{\\text{半无限长直}} = \\frac{\\mu_0 I}{4\\pi r}, \\quad B_{\\text{圆弧}} = \\frac{\\theta}{2\\pi}\\cdot\\frac{\\mu_0 I}{2R}",
+    "plain": "通电导线周围会产生磁场，方向用<strong>右手螺旋定则</strong>（右手大拇指顺着电流方向，四指弯曲的方向就是磁场方向）。考试最爱把直导线和圆弧拼成奇怪形状，让你求圆心 $O$ 的磁场——你根本不用从头积分，只要<strong>拆成一段一段，背出每段的公式，再按向里/向外加减</strong>就行！",
+    "symbols": [
+      [
+        "$B$",
+        "B",
+        "磁感应强度（磁场有多强）",
+        "$\\text{T}$（特斯拉）",
+        "矢量！算完大小必须写方向（如“垂直纸面向里”）"
+      ],
+      [
+        "$\\mu_0$",
+        "读 miū-零",
+        "真空磁导率（常数）",
+        "$\\text{T}\\cdot\\text{m/A}$",
+        "$\\mu_0 = 4\\pi\\times 10^{-7}$，强烈建议直接背：$\\frac{\\mu_0}{2\\pi} = 2\\times 10^{-7}$，$\\frac{\\mu_0}{4\\pi} = 10^{-7}$"
+      ],
+      [
+        "$I$",
+        "I",
+        "导线中的电流",
+        "$\\text{A}$（安培）",
+        "题干给出"
+      ],
+      [
+        "$r$ 或 $R$",
+        "r / R",
+        "点到直导线的垂直距离 / 圆弧半径",
+        "$\\text{m}$",
+        "如果点正好在直导线的<strong>延长线上</strong>，这段导线贡献的磁场 $B=0$！"
+      ],
+      [
+        "$\\theta$",
+        "西塔",
+        "圆弧所对的圆心角",
+        "$\\text{rad}$",
+        "整圆 $\\theta=2\\pi$；半圆 $\\theta=\\pi$；四分之一圆 $\\theta=\\frac{\\pi}{2} \\Rightarrow B=\\frac{\\mu_0 I}{8R}$"
+      ]
+    ],
+    "when": "看到“折弯的无限长导线求圆心 $O$ 点磁感应强度”、“多匝圆环圆心磁场”。",
+    "steps": [
+      "<strong>题目</strong>：半无限长直导线 $ab$ + 四分之一圆弧 $bc$（$R=5\\text{ cm}$）+ 延长线过圆心 $O$ 的直导线 $cd$，通电流 $I=10\\text{ A}$，求 $O$ 点磁场。",
+      "<strong>第 1 步（拆成 3 段分别算）</strong>：$ab$ 段 $B_1 = \\frac{\\mu_0 I}{4\\pi R} = \\frac{10^{-7}\\times 10}{0.05} = 2.0\\times 10^{-5}\\text{ T}$（向里）；$bc$ 段 $B_2 = \\frac{\\mu_0 I}{8R} = \\frac{4\\pi\\times 10^{-7}\\times 10}{8\\times 0.05} = \\pi\\times 10^{-5} \\approx 3.14\\times 10^{-5}\\text{ T}$（向里）；$cd$ 段延长线过 $O$ 点，$B_3 = 0$。",
+      "<strong>第 2 步（同向相加）</strong>：$B = B_1 + B_2 = 2.0\\times 10^{-5} + 3.14\\times 10^{-5} = \\mathbf{5.14\\times 10^{-5}\\text{ T}}$（垂直纸面向里）。"
+    ],
+    "pitfall": "别忘了把 $R=5\\text{ cm}$ 换算成 $0.05\\text{ m}$！如果某两段磁场一个向里一个向外，记得大减小！"
+  },
+  {
+    "ch": "6",
+    "chName": "第六章 稳恒磁场",
+    "name": "13. 安培环路定理（长直圆柱 & 螺线管）",
+    "eq": "\\oint \\mathbf{B}\\cdot d\\mathbf{l} = \\mu_0 \\sum I_{\\text{内}} \\implies \\text{圆柱内 } B = \\frac{\\mu_0 I r}{2\\pi R^2},\\ \\text{圆柱外 } B = \\frac{\\mu_0 I}{2\\pi r}",
+    "plain": "安培环路定理就是磁场版的“高斯定理”：画一个封闭圆圈，圆圈上磁场绕一圈的总和，只取决于<strong>圆圈里面一共穿过了多少电流</strong>。对于一根粗圆柱导体：在圆柱内部越往外走，圈住的电流越多，$B$ 线性增大；出了圆柱表面后，圈住的电流不再增加但距离变远，$B$ 反比减小——所以<strong>磁场最大值永远在圆柱导体表面 $r=R$ 处</strong>！",
+    "symbols": [
+      [
+        "$R$",
+        "R",
+        "圆柱形导体的<strong>半径</strong>",
+        "$\\text{m}$",
+        "题目若给横截面直径 $d=4\\text{ cm}$，先除以 2 得 $R=0.02\\text{ m}$！"
+      ],
+      [
+        "$r$",
+        "r",
+        "所求点到圆柱轴线的距离",
+        "$\\text{m}$",
+        "最大位置就是 $r=R$"
+      ],
+      [
+        "$I$",
+        "I",
+        "流过圆柱导体的总电流",
+        "$\\text{A}$",
+        "均匀分布时，半径 $r$ 的圆圈内包住电流 $I_{\\text{内}} = I\\frac{r^2}{R^2}$"
+      ]
+    ],
+    "when": "看到“电流均匀流过极长圆柱形导体，求磁场最大位置和最大值”或“长直螺线管内部磁场 $B=\\mu_0 n I$”。",
+    "steps": [
+      "<strong>题目</strong>：$10\\text{ A}$ 电流均匀流过直径 $4\\text{ cm}$ 的长圆柱导体，求最大磁场位置和最大值。",
+      "<strong>第 1 步（找半径）</strong>：直径 $4\\text{ cm} \\implies$ 半径 $R = 2\\text{ cm} = 0.02\\text{ m}$，最大位置在<strong>圆柱表面 $r=2\\text{ cm}$ 处</strong>。",
+      "<strong>第 2 步（套公式）</strong>：$B_{\\max} = \\frac{\\mu_0 I}{2\\pi R} = (2\\times 10^{-7}) \\times \\frac{10}{0.02} = \\mathbf{1.0\\times 10^{-4}\\text{ T}}$。"
+    ],
+    "pitfall": "牢记 $\\frac{\\mu_0}{2\\pi} = 2\\times 10^{-7}$，不是 $10^{-7}$！你第六章作业第 3 题就是这里少乘了 2（或错把直径 $0.04$ 当半径）！"
+  },
+  {
+    "ch": "6",
+    "chName": "第六章 稳恒磁场",
+    "name": "14. 磁通量积分 & 洛伦兹力 / 安培力",
+    "eq": "\\Phi = \\int B(x)\\,dS, \\qquad \\vec{F}_{\\text{洛}} = q\\vec{v}\\times\\vec{B}, \\qquad d\\vec{F}_{\\text{安}} = I\\,d\\vec{l}\\times\\vec{B}",
+    "plain": "① <strong>磁通量 $\\Phi$</strong> 就是穿过一个线框的磁感线总数；如果线框在长直导线旁边（越远磁场越弱），就必须把线框切成一条条竖直细长条 $dS = h(x)dx$，每条乘上当地的 $B(x)$ 再积分。<br/>② <strong>霍尔效应（洛伦兹力）</strong>：电流方向确定后，不管是正电荷往前跑还是负电荷往后跑，它们在磁场里受到的偏转力方向<strong>完全一样</strong>！所以哪一侧堆积了负电荷，就说明跑动的载流子本身带负电。<br/>③ <strong>安培力</strong>：记住黄金口诀——<strong>同向电流互相吸引，反向电流互相排斥</strong>，而且离直导线越近的边受力越强！",
+    "symbols": [
+      [
+        "$\\Phi$",
+        "大 fai",
+        "磁通量",
+        "$\\text{Wb}$（韦伯）",
+        "均匀磁场直接 $\\Phi = B S \\cos\\theta$；非均匀磁场用积分"
+      ],
+      [
+        "$q, \\vec{v}$",
+        "q, v",
+        "运动电荷电量与速度",
+        "$\\text{C}$, $\\text{m/s}$",
+        "正电荷 $\\vec{v}$ 与电流同向，负电荷 $\\vec{v}$ 与电流反向"
+      ],
+      [
+        "$I, d\\vec{l}$",
+        "I, dl",
+        "电流与导线微元矢量",
+        "$\\text{A}$, $\\text{m}$",
+        "两平行无限长直导线每米受力 $f = \\frac{\\mu_0 I_1 I_2}{2\\pi d}$"
+      ]
+    ],
+    "when": "看到“长直导线旁共面矩形/三角形求磁通量”、“霍尔效应判断载流子正负”、“长直导线旁三角形回路所受磁力”。",
+    "steps": [
+      "<strong>题目（矩形磁通量）</strong>：无限长直导线电流 $I$，右侧共面矩形宽 $a$、高 $b$，近边距导线 $l$，求磁通量。",
+      "<strong>第 1 步（切窄条）</strong>：在距导线 $x$ 处取宽 $dx$、高 $b$ 的竖直窄条，面积 $dS = b\\,dx$。",
+      "<strong>第 2 步（写当地磁场）</strong>：$B(x) = \\frac{\\mu_0 I}{2\\pi x}$。",
+      "<strong>第 3 步（积分）</strong>：$\\Phi = \\int_l^{l+a} \\frac{\\mu_0 I}{2\\pi x} b\\,dx = \\frac{\\mu_0 I b}{2\\pi} \\Big[\\ln x\\Big]_l^{l+a} = \\mathbf{\\frac{\\mu_0 I b}{2\\pi}\\ln\\frac{l+a}{l}}$。（记住 $\\int \\frac{1}{x}dx = \\ln x$！）"
+    ],
+    "pitfall": "算长直导线旁封闭回路的安培力方向时，<strong>离直导线越近的边，磁场越强，起决定作用</strong>！你第六章第 5 题斜边离导线更近且与 $I_1$ 同向，所以合力必然是<strong>吸引力</strong>。"
+  },
+  {
+    "ch": "7",
+    "chName": "第七章 电磁感应定律",
+    "name": "15. 法拉第电磁感应定律（感生电动势）",
+    "eq": "\\mathcal{E} = -\\frac{d\\Phi}{dt}",
+    "plain": "只要穿过一个闭合线圈的磁通量 $\\Phi$ <strong>随时间在变化</strong>（比如旁边的导线电流越来越大 $I=I_0+kt$），线圈就会非常“叛逆”（楞次定律），自己产生一个感应电动势 $\\mathcal{E}$ 来反抗这种变化——磁通量变大它就反向抵消，磁通量变小它就同向补充（<strong>增反减同</strong>）。计算时两步走：先求 $\\Phi(t)$，再对时间 $t$ 求导！",
+    "symbols": [
+      [
+        "$\\mathcal{E}$",
+        "花体 E",
+        "感应电动势（相当于线圈自己变成电池的电压）",
+        "$\\text{V}$（伏特）",
+        "若有 $N$ 匝线圈，公式前面乘以 $N$：$\\mathcal{E} = -N\\frac{d\\Phi}{dt}$"
+      ],
+      [
+        "$\\frac{d\\Phi}{dt}$",
+        "dΦ/dt",
+        "磁通量 $\\Phi(t)$ 对时间 $t$ 的导数",
+        "$\\text{Wb/s}$",
+        "常数对 $t$ 求导为 0，$kt$ 对 $t$ 求导就是 $k$！"
+      ],
+      [
+        "负号 $-$",
+        "负号",
+        "表示楞次定律方向",
+        "无",
+        "算大小可以取绝对值，方向单独用“增反减同”+右手螺旋定则写清楚"
+      ]
+    ],
+    "when": "看到“电流随时间变化 $I = I_0 + kt$”、“磁场随时间变化 $B(t)$”、“求任意时刻线框中的感应电动势”。",
+    "steps": [
+      "<strong>题目</strong>：直导线电流 $I=I_0+kt$（向上），旁有矩形框宽 $a$、高 $b$、近边距 $l$，求感应电动势。",
+      "<strong>第 1 步（先算磁通量 $\\Phi(t)$）</strong>：直接套上一条的积分：$\\Phi(t) = \\frac{\\mu_0 b (I_0 + kt)}{2\\pi}\\ln\\frac{l+a}{l}$。",
+      "<strong>第 2 步（对时间 $t$ 求导）</strong>：$I_0$ 是常数求导为 0，$kt$ 求导得 $k$，所以大小 $\\mathcal{E} = \\mathbf{\\frac{\\mu_0 k b}{2\\pi}\\ln\\left(1+\\frac{a}{l}\\right)}$。",
+      "<strong>第 3 步（楞次定律判方向）</strong>：导线电流向上，右边磁场向里；$k&gt;0$ 说明向里磁通在<strong>增大</strong>；线圈要反抗它，感应磁场必须<strong>向外</strong>；右手大拇指指向纸外，四指卷向<strong>逆时针</strong>！"
+    ],
+    "pitfall": "不要被 $I_0+kt$ 里的 $I_0$ 吓到——因为法拉第定律只看“变化率”，恒定不变的 $I_0$ 一求导就没了，结果里不含 $I_0$ 也不含 $t$！"
+  },
+  {
+    "ch": "7",
+    "chName": "第七章 电磁感应定律",
+    "name": "16. 动生电动势（平动切割 & 旋转导体棒）",
+    "eq": "\\mathcal{E} = \\int (\\vec{v}\\times\\vec{B})\\cdot d\\vec{l} \\quad \\begin{cases} \\text{匀强场垂直平动：} \\mathcal{E} = BLv \\\\ \\text{绕端点旋转：} \\mathcal{E} = \\frac{1}{2}B\\omega L^2 \\\\ \\text{绕中间点旋转：} |U_{ab}| = \\frac{1}{2}B\\omega|l_2^2 - l_1^2| \\end{cases}",
+    "plain": "一根金属棒在磁场里运动时，棒里的自由电子跟着跑，被磁场推向一端，于是金属棒就变成了一节<strong>移动的干电池</strong>！记住两个神技：① <strong>谁是正极（高电势）？</strong>用右手把四指从速度 $\\vec{v}$ 弯向磁场 $\\vec{B}$，大拇指方向（$\\vec{v}\\times\\vec{B}$）永远指向<strong>高电势端（正极）</strong>！② <strong>绕棒上中间某点旋转时</strong>，左右两段像两节<strong>正极对正极反着接的电池</strong>，所以总电压是两段<strong>相减</strong>！",
+    "symbols": [
+      [
+        "$B$",
+        "B",
+        "磁感应强度",
+        "$\\text{T}$",
+        "若磁场不均匀（如长直导线旁），把 $B(r)=\\frac{\\mu_0 I}{2\\pi r}$ 放进积分里"
+      ],
+      [
+        "$L$ 或 $l_1, l_2$",
+        "L",
+        "金属棒的有效切割长度",
+        "$\\text{m}$",
+        "斜着放的棒只取垂直于速度 $\\vec{v}$ 方向的投影长度"
+      ],
+      [
+        "$v$ / $\\omega$",
+        "v / 欧米伽",
+        "平动速度($\\text{m/s}$) / 旋转角速度($\\text{rad/s}$)",
+        "$\\text{m/s}$, $\\text{rad/s}$",
+        "绕端点旋转时，平均速度为 $\\frac{1}{2}\\omega L$，所以多出一个 $\\frac{1}{2}$"
+      ]
+    ],
+    "when": "看到“金属棒绕某点匀角速度转动求两端电势差”、“倾斜直棒在长直导线旁平动求感应电动势”。",
+    "steps": [
+      "<strong>题目</strong>：棒总长 $ab=0.5\\text{ m}$，绕 $M$ 点（$aM=0.1\\text{ m}$）以 $\\omega=4\\pi\\text{ rad/s}$ 在 $B=0.5\\times 10^{-4}\\text{ T}$ 磁场中转动，求 $ab$ 两端电势差。",
+      "<strong>第 1 步（算出转轴两侧长度）</strong>：$l_1 = aM = 0.1\\text{ m}$，$l_2 = Mb = 0.5 - 0.1 = 0.4\\text{ m}$。",
+      "<strong>第 2 步（两段电动势相减）</strong>：$|U_{ab}| = \\frac{1}{2}B\\omega(l_2^2 - l_1^2) = \\frac{1}{2}\\times 0.5\\times 10^{-4}\\times 4\\pi\\times(0.4^2 - 0.1^2)$。",
+      "<strong>第 3 步（算数值）</strong>：$0.4^2 - 0.1^2 = 0.16 - 0.01 = 0.15$，前面 $\\frac{1}{2}\\times 0.5\\times 10^{-4}\\times 4\\pi = \\pi\\times 10^{-4}$，相乘得 $1.5\\pi\\times 10^{-5} \\approx \\mathbf{4.71\\times 10^{-5}\\text{ V}}$。"
+    ],
+    "pitfall": "绕棒中间点转时，<strong>千万不能</strong>写成 $\\frac{1}{2}B\\omega(l_2 - l_1)^2$！一定是平方差 $l_2^2 - l_1^2$！"
+  }
+];
+
+    const STORE_KEY = 'u_physics_review_state_v1';
+    let state = JSON.parse(localStorage.getItem(STORE_KEY) || '{"dark":false}');
+    let curCh = 'all';
+
+    function renderMath(el) {
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function render() {
+      const box = document.getElementById('content');
+      const list = curCh === 'all' ? FORMULAS : FORMULAS.filter(f => f.ch === curCh);
+      box.innerHTML = list.map(f => `
+        <article class="f-card">
+          <div class="f-head">
+            <h2>${f.name}</h2>
+            <span class="badge">${f.chName}</span>
+          </div>
+          <div class="eq-banner">$$${f.eq}$$</div>
+
+          <div class="sec-title">💬 一、大白话理解（它在说什么？）</div>
+          <div class="plain-box">${f.plain}</div>
+
+          <div class="sec-title">🔤 二、每个符号代表什么？（含读音、单位、怎么找）</div>
+          <table>
+            <tr><th style="width:14%">符号</th><th style="width:11%">读音</th><th style="width:24%">中文含义</th><th style="width:15%">国际单位</th><th>零基础使用提示</th></tr>
+            ${f.symbols.map(s => `<tr><td><strong>${s[0]}</strong></td><td>${s[1]}</td><td>${s[2]}</td><td>${s[3]}</td><td>${s[4]}</td></tr>`).join('')}
+          </table>
+
+          <div class="sec-title">🎯 三、什么时候用它？（审题关键词）</div>
+          <div class="when-box">${f.when}</div>
+
+          <div class="sec-title">🧮 四、手把手分步代入例题（一步不跳！）</div>
+          <div class="example-box">
+            ${f.steps.map(st => `<p>${st}</p>`).join('')}
+          </div>
+
+          <div class="pitfall-box"><strong>⚠️ 零基础最容易踩的坑：</strong>${f.pitfall}</div>
+        </article>
+      `).join('');
+      renderMath(box);
+    }
+
+    document.querySelectorAll('#chFilters .chip').forEach(c => c.addEventListener('click', () => {
+      document.querySelectorAll('#chFilters .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active');
+      curCh = c.dataset.ch;
+      render();
+    }));
+
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      state.dark = !state.dark;
+      document.body.classList.toggle('dark', state.dark);
+      document.getElementById('themeBtn').textContent = state.dark ? '☀️ 日间模式' : '🌙 夜间模式';
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+    });
+
+    window.addEventListener('load', () => {
+      if (state.dark) {
+        document.body.classList.add('dark');
+        document.getElementById('themeBtn').textContent = '☀️ 日间模式';
+      }
+      render();
+    });
+  </script>
+</body>
+</html>
