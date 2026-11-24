@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《大学物理》期末冲刺全题库（51 题：27 原题 + 24 拓展真题）</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root {
+      --bg: #f1f5f9; --surface: #ffffff; --surface-2: #f8fafc; --text: #0f172a;
+      --muted: #475569; --border: #e2e8f0; --primary: #2563eb; --primary-soft: #eff6ff;
+      --purple: #7c3aed; --purple-soft: #f5f3ff;
+      --success: #16a34a; --success-soft: #f0fdf4; --warn: #d97706; --warn-soft: #fffbeb;
+      --danger: #dc2626; --danger-soft: #fef2f2; --shadow: 0 2px 10px rgba(15,23,42,0.06);
+    }
+    body.dark {
+      --bg: #0f172a; --surface: #1e293b; --surface-2: #0f172a; --text: #f1f5f9;
+      --muted: #94a3b8; --border: #334155; --primary: #60a5fa; --primary-soft: rgba(59,130,246,0.16);
+      --purple: #a78bfa; --purple-soft: rgba(139,92,246,0.16);
+      --success: #4ade80; --success-soft: rgba(34,197,94,0.14); --warn: #fbbf24; --warn-soft: rgba(245,158,11,0.14);
+      --danger: #f87171; --danger-soft: rgba(239,68,68,0.14); --shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+    header { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
+    .nav-inner { max-width: 1120px; margin: 0 auto; padding: 12px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .title-area h1 { margin: 0; font-size: 16.5px; }
+    .title-area small { color: var(--muted); font-size: 12px; }
+    .btn { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 6px 12px; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn-primary:hover { color: #fff; opacity: 0.92; }
+    .btn-success { background: var(--success-soft); color: var(--success); border-color: var(--success); }
+    .btn-warn { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+    main { max-width: 1120px; margin: 18px auto 60px auto; padding: 0 18px; }
+    .prog-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; box-shadow: var(--shadow); }
+    .prog-row { display: flex; justify-content: space-between; font-size: 13.5px; font-weight: 700; margin-bottom: 6px; }
+    .prog-track { height: 10px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .prog-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #2563eb, #7c3aed, #16a34a); transition: width 0.3s; }
+    .filter-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: space-between; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 5px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+    .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .problem-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; box-shadow: var(--shadow); }
+    .problem-card.mastered { border-left: 4px solid var(--success); }
+    .problem-card.starred { border-right: 4px solid var(--warn); }
+    .p-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+    .p-title { font-weight: 700; font-size: 15px; color: var(--primary); }
+    .badge { font-size: 11.5px; padding: 2px 8px; border-radius: 999px; font-weight: 600; background: var(--primary-soft); color: var(--primary); }
+    .badge-extra { background: var(--purple-soft); color: var(--purple); }
+    .badge-danger { background: var(--danger-soft); color: var(--danger); }
+    .p-stem { background: var(--surface-2); padding: 10px 14px; border-radius: 8px; margin-bottom: 10px; font-size: 14px; }
+    .p-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .p-hint, .p-ans, .p-sol { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 8px; font-size: 13.8px; }
+    .p-hint.open { display: block; background: var(--warn-soft); border-left: 4px solid var(--warn); }
+    .p-ans.open { display: block; background: var(--primary-soft); border-left: 4px solid var(--primary); }
+    .p-sol.open { display: block; background: var(--success-soft); border-left: 4px solid var(--success); }
+    .p-err { margin-top: 8px; padding: 8px 12px; border-radius: 6px; background: var(--danger-soft); border-left: 3px solid var(--danger); font-size: 13px; }
+    @media print {
+      header, .filter-bar, .p-actions, .prog-box { display: none !important; }
+      .p-ans, .p-sol { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="title-area">
+        <h1>📚 《大学物理》期末冲刺全题库（共 51 题）</h1>
+        <small>含学习通 27 道作业原题 + 24 道期末高频拓展必考题 · 均配标准答案与详细解析</small>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="./index.html">⬅️ 返回复习台首页</a>
+        <a class="btn" href="./pdf.html">📄 在线看 PDF</a>
+        <button class="btn" id="themeBtn">🌙 夜间模式</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="prog-box">
+      <div class="prog-row">
+        <span>🎯 全题库掌握进度（与首页自动同步保存）</span>
+        <span id="progText">0 / 51 (0%)</span>
+      </div>
+      <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-row">
+        <div class="chips" id="srcFilters">
+          <button class="chip active" data-src="all">全部来源 (51)</button>
+          <button class="chip" data-src="orig">📘 学习通原题 (27)</button>
+          <button class="chip" data-src="extra">✨ 期末拓展精选 (24)</button>
+          <button class="chip" data-src="starred">⭐ 错题本</button>
+          <button class="chip" data-src="unmastered">⬜ 未掌握</button>
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <button class="btn" id="toggleAllAns">🎯 一键显示全部答案</button>
+          <button class="btn" id="toggleAllSol">👁️ 一键展开全部解析</button>
+        </div>
+      </div>
+      <div class="filter-row">
+        <div class="chips" id="chFilters">
+          <button class="chip active" data-ch="all">全部章节</button>
+          <button class="chip" data-ch="2">第二章 流体 (7)</button>
+          <button class="chip" data-ch="3">第三章 表面现象 (9)</button>
+          <button class="chip" data-ch="4">第四章 振动波动 (9)</button>
+          <button class="chip" data-ch="5">第五章 静电场 (10)</button>
+          <button class="chip" data-ch="6">第六章 稳恒磁场 (9)</button>
+          <button class="chip" data-ch="7">第七章 电磁感应 (7)</button>
+        </div>
+        <span id="countInfo" style="font-size:12.5px;color:var(--muted);font-weight:600;">当前显示：51 题</span>
+      </div>
+    </div>
+
+    <div id="list"></div>
+  </main>
+
+  <script>
+    const PROBLEMS = [
+      {
+        id: '2-1', ans: '出流速度 $v \\approx 1.98\\text{ m/s}$（取 $g=10$ 为 $2.0\\text{ m/s}$）；流量 $Q \\approx 1.98\\times 10^{-4}\\text{ m}^3/\\text{s}$。', ch: '2', orig: '2.8', tag: '托里拆利公式 · 流量',
+        stem: '一个装满水的容器的侧壁有一面积为 $1.0\\times 10^{-4}\\text{ m}^2$、位于水面下 $0.20\\text{ m}$ 处的小孔。求从孔的出流速度及流量。',
+        hint: '直接套用托里拆利公式 $v = \\sqrt{2gh}$ 和体积流量 $Q = Sv$。',
+        sol: '<ol><li>出流速度：$v = \\sqrt{2gh} = \\sqrt{2\\times 9.8\\times 0.20} = \\sqrt{3.92} \\approx \\mathbf{1.98\\text{ m/s}}$（取 $g=10$ 则 $2.0\\text{ m/s}$）。</li><li>体积流量：$Q = Sv = 1.0\\times 10^{-4}\\times 1.98 \\approx \\mathbf{1.98\\times 10^{-4}\\text{ m}^3/\\text{s}}$。</li></ol>'
+      },
+      {
+        id: '2-2', ans: '最细处压强 $p_{\\text{细}} \\approx 8.53\\times 10^4\\text{ Pa}$（相对大气压 $-1.6\\times 10^4\\text{ Pa}$）；开小孔<strong>水不会流出</strong>，外界空气会被吸入管内。', ch: '2', orig: '2-9', tag: '连续性方程 · 伯努利方程',
+        stem: '水在截面不同的水平管中做稳定流动，出口处的截面积为管的最细处的 3 倍。若出口处的流速为 $2\\text{ m}\\cdot\\text{s}^{-1}$，则最细处的压强为多少？若在最细处开一小孔，水会不会流出来？',
+        hint: '先用 $S_1v_1=S_2v_2$ 算最细处流速 $6\\text{ m/s}$，再用水平管伯努利方程与大气压 $p_0$ 比较。',
+        sol: '<ol><li>由连续性方程：$v_{\\text{细}} = 3v_{\\text{出}} = 6\\text{ m/s}$。</li><li>由水平管伯努利方程：$p_{\\text{细}} = p_0 + \\frac{1}{2}\\rho(v_{\\text{出}}^2 - v_{\\text{细}}^2) = p_0 - 1.6\\times 10^4\\text{ Pa} \\approx \\mathbf{8.53\\times 10^4\\text{ Pa}}$。</li><li>因 $p_{\\text{细}} &lt; p_0$，开小孔后<strong>水不会流出，外界空气会被吸入管内</strong>。</li></ol>'
+      },
+      {
+        id: '2-3', ans: '容器最小深度 $h \\approx 0.459\\text{ m}$（取 $g=10$ 为 $0.45\\text{ m}$）。', ch: '2', orig: '2-10', tag: '流量平衡 · 最小深度',
+        stem: '匀速地将流量为 $Q=1.5\\times 10^{-4}\\text{ m}^3\\cdot\\text{s}^{-1}$ 的水注入一容器中，容器底有一面积为 $S=0.5\\times 10^{-4}\\text{ m}^2$ 的小孔，使水不断流出，试求：该容器的深度至少为多少米水才不会溢出？',
+        hint: '不溢出临界条件：流出流量 $S\\sqrt{2gh}$ 等于注入流量 $Q$。',
+        sol: '$$Q = S\\sqrt{2gh} \\implies h = \\frac{Q^2}{2gS^2} = \\frac{(1.5\\times 10^{-4})^2}{2\\times 9.8\\times (0.5\\times 10^{-4})^2} \\approx \\mathbf{0.459\\text{ m}}$$（若取 $g=10$ 则为 $0.45\\text{ m}$）。'
+      },
+      {
+        id: '3-1', ans: '吹泡做功 $W \\approx 2.51\\times 10^{-3}\\text{ J}$；泡内外压强差 $\\Delta p = 3.2\\text{ Pa}$。', ch: '3', orig: '3.6', tag: '肥皂泡双液面 · 附加压强',
+        stem: '吹一个直径为 $10\\text{ cm}$ 的肥皂泡，设肥皂液的表面张力系数 $\\alpha=40\\times 10^{-3}\\text{ N/m}$，试求吹此肥皂泡所做的功，以及泡内外的压强差。',
+        hint: '肥皂泡有内外 <strong>2 个球面</strong>！而且题目给的是直径 $d=10\\text{ cm}$，先除以 2 得 $r=0.05\\text{ m}$。',
+        sol: '<ol><li>做功：$W = \\alpha\\cdot 2(4\\pi r^2) = 8\\pi\\alpha r^2 = 8\\pi\\times 0.04\\times 0.05^2 \\approx \\mathbf{2.51\\times 10^{-3}\\text{ J}}$。</li><li>压强差：$\\Delta p = \\frac{4\\alpha}{r} = \\frac{4\\times 0.04}{0.05} = \\mathbf{3.2\\text{ Pa}}$。</li></ol>'
+      },
+      {
+        id: '3-2', ans: '释放能量 $\\Delta E = 1.095\\times 10^8\\text{ J}$（约 $1.10\\times 10^8\\text{ J}$）。', ch: '3', orig: '3-7', tag: '雨滴合并 · 表面能释放',
+        stem: '在 $10\\text{ km}^2$ 的湖面上，下了一场 $25\\text{ mm}$ 的大雨，雨滴直径为 $1\\text{ mm}$，设过程是等温的，求释放出来的能量（$\\alpha=7.3\\times 10^{-2}\\text{ N/m}$）。',
+        hint: '全部雨滴总表面积 $S_{\\text{总}} = \\frac{3V}{r}$，乘以 $\\alpha$ 即可！注意单位换算：$10\\text{ km}^2 = 10^7\\text{ m}^2$。',
+        sol: '<ol><li>总降雨体积：$V = 10^7 \\times 0.025 = 2.5\\times 10^5\\text{ m}^3$。</li><li>雨滴总表面积：$S_{\\text{总}} = \\frac{3V}{r} = \\frac{3\\times 2.5\\times 10^5}{0.5\\times 10^{-3}} = 1.5\\times 10^9\\text{ m}^2$。</li><li>释放表面能：$\\Delta E = \\alpha S_{\\text{总}} = \\mathbf{1.095\\times 10^8\\text{ J}}$（约 $1.10\\times 10^8\\text{ J}$）。</li></ol>'
+      },
+      {
+        id: '3-3', ans: '水银面下降高度 $h \\approx 0.147\\text{ m}$（$14.7\\text{ cm}$）。', ch: '3', orig: '3-9', tag: '毛细现象 · 水银下降',
+        stem: '将内径为 $d=10^{-4}\\text{ m}$ 的管子插入水银中，求水银面在管中下降的高度（水银完全不润湿管壁，$\\alpha=4.9\\times 10^{-1}\\text{ N/m}$）。',
+        hint: '套用 $h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}$，完全不润湿 $\\cos\\theta = -1$，$r = d/2 = 0.5\\times 10^{-4}\\text{ m}$。',
+        sol: '$$h = \\frac{2\\times 0.49\\times (-1)}{13.6\\times 10^3\\times 9.8\\times 0.5\\times 10^{-4}} \\approx -0.147\\text{ m}$$即水银面下降 <strong>$0.147\\text{ m}$（$14.7\\text{ cm}$）</strong>。'
+      },
+      {
+        id: '3-4', ans: '管中所悬水柱高度 $h \\approx 5.46\\times 10^{-2}\\text{ m} = 5.46\\text{ cm}$。', ch: '3', orig: '3-10', tag: '双弯曲液面平衡',
+        stem: '在半径 $r=0.3\\text{ mm}$ 的玻璃毛细管中注水一部分，下端形成半径 $R=3.0\\text{ mm}$ 的凸弧面，求管中所悬水柱的高度 $h$（$\\alpha=7.3\\times 10^{-2}\\text{ N/m}$，水完全润湿玻璃）。',
+        hint: '上凹液面下方 $p_B = p_0 - \\frac{2\\alpha}{r}$，下凸液面上方 $p_A = p_0 + \\frac{2\\alpha}{R}$，由 $p_A - p_B = \\rho g h$ 求解。',
+        sol: '$$h = \\frac{2\\alpha}{\\rho g}\\left(\\frac{1}{r} + \\frac{1}{R}\\right) = \\frac{2\\times 7.3\\times 10^{-2}}{10^3\\times 9.8}\\left(\\frac{1}{3\\times 10^{-4}} + \\frac{1}{3\\times 10^{-3}}\\right) \\approx \\mathbf{5.46\\text{ cm}}$$'
+      },
+      {
+        id: '3-5', ans: '两管水面高度差 $\\Delta h \\approx 1.99\\times 10^{-2}\\text{ m} \\approx 2.0\\text{ cm}$。', ch: '3', orig: '3-11', tag: 'U 形毛细管高度差',
+        stem: '将 U 形管竖直放置并灌入水。两管内直径分别为 $10^{-3}\\text{ m}$ 和 $3\\times 10^{-3}\\text{ m}$，接触角为零，求两管水面高度差（$\\alpha=7.3\\times 10^{-2}\\text{ N/m}$）。',
+        hint: '细管升得高，两管高度差 $\\Delta h = \\frac{2\\alpha}{\\rho g}(\\frac{1}{r_1} - \\frac{1}{r_2})$。',
+        sol: '$$\\Delta h = \\frac{2\\times 7.3\\times 10^{-2}}{10^3\\times 9.8}\\left(\\frac{1}{0.5\\times 10^{-3}} - \\frac{1}{1.5\\times 10^{-3}}\\right) \\approx \\mathbf{1.99\\times 10^{-2}\\text{ m} \\approx 2.0\\text{ cm}}$$'
+      },
+      {
+        id: '4-1', ans: '(1) $\\varphi_0 = \\frac{2\\pi}{3}$，$\\omega = \\pi\\text{ rad/s}$；(2) $y = 6\\cos(\\pi t + \\frac{2\\pi}{3})\\text{ m}$；(3) $\\varphi_a = \\pi$，$\\varphi_b = \\frac{5\\pi}{3}$；(4) $t_a = \\frac{1}{3}\\text{ s}$；(5) $\\Delta t = \\frac{2}{3}\\text{ s}$。', ch: '4', orig: '4-22', tag: '振动曲线 · 旋转矢量法',
+        stem: '简谐振动曲线：$A=6\\text{ m}$，$T=2\\text{ s}$，$t=0$ 时 $y=-3\\text{ m}$ 且向下运动，$a$ 为波谷 $y=-6\\text{ m}$，$b$ 在 $t=1\\text{ s}$ 处（$y=+3\\text{ m}$ 向上运动）。求：(1) 初相与角频率；(2) 振动方程；(3) $a,b$ 相位；(4) $a$ 对应时刻；(5) $a$ 到 $b$ 所需时间。',
+        hint: '$t=0$ 时 $y=-A/2$ 且向下（$v_0 &lt; 0$），旋转矢量在第二象限 $\\varphi_0 = 2\\pi/3$。去“物理直觉实验室”拖动初相到 $120^\\circ$ 亲自看看！',
+        sol: '<ol><li>$\\omega = \\frac{2\\pi}{T} = \\mathbf{\\pi\\text{ rad/s}}$，$\\mathbf{\\varphi_0 = \\frac{2\\pi}{3}}$。</li><li>$y = \\mathbf{6\\cos\\left(\\pi t + \\frac{2\\pi}{3}\\right)\\text{ m}}$。</li><li>$\\varphi_a = \\mathbf{\\pi}$，$\\varphi_b = \\pi\\times 1 + \\frac{2\\pi}{3} = \\mathbf{\\frac{5\\pi}{3}}$。</li><li>$\\pi t_a + \\frac{2\\pi}{3} = \\pi \\implies \\mathbf{t_a = \\frac{1}{3}\\text{ s}}$。</li><li>$\\Delta t = \\frac{\\varphi_b - \\varphi_a}{\\omega} = \\mathbf{\\frac{2}{3}\\text{ s}}$。</li></ol>'
+      },
+      {
+        id: '4-2', ans: '合振幅 $A \\approx 0.268\\text{ cm}$，合初相 $\\varphi \\approx 0.902\\text{ rad}\\ (51.7^\\circ)$，表达式 $y = 0.268\\cos(\\pi t + 0.902)\\text{ cm}$。', ch: '4', orig: '4-24', tag: '同方向同频率振动合成',
+        stem: '两个同方向的简谐振动方程分别为 $y_1=0.12\\cos(\\pi t+\\pi/3)\\text{ cm}$ 和 $y_2=0.15\\cos(\\pi t+\\pi/4)\\text{ cm}$，求合振动的振幅、初相及表达式。',
+        hint: '直接套用余弦定理求合振幅，用正切公式求合初相。',
+        sol: '<ol><li>合振幅：$A = \\sqrt{0.12^2 + 0.15^2 + 2\\times 0.12\\times 0.15\\cos 15^\\circ} \\approx \\mathbf{0.268\\text{ cm}}$。</li><li>合初相：$\\tan\\varphi = \\frac{0.12\\sin 60^\\circ + 0.15\\sin 45^\\circ}{0.12\\cos 60^\\circ + 0.15\\cos 45^\\circ} \\approx 1.264 \\implies \\mathbf{\\varphi \\approx 0.902\\text{ rad}}$。</li><li>表达式：$\\mathbf{y = 0.268\\cos(\\pi t + 0.902)\\text{ cm}}$。</li></ol>'
+      },
+      {
+        id: '4-3', ans: '(1) $\\varphi_0 = -\\frac{\\pi}{2}$；(2) $y_0(t) = 0.05\\cos(200\\pi t - \\frac{\\pi}{2})\\text{ m}$；(3) $y(x,t) = 0.05\\cos(200\\pi t - \\frac{\\pi}{2}x - \\frac{\\pi}{2})\\text{ m}$。', ch: '4', orig: '4-26', tag: '由振求波 · 波动方程',
+        stem: '平面简谐波 $A=5\\text{ cm}$，$\\nu=100\\text{ Hz}$，$u=400\\text{ m/s}$，沿 $+x$ 传播，以波源在平衡位置且正向 $+y$ 运动为计时起点，求：(1) 波源初相；(2) 波源振动方程；(3) 波动方程。',
+        hint: '$t=0$ 时 $y_0=0, v_0 &gt; 0$ 选下半圆 $\\varphi_0 = -\\pi/2$；沿 $+x$ 传播把 $t$ 换成 $t - x/u$。',
+        sol: '<ol><li>$\\omega = 200\\pi\\text{ rad/s}$，$\\mathbf{\\varphi_0 = -\\frac{\\pi}{2}}$。</li><li>$y_0(t) = \\mathbf{0.05\\cos(200\\pi t - \\pi/2)\\text{ m}}$。</li><li>$y(x,t) = \\mathbf{0.05\\cos\\left(200\\pi t - \\frac{\\pi}{2}x - \\frac{\\pi}{2}\\right)\\text{ m}}$。</li></ol>'
+      },
+      {
+        id: '4-4', ans: '(1) $y_O(t)=0.04\\cos(0.4\\pi t+\\frac{\\pi}{2})\\text{ m}$；(2) $y(x,t)=0.04\\cos(0.4\\pi t-5\\pi x+\\frac{\\pi}{2})\\text{ m}$；(3) $a$ 向下、$b$ 向上、$P$ 向下；(4) $y_P(t)=0.04\\cos(0.4\\pi t+\\frac{\\pi}{2})\\text{ m}$；(5) 从原点向下的负正弦曲线（$T=5\\text{ s}$）；(6) $y=0.04\\cos(5\\pi x)$（右移 $0.3\\text{ m}$）。', ch: '4', orig: '4-28', tag: '波形图 · 质点运动方向',
+        stem: '$t=0$ 时刻波形：$A=0.04\\text{ m}$，$\\lambda=0.4\\text{ m}$，$u=0.08\\text{ m/s}$ 向右传播，$x=0$ 处 $y=0$，$x=0.1\\text{ m}$ 为波峰，$x=0.4\\text{ m}$ 为 $P$ 点；$a$ 在上升段 $0 &lt; x &lt; 0.1$，$b$ 在下降段 $0.1 &lt; x &lt; 0.2$。求：(1) $O$ 点振动方程；(2) 波函数；(3) $a,b,P$ 运动方向；(4) $P$ 点振动方程；(5) $P$ 点振动图线；(6) $t=3T/4$ 波形。',
+        hint: '记住波向右传的口诀：<strong>上坡下、下坡上</strong>！所以 $O$ 点向下动，$\\varphi_O = +\\pi/2$。',
+        sol: '<ol><li>$T=5\\text{ s}, \\omega=0.4\\pi\\text{ rad/s}$，$y_O(t)=\\mathbf{0.04\\cos(0.4\\pi t + \\pi/2)\\text{ m}}$。</li><li>波函数：$y(x,t)=\\mathbf{0.04\\cos(0.4\\pi t - 5\\pi x + \\pi/2)\\text{ m}}$。</li><li>方向：$a$ <strong>向下</strong>，$b$ <strong>向上</strong>，$P$ <strong>向下</strong>。</li><li>$P$ 点（$x=0.4=\\lambda$）：$y_P(t)=\\mathbf{0.04\\cos(0.4\\pi t + \\pi/2)\\text{ m}}$。</li><li>$P$ 点振动图线：从原点向下画负正弦曲线（$T=5\\text{ s}$）。</li><li>$t=3T/4$ 波形：右移 $0.3\\text{ m}$，方程 $y=0.04\\cos(5\\pi x)$。</li></ol>'
+      },
+      {
+        id: '4-5', ans: '弯道与直管最小长度差 $\\Delta l_{\\min} = \\frac{17}{30}\\text{ m} \\approx 0.567\\text{ m}$。', ch: '4', orig: '4-29', tag: '声波干涉相消',
+        stem: '干涉型消音器中，声波在 $A$ 点分两路在 $B$ 点干涉相消。要消除 $300\\text{ Hz}$ 噪声，求弯道与直管最小长度差（声速 $340\\text{ m/s}$）。',
+        hint: '同相分出，干涉相消最小路程差就是半个波长 $\\lambda/2$。',
+        sol: '$$\\Delta l_{\\min} = \\frac{\\lambda}{2} = \\frac{u}{2\\nu} = \\frac{340}{600} = \\mathbf{\\frac{17}{30}\\text{ m} \\approx 0.567\\text{ m}}$$'
+      },
+      {
+        id: '5-1', ans: '$E = \\frac{\\lambda}{8\\pi\\varepsilon_0 L}$，方向沿直棒延长线向右。', ch: '5', orig: '5-12', tag: '带电直棒延长线积分',
+        stem: '正电荷均匀分布在长 $L$、线密度 $\\lambda$ 的直棒上，求右侧延长线上距右端 $L$ 处 $P$ 点的电场强度。',
+        hint: '以 $P$ 为原点向左建坐标 $r\\in[L,2L]$，对 $\\frac{\\lambda\\,dr}{4\\pi\\varepsilon_0 r^2}$ 积分。',
+        sol: '$$E = \\int_L^{2L}\\frac{\\lambda\\,dr}{4\\pi\\varepsilon_0 r^2} = \\mathbf{\\frac{\\lambda}{8\\pi\\varepsilon_0 L}}\\text{（沿棒延长线向右）}$$'
+      },
+      {
+        id: '5-2', ans: '$E = \\frac{\\lambda}{2\\pi\\varepsilon_0 R}$，方向水平向右（由正电半环指向负电半环）。', ch: '5', orig: '5-13', tag: '对称性 · 半圆环积分',
+        stem: '半径为 $R$ 的上半圆环，左半环均匀带正电 $+\\lambda$，右半环均匀带负电 $-\\lambda$，求圆心 $O$ 处电场强度。',
+        hint: '竖直分量抵消，水平分量向右叠加！两半环贡献相等，算一半再乘 2。',
+        sol: '$$E = 2\\int_0^{\\pi/2}\\frac{\\lambda R\\,d\\theta}{4\\pi\\varepsilon_0 R^2}\\sin\\theta = \\mathbf{\\frac{\\lambda}{2\\pi\\varepsilon_0 R}}\\text{（水平向右）}$$'
+      },
+      {
+        id: '5-3', ans: '$\\Phi_1 = ba^3$，$\\Phi_2 = 0$，立方体内净电量 $Q = \\varepsilon_0 ba^3$。', ch: '5', orig: '5-14', tag: '电通量 · 高斯定理', hasErr: true,
+        stem: '真空中静电场 $\\mathbf{E}=bx\\mathbf{i}$，边长 $a$ 的立方体（左面 $x=0$，右面 $S_1$ 在 $x=a$），求通过 $S_1$ 的电通量 $\\Phi_1$、上表面 $S_2$ 的电通量 $\\Phi_2$ 及内部净电量 $Q$。',
+        hint: '只有右面 $S_1$ 有通量（$E=ba$ 乘以面积 $a^2$），其余 5 个面通量全为 0。',
+        sol: '$\\Phi_1 = ba\\cdot a^2 = \\mathbf{ba^3}$；$\\Phi_2 = \\mathbf{0}$；由高斯定理 $\\mathbf{Q = \\varepsilon_0 ba^3}$。',
+        errNote: '⚠️ 你的手写稿末行笔误写成了 $\\varepsilon_0 ba^2$，正确结果是 $\\varepsilon_0 ba^3$，考试千万别丢指数！'
+      },
+      {
+        id: '5-4', ans: '$E_1 = 0$；$E_2 = 2.25\\times 10^3\\text{ N/C}$（径向向外）；$E_3 = 9.0\\times 10^2\\text{ N/C}$（径向向外）。', ch: '5', orig: '5-15', tag: '同心球壳 · 高斯定理',
+        stem: '两个均匀带电同心球面 $R_1=0.10\\text{ m}, R_2=0.30\\text{ m}$，$q_1=1.0\\times 10^{-8}\\text{ C}, q_2=1.5\\times 10^{-8}\\text{ C}$。求 $r_1=0.05\\text{ m}, r_2=0.20\\text{ m}, r_3=0.50\\text{ m}$ 处场强。',
+        hint: '看半径为 $r$ 的高斯球面“包住了多少电荷”，套 $E = k q_{\\text{内}}/r^2$。',
+        sol: '<ul><li>$r_1=0.05\\text{ m}$：$q_{\\text{内}}=0 \\implies \\mathbf{E_1=0}$；</li><li>$r_2=0.20\\text{ m}$：$q_{\\text{内}}=q_1 \\implies \\mathbf{E_2 = 2.25\\times 10^3\\text{ N/C}}$（向外）；</li><li>$r_3=0.50\\text{ m}$：$q_{\\text{内}}=q_1+q_2 \\implies \\mathbf{E_3 = 9.0\\times 10^2\\text{ N/C}}$（向外）。</li></ul>'
+      },
+      {
+        id: '5-5', ans: '板间电场强度 $E = \\frac{\\sigma}{2\\varepsilon_0}$（方向由 $+2\\sigma$ 板指向 $+\\sigma$ 板）。', ch: '5', orig: '5-17', tag: '无限大带电平板叠加',
+        stem: '真空中两块互相平行的无限大均匀带电平板，电荷面密度分别为 $+\\sigma$ 和 $+2\\sigma$，求板间电场强度大小。',
+        hint: '单板场强 $\\frac{\\sigma}{2\\varepsilon_0}$，两块正电板在板间场强反向相减。',
+        sol: '$$E = \\frac{2\\sigma}{2\\varepsilon_0} - \\frac{\\sigma}{2\\varepsilon_0} = \\mathbf{\\frac{\\sigma}{2\\varepsilon_0}}\\text{（由 }+2\\sigma\\text{ 指向 }+\\sigma\\text{）}$$'
+      },
+      {
+        id: '5-6', ans: '圆环中心电势 $U = \\frac{\\lambda}{2\\varepsilon_0}$。', ch: '5', orig: '5-18', tag: '电势标量叠加',
+        stem: '半径为 $R$ 的均匀带电圆环，电荷线密度为 $\\lambda$，无穷远电势为零，求圆心处电势。',
+        hint: '电势是标量！所有电荷到圆心距离都是 $R$，直接 $U = Q/(4\\pi\\varepsilon_0 R)$。',
+        sol: '$$U = \\frac{\\lambda\\cdot 2\\pi R}{4\\pi\\varepsilon_0 R} = \\mathbf{\\frac{\\lambda}{2\\varepsilon_0}}$$'
+      },
+      {
+        id: '6-1', ans: '$\\Phi = \\frac{\\mu_0 Ia}{2\\pi}(2\\ln 2 - 1)$，方向垂直纸面向里。', ch: '6', orig: '6-14', tag: '非均匀磁场 · 磁通量积分',
+        stem: '载有电流 $I$ 的无限长直导线旁有共面等腰直角三角形回路 $MNO$，$MN$ 平行导线相距 $a$，$MN=MO=a$，求通过回路的磁通量。',
+        hint: '在 $x\\in[a,2a]$ 处切竖直窄条，高度 $h(x)=2a-x$，乘以 $B=\\frac{\\mu_0 I}{2\\pi x}$ 积分。',
+        sol: '$$\\Phi = \\int_a^{2a}\\frac{\\mu_0 I}{2\\pi x}(2a-x)\\,dx = \\mathbf{\\frac{\\mu_0 Ia}{2\\pi}(2\\ln 2 - 1)}\\text{（垂直纸面向里）}$$'
+      },
+      {
+        id: '6-2', ans: '$B = \\frac{\\mu_0 I}{4\\pi R}(1 + \\frac{\\pi}{2}) \\approx 5.14\\times 10^{-5}\\text{ T}$，方向垂直纸面向里。', ch: '6', orig: '6-16', tag: '毕奥-萨伐尔 · 分段叠加',
+        stem: '无限长直导线弯成：半无限长直导线 $ab$ + 半径 $R=5\\text{ cm}$ 的四分之一圆弧 $bc$ + 延长线过圆心 $O$ 的半无限长直导线 $cd$，电流 $I=10\\text{ A}$，求 $O$ 点磁感应强度。',
+        hint: '三段分别算：$ab$ 贡献 $\\frac{\\mu_0 I}{4\\pi R}$，$bc$ 贡献 $\\frac{\\mu_0 I}{8R}$，$cd$ 延长线过 $O$ 贡献 0。',
+        sol: '$$B = \\frac{\\mu_0 I}{4\\pi R}\\left(1 + \\frac{\\pi}{2}\\right) = \\frac{10^{-7}\\times 10}{0.05}\\left(1 + \\frac{\\pi}{2}\\right) \\approx \\mathbf{5.14\\times 10^{-5}\\text{ T}}\\text{（向里）}$$'
+      },
+      {
+        id: '6-3', ans: '最大位置在圆柱导体表面 $r = R = 2\\text{ cm}$ 处；最大值 $B_{\\max} = 1.0\\times 10^{-4}\\text{ T}$。', ch: '6', orig: '6-19', tag: '安培环路定理 · 圆柱导体', hasErr: true,
+        stem: '真空中 $10\\text{ A}$ 电流均匀流过极长圆柱形导体（直径 $d=4\\text{ cm}$），求磁感应强度最大的位置及最大值。',
+        hint: '柱内 $B\\propto r$，柱外 $B\\propto 1/r$，故在圆柱表面 $r=R=0.02\\text{ m}$ 最大！注意 $\\frac{\\mu_0}{2\\pi}=2\\times 10^{-7}$。',
+        sol: '最大位置在圆柱表面 $\\mathbf{r=R=2\\text{ cm}}$；最大值：$$B_{\\max} = \\frac{\\mu_0 I}{2\\pi R} = \\frac{2\\times 10^{-7}\\times 10}{0.02} = \\mathbf{1.0\\times 10^{-4}\\text{ T}}$$',
+        errNote: '⚠️ 你提交的第六章作业误算成了 $5\\times 10^{-5}\\text{ T}$（直径当半径或漏了 2 倍），正确答案是 $1.0\\times 10^{-4}\\text{ T}$！'
+      },
+      {
+        id: '6-4', ans: '运动电荷为<strong>负电荷（自由电子）</strong>。', ch: '6', orig: '6-20', tag: '霍尔效应 · 载流子电性',
+        stem: '载流体横截面中电流垂直纸面向外，加铅直向上磁场 $\\vec{B}$，左侧堆积负电荷、右侧堆积正电荷，问运动电荷的性质。',
+        hint: '不管正负电荷，相同电流在向上磁场中均受向左洛伦兹力，因此左侧堆积什么电荷，载流子就带什么电！',
+        sol: '所有运动载流子均向左偏转，左侧堆积负电荷，说明载流子是<strong>负电荷（自由电子）</strong>。'
+      },
+      {
+        id: '6-5', ans: '$F = \\frac{\\mu_0 I_1 I_2 d}{2\\pi}\\left(\\frac{\\ln(b/a)}{b-a} - \\frac{1}{b}\\right)$，方向垂直长直导线向左（吸引力）。', ch: '6', orig: '6-21', tag: '安培力积分 · 方向判断', hasErr: true,
+        stem: '向上电流 $I_1$ 长直导线旁有共面等腰三角形回路（顺时针电流 $I_2$），顶点 $C$ 距导线 $a$，底边 $DE$ 长 $d$ 平行导线距 $b$，求回路所受磁力。',
+        hint: '底边反向相斥，两斜边竖直分量与 $I_1$ 同向相吸；因为斜边离导线更近、磁场更强，所以合力一定是<strong>吸引力</strong>！',
+        sol: '$$F = F_{\\text{斜}} - F_{DE} = \\mathbf{\\frac{\\mu_0 I_1 I_2 d}{2\\pi}\\left(\\frac{\\ln(b/a)}{b-a} - \\frac{1}{b}\\right)}$$方向：<strong>垂直直导线向左（吸引力）</strong>。',
+        errNote: '⚠️ 你提交的第六章作业大小算对了，但方向误写成了“斥力”，正确方向应为<strong>吸引力（向左指向直导线）</strong>！'
+      },
+      {
+        id: '7-1', ans: '大小 $\\mathcal{E} = \\frac{\\mu_0 kb}{2\\pi}\\ln\\left(1 + \\frac{a}{l}\\right)$；方向为<strong>逆时针</strong>（$A\\to D\\to C\\to B\\to A$）。', ch: '7', orig: '7-17', tag: '感生电动势 · 待交作业',
+        stem: '长直导线 $PQ$ 电流 $I=I_0+kt$（向上），旁有共面矩形框 $ABCD$（宽 $AB=a$，高 $BC=b$，$AD$ 距 $PQ$ 为 $l$）。求任意时刻感应电动势。',
+        hint: '先对 $x\\in[l,l+a]$ 积分求磁通量 $\\Phi(t)$，再对 $t$ 求导得 $\\mathcal{E}$，方向用楞次定律“增反减同”。',
+        sol: '<ol><li>$\\Phi(t) = \\int_l^{l+a}\\frac{\\mu_0(I_0+kt)}{2\\pi x}b\\,dx = \\frac{\\mu_0 b(I_0+kt)}{2\\pi}\\ln\\frac{l+a}{l}$。</li><li>大小：$\\mathcal{E} = \\left|-\\frac{d\\Phi}{dt}\\right| = \\mathbf{\\frac{\\mu_0 kb}{2\\pi}\\ln\\left(1+\\frac{a}{l}\\right)}$。</li><li>方向：向里磁通增大，感应电动势为<strong>逆时针</strong>（$A\\to D\\to C\\to B\\to A$）。</li></ol>'
+      },
+      {
+        id: '7-2', ans: '电势差大小 $|U_{ab}| = 1.5\\pi\\times 10^{-5}\\text{ V} \\approx 4.71\\times 10^{-5}\\text{ V}$。', ch: '7', orig: '7-18', tag: '旋转金属棒 · 待交作业',
+        stem: '水平金属棒 $ab=0.5\\text{ m}$，绕棒上 $M$ 点竖直轴以 $\\omega=4\\pi\\text{ rad/s}$ 匀角速度转动，$aM=0.1\\text{ m}$，竖直向上磁场 $B=0.5\\times 10^{-4}\\text{ T}$，求 $ab$ 两端电势差。',
+        hint: '分成 $Ma=0.1\\text{ m}$ 和 $Mb=0.4\\text{ m}$ 两段，电动势方向相反相减：$\\frac{1}{2}B\\omega(l_2^2 - l_1^2)$。',
+        sol: '$$|U_{ab}| = \\frac{1}{2}B\\omega(0.4^2 - 0.1^2) = \\frac{1}{2}\\times 0.5\\times 10^{-4}\\times 4\\pi\\times 0.15 = \\mathbf{1.5\\pi\\times 10^{-5}\\text{ V} \\approx 4.71\\times 10^{-5}\\text{ V}}$$'
+      },
+      {
+        id: '7-3', ans: '大小 $\\mathcal{E} = \\frac{\\mu_0 I v}{2\\pi}\\ln\\frac{d + L\\cos\\alpha}{d}$；方向由 $b\\to a$（<strong>$a$ 端电势高于 $b$ 端</strong>）。', ch: '7', orig: '7-19', tag: '斜棒平动切割 · 待交作业',
+        stem: '无限长直导线通向上电流 $I$，右侧倾斜直棒 $ab$ 长 $L$，最近端 $a$ 距导线 $d$，与水平夹角 $\\alpha$，以速度 $\\vec{v}$ 向上运动，求感应电动势。',
+        hint: '有效切割长度为水平投影 $dr = dl\\cos\\alpha$，对 $r\\in[d, d+L\\cos\\alpha]$ 积分；$\\vec{v}\\times\\vec{B}$ 指向左，故 $a$ 端电势高。',
+        sol: '$$\\mathcal{E} = \\int_d^{d+L\\cos\\alpha}\\frac{\\mu_0 I v}{2\\pi r}\\,dr = \\mathbf{\\frac{\\mu_0 I v}{2\\pi}\\ln\\frac{d+L\\cos\\alpha}{d}}$$方向：由 $b\\to a$，<strong>$a$ 端电势高于 $b$ 端</strong>。'
+      }
+    ];
+
+    const EXTRA_PROBLEMS = [
+  {
+    "id": "E2-1",
+    "ch": "2",
+    "orig": "拓展1",
+    "src": "extra",
+    "tag": "含高度差伯努利方程",
+    "stem": "水流过一倾斜管道，下端 $A$ 处截面积 $S_A=20\\text{ cm}^2$、流速 $v_A=2\\text{ m/s}$、压强 $p_A=1.8\\times 10^5\\text{ Pa}$；上端 $B$ 处比 $A$ 高 $h=5\\text{ m}$，截面积 $S_B=10\\text{ cm}^2$。求 $B$ 处流速 $v_B$ 与压强 $p_B$（取 $g=9.8\\text{ m/s}^2$）。",
+    "hint": "先用连续性方程求 $v_B$，再用完整伯努利方程 $p_A+\\frac{1}{2}\\rho v_A^2 = p_B+\\frac{1}{2}\\rho v_B^2+\\rho gh$。",
+    "ans": "$v_B = 4\\text{ m/s}$，$p_B = 1.25\\times 10^5\\text{ Pa}$。",
+    "sol": "<ol><li>连续性方程：$v_B = \\frac{S_A}{S_B}v_A = 2\\times 2 = \\mathbf{4\\text{ m/s}}$。</li><li>伯努利方程：$p_B = p_A + \\frac{1}{2}\\rho(v_A^2-v_B^2) - \\rho gh = 1.8\\times 10^5 + 500(4-16) - 10^3\\times 9.8\\times 5 = 1.8\\times 10^5 - 6000 - 49000 = \\mathbf{1.25\\times 10^5\\text{ Pa}}$。</li></ol>"
+  },
+  {
+    "id": "E2-2",
+    "ch": "2",
+    "orig": "拓展2",
+    "src": "extra",
+    "tag": "文丘里流量计",
+    "stem": "水平文丘里管中水流稳定，粗管截面积 $S_1=40\\text{ cm}^2$，细管 $S_2=10\\text{ cm}^2$，两处测压管水面高度差 $\\Delta h=15\\text{ cm}$。求粗管中水的流速 $v_1$ 及流量 $Q$（取 $g=9.8\\text{ m/s}^2$）。",
+    "hint": "压差 $\\Delta p = \\rho g\\Delta h = \\frac{1}{2}\\rho(v_2^2-v_1^2)$，结合 $v_2 = 4v_1$ 求解。",
+    "ans": "$v_1 \\approx 0.443\\text{ m/s}$，$Q \\approx 1.77\\times 10^{-3}\\text{ m}^3/\\text{s}$。",
+    "sol": "<ol><li>由 $v_2 = \\frac{S_1}{S_2}v_1 = 4v_1$，代入 $\\rho g\\Delta h = \\frac{1}{2}\\rho(16v_1^2 - v_1^2) = 7.5\\rho v_1^2$。</li><li>$v_1 = \\sqrt{\\frac{9.8\\times 0.15}{7.5}} = \\sqrt{0.196} \\approx \\mathbf{0.443\\text{ m/s}}$；$Q = S_1 v_1 = 4\\times 10^{-3}\\times 0.443 \\approx \\mathbf{1.77\\times 10^{-3}\\text{ m}^3/\\text{s}}$。</li></ol>"
+  },
+  {
+    "id": "E2-3",
+    "ch": "2",
+    "orig": "拓展3",
+    "src": "extra",
+    "tag": "虹吸管最高点压强",
+    "stem": "用等截面虹吸管将大水池中的水引出，出口位于水面下方 $h_2=2.0\\text{ m}$ 处，虹吸管最高点 $C$ 位于水面上方 $h_1=3.0\\text{ m}$ 处。求出口流速 $v$ 及最高点 $C$ 处的压强 $p_C$（$p_0=1.013\\times 10^5\\text{ Pa}, g=9.8\\text{ m/s}^2$）。",
+    "hint": "水面与出口用伯努利得 $v=\\sqrt{2gh_2}$；等截面故管内流速处处为 $v$，再对水面与 $C$ 点列伯努利方程。",
+    "ans": "$v \\approx 6.26\\text{ m/s}$，$p_C \\approx 5.23\\times 10^4\\text{ Pa}$。",
+    "sol": "<ol><li>$v = \\sqrt{2gh_2} = \\sqrt{2\\times 9.8\\times 2.0} \\approx \\mathbf{6.26\\text{ m/s}}$。</li><li>对水面与 $C$ 点：$p_0 = p_C + \\frac{1}{2}\\rho v^2 + \\rho g h_1 \\implies p_C = p_0 - \\rho g(h_1+h_2) = 1.013\\times 10^5 - 10^3\\times 9.8\\times 5 = \\mathbf{5.23\\times 10^4\\text{ Pa}}$。</li></ol>"
+  },
+  {
+    "id": "E2-4",
+    "ch": "2",
+    "orig": "拓展4",
+    "src": "extra",
+    "tag": "皮托管测速",
+    "stem": "飞机上安装的皮托管测得总压（驻点压强）与静压之差为 $\\Delta p = 4.0\\times 10^3\\text{ Pa}$，已知空气密度 $\\rho = 1.25\\text{ kg/m}^3$，求飞机相对于空气的飞行速度 $v$。",
+    "hint": "驻点流速为 0，由伯努利方程直接得 $\\Delta p = \\frac{1}{2}\\rho v^2$。",
+    "ans": "$v = 80\\text{ m/s}$。",
+    "sol": "$$v = \\sqrt{\\frac{2\\Delta p}{\\rho}} = \\sqrt{\\frac{2\\times 4.0\\times 10^3}{1.25}} = \\sqrt{6400} = \\mathbf{80\\text{ m/s}}$$"
+  },
+  {
+    "id": "E3-1",
+    "ch": "3",
+    "orig": "拓展1",
+    "src": "extra",
+    "tag": "两液滴合并释放表面能",
+    "stem": "两个半径均为 $r=1.0\\text{ mm}$ 的相同水银滴合并成一个大水银滴，求此过程中释放的表面能（水银表面张力系数 $\\alpha=0.49\\text{ N/m}$）。",
+    "hint": "体积守恒 $\\frac{4}{3}\\pi R^3 = 2\\cdot\\frac{4}{3}\\pi r^3 \\Rightarrow R = 2^{1/3}r$，再算 $\\Delta E = \\alpha(2\\cdot 4\\pi r^2 - 4\\pi R^2)$。",
+    "ans": "$\\Delta E \\approx 2.54\\times 10^{-6}\\text{ J}$。",
+    "sol": "大滴半径 $R = \\sqrt[3]{2}\\,r \\approx 1.260 r$。释放能量：$$\\Delta E = \\alpha \\cdot 4\\pi r^2(2 - 2^{2/3}) = 0.49\\times 4\\pi\\times (10^{-3})^2\\times (2 - 1.5874) \\approx \\mathbf{2.54\\times 10^{-6}\\text{ J}}$$"
+  },
+  {
+    "id": "E3-2",
+    "ch": "3",
+    "orig": "拓展2",
+    "src": "extra",
+    "tag": "水下气泡 vs 肥皂泡",
+    "stem": "在水面下 $h=10\\text{ m}$ 处有一个半径 $r=0.1\\text{ mm}$ 的小空气泡，求气泡内的压强（大气压 $p_0=1.013\\times 10^5\\text{ Pa}$，水的 $\\alpha=7.3\\times 10^{-2}\\text{ N/m}, g=9.8\\text{ m/s}^2$）。",
+    "hint": "水中气泡只有 <strong>1 个球面</strong>！附加压强为 $\\frac{2\\alpha}{r}$，不要忘记加上水柱静压 $\\rho gh$。",
+    "ans": "$p_{\\text{内}} \\approx 2.008\\times 10^5\\text{ Pa}$。",
+    "sol": "$$p_{\\text{内}} = p_0 + \\rho gh + \\frac{2\\alpha}{r} = 1.013\\times 10^5 + 9.8\\times 10^4 + \\frac{2\\times 0.073}{10^{-4}} = 1.993\\times 10^5 + 1460 \\approx \\mathbf{2.008\\times 10^5\\text{ Pa}}$$"
+  },
+  {
+    "id": "E3-3",
+    "ch": "3",
+    "orig": "拓展3",
+    "src": "extra",
+    "tag": "大小肥皂泡连通（经典概念题）",
+    "stem": "用一根细玻璃管将半径一大一小两个肥皂泡（$R_1 &gt; R_2$）连通，打开阀门后气体将如何流动？两个泡会怎样变化？",
+    "hint": "比较两泡内部压强 $p = p_0 + \\frac{4\\alpha}{R}$：半径越<strong>小</strong>，内部压强越<strong>大</strong>！",
+    "ans": "气体从<strong>小泡流向大泡</strong>，结果<strong>小泡越来越小直至消失，大泡越来越大</strong>。",
+    "sol": "因 $R_2 &lt; R_1$，故 $\\Delta p_2 = \\frac{4\\alpha}{R_2} &gt; \\Delta p_1 = \\frac{4\\alpha}{R_1}$，即小泡内压强大，气体由小泡压向大泡，小泡不断收缩而大泡不断胀大。"
+  },
+  {
+    "id": "E3-4",
+    "ch": "3",
+    "orig": "拓展4",
+    "src": "extra",
+    "tag": "非零接触角毛细上升",
+    "stem": "将半径 $r=0.5\\text{ mm}$ 的玻璃毛细管竖直插入某液体中，液体密度 $\\rho=800\\text{ kg/m}^3$，表面张力系数 $\\alpha=2.8\\times 10^{-2}\\text{ N/m}$，接触角 $\\theta=60^\\circ$，求液面上升高度 $h$。",
+    "hint": "直接套用 $h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}$，注意 $\\cos 60^\\circ = 0.5$。",
+    "ans": "$h \\approx 7.14\\text{ mm}$（$7.14\\times 10^{-3}\\text{ m}$）。",
+    "sol": "$$h = \\frac{2\\times 2.8\\times 10^{-2}\\times \\cos 60^\\circ}{800\\times 9.8\\times 0.5\\times 10^{-3}} = \\frac{0.028}{3.92} \\approx \\mathbf{7.14\\times 10^{-3}\\text{ m} = 7.14\\text{ mm}}$$"
+  },
+  {
+    "id": "E4-1",
+    "ch": "4",
+    "orig": "拓展1",
+    "src": "extra",
+    "tag": "简谐振动能量分配",
+    "stem": "一弹簧振子作简谐振动，振幅为 $A$。问当位移 $x$ 为多大时，振子的动能恰好等于势能？",
+    "hint": "总能量 $E = \\frac{1}{2}kA^2$，动能等于势能时势能 $E_p = \\frac{1}{2}kx^2 = \\frac{1}{2}E$。",
+    "ans": "$x = \\pm\\frac{\\sqrt{2}}{2}A$。",
+    "sol": "由 $\\frac{1}{2}kx^2 = \\frac{1}{2}\\left(\\frac{1}{2}kA^2\\right) \\implies x^2 = \\frac{A^2}{2} \\implies \\mathbf{x = \\pm\\frac{\\sqrt{2}}{2}A}$。"
+  },
+  {
+    "id": "E4-2",
+    "ch": "4",
+    "orig": "拓展2",
+    "src": "extra",
+    "tag": "由最大速度与最大加速度求参量",
+    "stem": "一质点作简谐振动，最大速度 $v_{\\max}=0.4\\text{ m/s}$，最大加速度 $a_{\\max}=8\\text{ m/s}^2$，求该振动的角频率 $\\omega$、周期 $T$ 及振幅 $A$。",
+    "hint": "牢记 $v_{\\max} = \\omega A$，$a_{\\max} = \\omega^2 A$，两式相除立刻得 $\\omega$！",
+    "ans": "$\\omega = 20\\text{ rad/s}$，$T = \\frac{\\pi}{10}\\text{ s} \\approx 0.314\\text{ s}$，$A = 0.02\\text{ m} = 2\\text{ cm}$。",
+    "sol": "<ol><li>$\\omega = \\frac{a_{\\max}}{v_{\\max}} = \\frac{8}{0.4} = \\mathbf{20\\text{ rad/s}}$；</li><li>$T = \\frac{2\\pi}{\\omega} = \\mathbf{\\frac{\\pi}{10}\\text{ s}}$；$A = \\frac{v_{\\max}}{\\omega} = \\mathbf{0.02\\text{ m}}$。</li></ol>"
+  },
+  {
+    "id": "E4-3",
+    "ch": "4",
+    "orig": "拓展3",
+    "src": "extra",
+    "tag": "沿负 x 方向传播波函数",
+    "stem": "已知某平面简谐波的波动方程为 $y = 0.05\\cos(10\\pi t + 2\\pi x)\\text{ m}$（SI 制），求该波的振幅 $A$、频率 $\\nu$、波长 $\\lambda$、波速 $u$ 及传播方向。",
+    "hint": "括号内为 $+$ 号表示沿 <strong>$-x$ 负方向</strong>传播！对比 $2\\pi(\\nu t + x/\\lambda)$ 读数。",
+    "ans": "$A=0.05\\text{ m}$，$\\nu=5\\text{ Hz}$，$\\lambda=1\\text{ m}$，$u=5\\text{ m/s}$，沿 <strong>$x$ 轴负方向</strong>传播。",
+    "sol": "对比 $y=A\\cos\\left(2\\pi\\nu t + \\frac{2\\pi}{\\lambda}x\\right)$：$A=0.05\\text{ m}$，$2\\pi\\nu=10\\pi \\Rightarrow \\nu=5\\text{ Hz}$，$\\frac{2\\pi}{\\lambda}=2\\pi \\Rightarrow \\lambda=1\\text{ m}$，$u=\\lambda\\nu=5\\text{ m/s}$，因两项同号，波沿 <strong>$-x$ 方向</strong>传播。"
+  },
+  {
+    "id": "E4-4",
+    "ch": "4",
+    "orig": "拓展4",
+    "src": "extra",
+    "tag": "驻波波节与波腹",
+    "stem": "一根弦上形成的驻波方程为 $y = 0.04\\cos(4\\pi x)\\cos(20\\pi t)\\text{ m}$（SI 制），求相邻两个波节之间的距离，以及形成该驻波的行波波速 $u$。",
+    "hint": "对比 $2A\\cos\\left(\\frac{2\\pi}{\\lambda}x\\right)\\cos(\\omega t)$，相邻波节间距为 $\\frac{\\lambda}{2}$！",
+    "ans": "相邻波节间距 $\\Delta x = 0.25\\text{ m}$；行波波速 $u = 5\\text{ m/s}$。",
+    "sol": "由 $\\frac{2\\pi}{\\lambda}=4\\pi \\Rightarrow \\lambda=0.5\\text{ m}$，故相邻波节间距 $\\frac{\\lambda}{2}=\\mathbf{0.25\\text{ m}}$；又 $\\omega=2\\pi\\nu=20\\pi \\Rightarrow \\nu=10\\text{ Hz}$，故 $u=\\lambda\\nu = \\mathbf{5\\text{ m/s}}$。"
+  },
+  {
+    "id": "E5-1",
+    "ch": "5",
+    "orig": "拓展1",
+    "src": "extra",
+    "tag": "带电圆环轴线场强与电势",
+    "stem": "半径为 $R$ 的均匀带电细圆环，总电荷量为 $Q$，求环轴线上距圆心 $x$ 处的电场强度 $E$ 和电势 $U$（无穷远电势为零）。",
+    "hint": "垂直轴线分量对称抵消，只留轴向分量 $\\cos\\theta = \\frac{x}{\\sqrt{R^2+x^2}}$；电势是标量直接除以距离 $\\sqrt{R^2+x^2}$。",
+    "ans": "$E = \\frac{Qx}{4\\pi\\varepsilon_0(R^2+x^2)^{3/2}}$（沿轴线向外）；$U = \\frac{Q}{4\\pi\\varepsilon_0\\sqrt{R^2+x^2}}$。",
+    "sol": "<ol><li>$E = \\oint \\frac{dq}{4\\pi\\varepsilon_0(R^2+x^2)}\\cdot\\frac{x}{\\sqrt{R^2+x^2}} = \\mathbf{\\frac{Qx}{4\\pi\\varepsilon_0(R^2+x^2)^{3/2}}}$；</li><li>$U = \\oint \\frac{dq}{4\\pi\\varepsilon_0\\sqrt{R^2+x^2}} = \\mathbf{\\frac{Q}{4\\pi\\varepsilon_0\\sqrt{R^2+x^2}}}$。</li></ol>"
+  },
+  {
+    "id": "E5-2",
+    "ch": "5",
+    "orig": "拓展2",
+    "src": "extra",
+    "tag": "无限长带电直导线（高斯定理）",
+    "stem": "一无限长均匀带电直导线，电荷线密度为 $\\lambda$（$\\lambda &gt; 0$），用高斯定理求距导线垂直距离为 $r$ 处的电场强度大小。",
+    "hint": "作半径为 $r$、高为 $h$ 的同轴圆柱面作为高斯面，上下底面通量为 0，侧面通量 $E\\cdot 2\\pi rh = \\frac{\\lambda h}{\\varepsilon_0}$。",
+    "ans": "$E = \\frac{\\lambda}{2\\pi\\varepsilon_0 r}$（垂直导线向外）。",
+    "sol": "由高斯定理 $E\\cdot 2\\pi r h = \\frac{\\lambda h}{\\varepsilon_0} \\implies \\mathbf{E = \\frac{\\lambda}{2\\pi\\varepsilon_0 r}}$（方向垂直直导线向外）。"
+  },
+  {
+    "id": "E5-3",
+    "ch": "5",
+    "orig": "拓展3",
+    "src": "extra",
+    "tag": "均匀带电实心球体场强",
+    "stem": "一半径为 $R$ 的绝缘实心球体，均匀带有总电荷 $Q$（体电荷密度 $\\rho$），求球内（$r &lt; R$）和球外（$r &gt; R$）的电场强度大小。",
+    "hint": "球内高斯球面包住的电荷 $q_{\\text{内}} = Q\\frac{r^3}{R^3}$，注意球内 $E \\propto r$ 线性增大！",
+    "ans": "球内（$r &lt; R$）：$E = \\frac{Qr}{4\\pi\\varepsilon_0 R^3} = \\frac{\\rho r}{3\\varepsilon_0}$；球外（$r &gt; R$）：$E = \\frac{Q}{4\\pi\\varepsilon_0 r^2}$。",
+    "sol": "<ul><li>$r &lt; R$：$E\\cdot 4\\pi r^2 = \\frac{Q(r/R)^3}{\\varepsilon_0} \\implies \\mathbf{E = \\frac{Qr}{4\\pi\\varepsilon_0 R^3}}$；</li><li>$r &gt; R$：$E\\cdot 4\\pi r^2 = \\frac{Q}{\\varepsilon_0} \\implies \\mathbf{E = \\frac{Q}{4\\pi\\varepsilon_0 r^2}}$。</li></ul>"
+  },
+  {
+    "id": "E5-4",
+    "ch": "5",
+    "orig": "拓展4",
+    "src": "extra",
+    "tag": "平行板电容器电容与储能",
+    "stem": "平行板电容器极板面积 $S=200\\text{ cm}^2$，间距 $d=2.0\\text{ mm}$，板间充满相对介电常量 $\\varepsilon_r=4$ 的电介质，接在 $U=100\\text{ V}$ 电源上。求电容 $C$ 与储存的电能 $W$（$\\varepsilon_0=8.85\\times 10^{-12}$）。",
+    "hint": "套用 $C = \\frac{\\varepsilon_0\\varepsilon_r S}{d}$ 和 $W = \\frac{1}{2}CU^2$，注意把 $\\text{cm}^2$ 和 $\\text{mm}$ 换算成国际单位！",
+    "ans": "$C = 3.54\\times 10^{-10}\\text{ F} = 354\\text{ pF}$；$W = 1.77\\times 10^{-6}\\text{ J}$。",
+    "sol": "<ol><li>$C = \\frac{8.85\\times 10^{-12}\\times 4\\times 200\\times 10^{-4}}{2.0\\times 10^{-3}} = \\mathbf{3.54\\times 10^{-10}\\text{ F}}$；</li><li>$W = \\frac{1}{2}CU^2 = 0.5\\times 3.54\\times 10^{-10}\\times 100^2 = \\mathbf{1.77\\times 10^{-6}\\text{ J}}$。</li></ol>"
+  },
+  {
+    "id": "E6-1",
+    "ch": "6",
+    "orig": "拓展1",
+    "src": "extra",
+    "tag": "载流圆环圆心磁场",
+    "stem": "半径 $R=10\\text{ cm}$ 的圆形线圈共绕有 $N=50$ 匝，通以电流 $I=2.0\\text{ A}$，求圆心处的磁感应强度大小。",
+    "hint": "单匝圆环圆心 $B = \\frac{\\mu_0 I}{2R}$，$N$ 匝直接乘以 $N$。",
+    "ans": "$B = 2\\pi\\times 10^{-4}\\text{ T} \\approx 6.28\\times 10^{-4}\\text{ T}$。",
+    "sol": "$$B = N\\frac{\\mu_0 I}{2R} = 50\\times\\frac{4\\pi\\times 10^{-7}\\times 2.0}{2\\times 0.10} = 2\\pi\\times 10^{-4} \\approx \\mathbf{6.28\\times 10^{-4}\\text{ T}}$$"
+  },
+  {
+    "id": "E6-2",
+    "ch": "6",
+    "orig": "拓展2",
+    "src": "extra",
+    "tag": "长直螺线管内部磁场",
+    "stem": "一长直密绕螺线管长 $l=0.5\\text{ m}$，总匝数 $N=1000$ 匝，通以稳恒电流 $I=2.0\\text{ A}$，求管内轴线中部的磁感应强度大小。",
+    "hint": "单位长度匝数 $n = N/l$，由安培环路定理 $B = \\mu_0 n I$。",
+    "ans": "$B \\approx 5.03\\times 10^{-3}\\text{ T}$（$5.03\\text{ mT}$）。",
+    "sol": "$n = \\frac{1000}{0.5} = 2000\\text{ m}^{-1}$，故 $B = \\mu_0 n I = 4\\pi\\times 10^{-7}\\times 2000\\times 2.0 = 1.6\\pi\\times 10^{-3} \\approx \\mathbf{5.03\\times 10^{-3}\\text{ T}}$。"
+  },
+  {
+    "id": "E6-3",
+    "ch": "6",
+    "orig": "拓展3",
+    "src": "extra",
+    "tag": "带电粒子磁场回旋半径与周期",
+    "stem": "一质子（$m=1.67\\times 10^{-27}\\text{ kg}, q=1.6\\times 10^{-19}\\text{ C}$）以速度 $v=2.0\\times 10^6\\text{ m/s}$ 垂直射入 $B=0.5\\text{ T}$ 的匀强磁场中，求其回旋半径 $R$ 和周期 $T$。",
+    "hint": "洛伦兹力提供向心力 $qvB = m\\frac{v^2}{R} \\Rightarrow R=\\frac{mv}{qB}$，$T=\\frac{2\\pi m}{qB}$。",
+    "ans": "$R \\approx 4.18\\times 10^{-2}\\text{ m}$（$4.18\\text{ cm}$）；$T \\approx 1.31\\times 10^{-7}\\text{ s}$。",
+    "sol": "<ol><li>$R = \\frac{mv}{qB} = \\frac{1.67\\times 10^{-27}\\times 2.0\\times 10^6}{1.6\\times 10^{-19}\\times 0.5} \\approx \\mathbf{4.18\\times 10^{-2}\\text{ m}}$；</li><li>$T = \\frac{2\\pi m}{qB} \\approx \\mathbf{1.31\\times 10^{-7}\\text{ s}}$。</li></ol>"
+  },
+  {
+    "id": "E6-4",
+    "ch": "6",
+    "orig": "拓展4",
+    "src": "extra",
+    "tag": "平行长直导线间安培力",
+    "stem": "两根平行无限长直导线相距 $d=10\\text{ cm}$，通有同向电流 $I_1=5\\text{ A}$ 和 $I_2=10\\text{ A}$，求每米长度上导线所受的磁力大小及方向。",
+    "hint": "单位长度受力 $f = \\frac{\\mu_0 I_1 I_2}{2\\pi d}$，同向电流相吸、反向相斥！",
+    "ans": "$f = 1.0\\times 10^{-4}\\text{ N/m}$，方向为<strong>相互吸引</strong>。",
+    "sol": "$$f = \\frac{\\mu_0 I_1 I_2}{2\\pi d} = \\frac{2\\times 10^{-7}\\times 5\\times 10}{0.10} = \\mathbf{1.0\\times 10^{-4}\\text{ N/m}}\\text{（同向电流，相互吸引）}$$"
+  },
+  {
+    "id": "E7-1",
+    "ch": "7",
+    "orig": "拓展1",
+    "src": "extra",
+    "tag": "转动线圈交流电动势",
+    "stem": "一面积 $S=0.02\\text{ m}^2$、匝数 $N=100$ 匝的矩形线圈在 $B=0.5\\text{ T}$ 的匀强磁场中绕垂直磁场的轴以 $\\omega=100\\pi\\text{ rad/s}$ 匀速转动，求感应电动势的最大值 $\\mathcal{E}_m$。",
+    "hint": "$\\Phi = NBS\\cos(\\omega t)$，求导得 $\\mathcal{E} = NBS\\omega\\sin(\\omega t)$，最大值 $\\mathcal{E}_m = NBS\\omega$。",
+    "ans": "$\\mathcal{E}_m = 100\\pi\\text{ V} \\approx 314\\text{ V}$。",
+    "sol": "$$\\mathcal{E}_m = NBS\\omega = 100\\times 0.5\\times 0.02\\times 100\\pi = 100\\pi \\approx \\mathbf{314\\text{ V}}$$"
+  },
+  {
+    "id": "E7-2",
+    "ch": "7",
+    "orig": "拓展2",
+    "src": "extra",
+    "tag": "U 形导轨切割磁感线",
+    "stem": "长为 $L=0.5\\text{ m}$ 的导体棒在光滑 U 形金属导轨上以 $v=4\\text{ m/s}$ 垂直切割 $B=0.2\\text{ T}$ 的匀强磁场，回路总电阻 $R=2\\,\\Omega$，求感应电动势、感应电流及所需外力大小。",
+    "hint": "$\\mathcal{E}=BLv$，$I=\\mathcal{E}/R$，匀速运动外力等于安培力 $F=BIL$。",
+    "ans": "$\\mathcal{E} = 0.4\\text{ V}$，$I = 0.2\\text{ A}$，$F = 0.02\\text{ N}$。",
+    "sol": "<ol><li>$\\mathcal{E} = BLv = 0.2\\times 0.5\\times 4 = \\mathbf{0.4\\text{ V}}$；</li><li>$I = \\frac{\\mathcal{E}}{R} = \\mathbf{0.2\\text{ A}}$；</li><li>$F = BIL = 0.2\\times 0.2\\times 0.5 = \\mathbf{0.02\\text{ N}}$。</li></ol>"
+  },
+  {
+    "id": "E7-3",
+    "ch": "7",
+    "orig": "拓展3",
+    "src": "extra",
+    "tag": "长直螺线管自感系数",
+    "stem": "一空气芯长直螺线管长 $l=0.4\\text{ m}$，截面积 $S=10\\text{ cm}^2$，总匝数 $N=800$ 匝。求其自感系数 $L$；若电流在 $0.01\\text{ s}$ 内均匀减小 $2\\text{ A}$，求自感电动势大小。",
+    "hint": "$L = \\mu_0 n^2 V = \\frac{\\mu_0 N^2 S}{l}$，自感电动势 $|\\mathcal{E}_L| = L\\left|\\frac{\\Delta I}{\\Delta t}\\right|$。",
+    "ans": "$L \\approx 2.01\\times 10^{-3}\\text{ H}$（$2.01\\text{ mH}$）；$|\\mathcal{E}_L| \\approx 0.402\\text{ V}$。",
+    "sol": "<ol><li>$L = \\frac{\\mu_0 N^2 S}{l} = \\frac{4\\pi\\times 10^{-7}\\times 800^2\\times 10\\times 10^{-4}}{0.4} \\approx \\mathbf{2.01\\times 10^{-3}\\text{ H}}$；</li><li>$|\\mathcal{E}_L| = L\\frac{\\Delta I}{\\Delta t} = 2.01\\times 10^{-3}\\times\\frac{2}{0.01} \\approx \\mathbf{0.402\\text{ V}}$。</li></ol>"
+  },
+  {
+    "id": "E7-4",
+    "ch": "7",
+    "orig": "拓展4",
+    "src": "extra",
+    "tag": "直导线与矩形框互感系数",
+    "stem": "一根无限长直导线与一矩形线圈共面（宽 $a$、高 $b$，近边距直导线为 $l$），求直导线与矩形线圈之间的互感系数 $M$。",
+    "hint": "互感定义 $M = \\frac{\\Phi_{21}}{I_1}$，直接借用第 7-1 题的磁通量结果除以 $I$ 即可！",
+    "ans": "$M = \\frac{\\mu_0 b}{2\\pi}\\ln\\left(1 + \\frac{a}{l}\\right)$。",
+    "sol": "直导线通电流 $I$ 时穿过矩形框磁通量 $\\Phi = \\int_l^{l+a}\\frac{\\mu_0 I}{2\\pi x}b\\,dx = \\frac{\\mu_0 I b}{2\\pi}\\ln\\frac{l+a}{l}$，故互感系数：$$M = \\frac{\\Phi}{I} = \\mathbf{\\frac{\\mu_0 b}{2\\pi}\\ln\\left(1+\\frac{a}{l}\\right)}$$"
+  }
+];
+
+    const ALL_PROBLEMS = [
+      ...PROBLEMS.map(p => ({ ...p, src: 'orig' })),
+      ...EXTRA_PROBLEMS
+    ].sort((a, b) => Number(a.ch) - Number(b.ch) || (a.src === 'orig' ? -1 : 1));
+
+    const STORE_KEY = 'u_physics_review_state_v1';
+    let state = JSON.parse(localStorage.getItem(STORE_KEY) || '{"mastered":{},"starred":{},"days":{},"dark":false}');
+    let srcFilter = 'all';
+    let chFilter = 'all';
+    let allAnsOpen = false;
+    let allSolOpen = false;
+
+    function saveState() {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const m = ALL_PROBLEMS.filter(p => state.mastered[p.id]).length;
+      const pct = Math.round((m / ALL_PROBLEMS.length) * 100);
+      document.getElementById('progText').textContent = `${m} / ${ALL_PROBLEMS.length} (${pct}%)`;
+      document.getElementById('progFill').style.width = `${pct}%`;
+    }
+
+    function renderMath(el) {
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function render() {
+      const filtered = ALL_PROBLEMS.filter(p => {
+        if (chFilter !== 'all' && p.ch !== chFilter) return false;
+        if (srcFilter === 'orig') return p.src === 'orig';
+        if (srcFilter === 'extra') return p.src === 'extra';
+        if (srcFilter === 'starred') return !!state.starred[p.id];
+        if (srcFilter === 'unmastered') return !state.mastered[p.id];
+        return true;
+      });
+      document.getElementById('countInfo').textContent = `当前显示：${filtered.length} 题`;
+      const box = document.getElementById('list');
+      if (!filtered.length) {
+        box.innerHTML = '<div class="problem-card" style="text-align:center;color:var(--muted);">当前筛选下暂无题目 🎉</div>';
+        return;
+      }
+      box.innerHTML = filtered.map((p, i) => {
+        const m = !!state.mastered[p.id];
+        const s = !!state.starred[p.id];
+        const srcBadge = p.src === 'orig'
+          ? '<span class="badge">学习通原题</span>'
+          : '<span class="badge badge-extra">期末拓展精选</span>';
+        return `
+          <div class="problem-card ${m ? 'mastered' : ''} ${s ? 'starred' : ''}">
+            <div class="p-top">
+              <span class="p-title">#${i + 1} · 第 ${p.ch} 章（${p.orig}）</span>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                ${srcBadge}
+                <span class="badge">${p.tag}</span>
+                ${p.hasErr ? '<span class="badge badge-danger">作业纠错</span>' : ''}
+              </div>
+            </div>
+            <div class="p-stem">${p.stem}</div>
+            <div class="p-actions">
+              <button class="btn" onclick="toggleBox('hint-${p.id}')">💡 解题提示</button>
+              <button class="btn btn-primary" onclick="toggleBox('ans-${p.id}')">🎯 标准答案</button>
+              <button class="btn" onclick="toggleBox('sol-${p.id}')">📖 详细解析</button>
+              <button class="btn ${m ? 'btn-success' : ''}" onclick="toggleMaster('${p.id}')">${m ? '✅ 已掌握' : '⬜ 标记已掌握'}</button>
+              <button class="btn ${s ? 'btn-warn' : ''}" onclick="toggleStar('${p.id}')">${s ? '⭐ 已在错题本' : '☆ 加入错题本'}</button>
+            </div>
+            <div class="p-hint" id="hint-${p.id}"><strong>思路提示：</strong>${p.hint}</div>
+            <div class="p-ans ${allAnsOpen ? 'open' : ''}" id="ans-${p.id}"><strong>【标准答案】</strong>${p.ans}</div>
+            <div class="p-sol ${allSolOpen ? 'open' : ''}" id="sol-${p.id}">
+              <strong>【详细解析】</strong><br/>${p.sol}
+              ${p.errNote ? `<div class="p-err">${p.errNote}</div>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+      renderMath(box);
+    }
+
+    window.toggleBox = (id) => document.getElementById(id).classList.toggle('open');
+    window.toggleMaster = (id) => { state.mastered[id] = !state.mastered[id]; saveState(); render(); };
+    window.toggleStar = (id) => { state.starred[id] = !state.starred[id]; saveState(); render(); };
+
+    document.querySelectorAll('#srcFilters .chip').forEach(c => c.addEventListener('click', () => {
+      document.querySelectorAll('#srcFilters .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active'); srcFilter = c.dataset.src; render();
+    }));
+    document.querySelectorAll('#chFilters .chip').forEach(c => c.addEventListener('click', () => {
+      document.querySelectorAll('#chFilters .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active'); chFilter = c.dataset.ch; render();
+    }));
+
+    document.getElementById('toggleAllAns').addEventListener('click', (e) => {
+      allAnsOpen = !allAnsOpen;
+      e.target.textContent = allAnsOpen ? '🙈 一键隐藏全部答案' : '🎯 一键显示全部答案';
+      render();
+    });
+    document.getElementById('toggleAllSol').addEventListener('click', (e) => {
+      allSolOpen = !allSolOpen;
+      e.target.textContent = allSolOpen ? '🙈 一键收起全部解析' : '👁️ 一键展开全部解析';
+      render();
+    });
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      state.dark = !state.dark;
+      document.body.classList.toggle('dark', state.dark);
+      document.getElementById('themeBtn').textContent = state.dark ? '☀️ 日间模式' : '🌙 夜间模式';
+      saveState();
+    });
+
+    window.addEventListener('load', () => {
+      if (state.dark) {
+        document.body.classList.add('dark');
+        document.getElementById('themeBtn').textContent = '☀️ 日间模式';
+      }
+      updateProgress();
+      render();
+    });
+  </script>
+</body>
+</html>
