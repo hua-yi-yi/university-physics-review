@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>在线查看 PDF - 《大学物理》期末复习指南与作业真题解析</title>
+  <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: #1e293b;
+      color: #f8fafc;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: #0f172a;
+      border-bottom: 1px solid #334155;
+      padding: 10px 14px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+    .toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      background: #334155;
+      color: #f8fafc;
+      border: 1px solid #475569;
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .btn:hover { background: #475569; }
+    .btn-primary { background: #2563eb; border-color: #2563eb; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .status {
+      font-size: 13px;
+      color: #cbd5e1;
+    }
+    #viewer {
+      max-width: 920px;
+      margin: 16px auto 40px auto;
+      padding: 0 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+    }
+    .page-wrap {
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35);
+      overflow: hidden;
+      width: 100%;
+    }
+    .page-wrap canvas {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .page-num {
+      background: #f1f5f9;
+      color: #475569;
+      font-size: 12px;
+      text-align: center;
+      padding: 4px;
+      border-top: 1px solid #e2e8f0;
+    }
+    .loading {
+      text-align: center;
+      padding: 50px 20px;
+      color: #cbd5e1;
+      font-size: 15px;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <div class="toolbar-group">
+      <a class="btn btn-primary" href="./index.html">⬅️ 返回交互复习台</a>
+      <span class="status" id="statusText">正在加载 PDF（共 14 页）...</span>
+    </div>
+    <div class="toolbar-group">
+      <button class="btn" id="zoomOut">🔍 缩小</button>
+      <button class="btn" id="zoomIn">🔎 放大</button>
+      <a class="btn" href="./physics-review.pdf" download="大学物理期末复习指南与作业真题解析.pdf">⬇️ 下载原文件</a>
+    </div>
+  </div>
+
+  <div id="viewer">
+    <div class="loading" id="loadingMsg">正在渲染高清 PDF 页面，请稍候...</div>
+  </div>
+
+  <script>
+    pdfjsLib.GlobalWorkerOptions.workerSrc =
+      'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+
+    const url = './physics-review.pdf';
+    let pdfDoc = null;
+    let widthPct = 100;
+
+    async function renderAll() {
+      const viewer = document.getElementById('viewer');
+      try {
+        pdfDoc = await pdfjsLib.getDocument(url).promise;
+        document.getElementById('statusText').textContent = `《大学物理》期末复习指南 · 共 ${pdfDoc.numPages} 页`;
+        viewer.innerHTML = '';
+
+        const dpr = Math.min(window.devicePixelRatio || 1.5, 2.5);
+        for (let num = 1; num <= pdfDoc.numPages; num++) {
+          const page = await pdfDoc.getPage(num);
+          const viewport = page.getViewport({ scale: 1.6 * dpr });
+
+          const wrap = document.createElement('div');
+          wrap.className = 'page-wrap';
+
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          const ctx = canvas.getContext('2d');
+
+          await page.render({ canvasContext: ctx, viewport }).promise;
+
+          const label = document.createElement('div');
+          label.className = 'page-num';
+          label.textContent = `第 ${num} / ${pdfDoc.numPages} 页`;
+
+          wrap.appendChild(canvas);
+          wrap.appendChild(label);
+          viewer.appendChild(wrap);
+        }
+      } catch (err) {
+        viewer.innerHTML = `
+          <div class="loading">
+            在线渲染加载失败：${err.message}<br/><br/>
+            <a class="btn btn-primary" href="./physics-review.pdf" target="_blank">直接打开原始 PDF</a>
+          </div>`;
+      }
+    }
+
+    document.getElementById('zoomIn').addEventListener('click', () => {
+      widthPct = Math.min(160, widthPct + 15);
+      document.getElementById('viewer').style.maxWidth = `${Math.round(920 * widthPct / 100)}px`;
+    });
+
+    document.getElementById('zoomOut').addEventListener('click', () => {
+      widthPct = Math.max(60, widthPct - 15);
+      document.getElementById('viewer').style.maxWidth = `${Math.round(920 * widthPct / 100)}px`;
+    });
+
+    renderAll();
+  </script>
+</body>
+</html>
