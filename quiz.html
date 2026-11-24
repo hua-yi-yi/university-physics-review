@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《大学物理》67 道随堂练习交互刷题库</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root {
+      --bg: #f1f5f9; --surface: #ffffff; --surface-2: #f8fafc; --text: #0f172a;
+      --muted: #475569; --border: #e2e8f0; --primary: #2563eb; --primary-soft: #eff6ff;
+      --success: #16a34a; --success-soft: #f0fdf4; --warn: #d97706; --warn-soft: #fffbeb;
+      --danger: #dc2626; --danger-soft: #fef2f2; --shadow: 0 2px 10px rgba(15,23,42,0.06);
+    }
+    body.dark {
+      --bg: #0f172a; --surface: #1e293b; --surface-2: #0f172a; --text: #f1f5f9;
+      --muted: #94a3b8; --border: #334155; --primary: #60a5fa; --primary-soft: rgba(59,130,246,0.16);
+      --success: #4ade80; --success-soft: rgba(34,197,94,0.14); --warn: #fbbf24; --warn-soft: rgba(245,158,11,0.14);
+      --danger: #f87171; --danger-soft: rgba(239,68,68,0.14); --shadow: 0 2px 12px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: "Microsoft YaHei", "PingFang SC", sans-serif; background: var(--bg); color: var(--text); line-height: 1.65; }
+    header { position: sticky; top: 0; z-index: 50; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow); }
+    .nav-inner { max-width: 1080px; margin: 0 auto; padding: 12px 18px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+    .nav-inner h1 { margin: 0; font-size: 16.5px; }
+    .nav-inner small { color: var(--muted); font-size: 12px; }
+    .btn { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 6px 12px; border-radius: 7px; font-size: 13px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; }
+    .btn:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn-primary:hover { color: #fff; opacity: 0.92; }
+    .btn-warn { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+    main { max-width: 1080px; margin: 18px auto 60px auto; padding: 0 18px; }
+    .stats-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin-bottom: 14px; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; box-shadow: var(--shadow); }
+    .prog-wrap { flex: 1; min-width: 220px; }
+    .prog-row { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 6px; }
+    .prog-track { height: 10px; background: var(--border); border-radius: 999px; overflow: hidden; }
+    .prog-fill { height: 100%; width: 0%; background: linear-gradient(90deg, #2563eb, #16a34a); transition: width 0.3s; }
+    .filter-bar { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; display: flex; flex-direction: column; gap: 10px; }
+    .filter-row { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; justify-content: space-between; }
+    .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+    .chip { border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 5px 11px; border-radius: 999px; font-size: 12.5px; font-weight: 600; cursor: pointer; }
+    .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .q-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 16px 18px; margin-bottom: 14px; box-shadow: var(--shadow); }
+    .q-card.correct { border-left: 4px solid var(--success); }
+    .q-card.wrong { border-left: 4px solid var(--danger); }
+    .q-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 8px; }
+    .q-num { font-weight: 700; color: var(--primary); font-size: 14.5px; }
+    .badge { font-size: 11.5px; padding: 2px 8px; border-radius: 999px; font-weight: 600; background: var(--primary-soft); color: var(--primary); }
+    .badge-danger { background: var(--danger-soft); color: var(--danger); }
+    .badge-warn { background: var(--warn-soft); color: var(--warn); }
+    .badge-success { background: var(--success-soft); color: var(--success); }
+    .q-stem { font-size: 14.5px; font-weight: 600; margin-bottom: 10px; }
+    .opts { display: flex; flex-direction: column; gap: 7px; margin-bottom: 10px; }
+    .opt-btn { text-align: left; border: 1px solid var(--border); background: var(--surface-2); color: var(--text); padding: 9px 13px; border-radius: 8px; font-size: 13.8px; cursor: pointer; transition: all 0.12s; }
+    .opt-btn:hover { border-color: var(--primary); }
+    .opt-btn.selected { border-color: var(--primary); background: var(--primary-soft); font-weight: 600; }
+    .opt-btn.is-right { border-color: var(--success); background: var(--success-soft); color: var(--text); font-weight: 700; }
+    .opt-btn.is-wrong { border-color: var(--danger); background: var(--danger-soft); color: var(--danger); }
+    .q-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    .q-exp { display: none; margin-top: 10px; padding: 10px 14px; border-radius: 8px; background: var(--success-soft); border-left: 4px solid var(--success); font-size: 13.5px; }
+    .q-exp.open { display: block; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div>
+        <h1>✏️ 《大学物理》67 道随堂练习交互刷题库</h1>
+        <small>完整提取自学习通全部 67 次随堂练习（58 单选 + 9 多选）· 点击选项即时判卷 + 零基础解析</small>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <a class="btn btn-primary" href="./index.html">⬅️ 返回复习台首页</a>
+        <a class="btn" href="./formulas.html">📘 保姆级公式</a>
+        <a class="btn" href="./questions.html">📚 51道计算大题</a>
+        <button class="btn" id="themeBtn">🌙 夜间模式</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="stats-bar">
+      <div class="prog-wrap">
+        <div class="prog-row">
+          <span>🎯 随堂练习刷题进度（本地自动保存）</span>
+          <span id="progText">已答 0 / 67 · 答对 0 题</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn" id="revealAllBtn">👁️ 一键显示全部答案与解析</button>
+        <button class="btn" id="resetBtn">🔄 重置本地作答</button>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="filter-row">
+        <div class="chips" id="modeFilters">
+          <button class="chip active" data-mode="all">全部 (67)</button>
+          <button class="chip" data-mode="class_wrong">❌ 课堂曾做错 (7)</button>
+          <button class="chip" data-mode="class_unsub">⬜ 课堂未提交 (18)</button>
+          <button class="chip" data-mode="starred">⭐ 我的错题本</button>
+          <button class="chip" data-mode="unanswered">📝 本次未做</button>
+        </div>
+        <span id="countInfo" style="font-size:12.5px;color:var(--muted);font-weight:600;">当前显示：67 题</span>
+      </div>
+      <div class="filter-row">
+        <div class="chips" id="chFilters">
+          <button class="chip active" data-ch="all">全部章节</button>
+          <button class="chip" data-ch="2">第二章 流体 (11)</button>
+          <button class="chip" data-ch="3">第三章 表面现象 (10)</button>
+          <button class="chip" data-ch="4">第四章 振动波动 (15)</button>
+          <button class="chip" data-ch="5">第五章 静电场 (12)</button>
+          <button class="chip" data-ch="6">第六章 稳恒磁场 (12)</button>
+          <button class="chip" data-ch="7">第七章 电磁感应 (7)</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="quizList"></div>
+  </main>
+
+  <script>
+    const QUIZZES = [
+  {
+    "id": "Q2-1",
+    "ch": "2",
+    "date": "09-14",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "理想流体的密度和黏度不同于实际流体，它们是（ ）",
+    "opts": [
+      "A. 密度可变又有黏性",
+      "B. 密度不变又无黏性",
+      "C. 密度可变又无黏性",
+      "D. 密度不变又有黏性"
+    ],
+    "exp": "<strong>核心定义：</strong>理想流体有两条“理想化”假设：① <strong>不可压缩</strong>（密度 $\\rho$ 恒定不变）；② <strong>无黏性</strong>（层与层之间没有内摩擦力）。因此选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q2-2",
+    "ch": "2",
+    "date": "09-14",
+    "type": "单选",
+    "ans": "B",
+    "mine": "未提交",
+    "q": "定常流动指的是：（ ）",
+    "opts": [
+      "A. 各点的流动速度不变",
+      "B. 各点的流动速度不随时间改变",
+      "C. 各点的流速相同"
+    ],
+    "exp": "<strong>零基础易混点：</strong>定常流动（稳定流动）不要求“不同地方流速一样”（细管处可以比粗管处快），而是要求<strong>空间中任意固定一点的流速不随时间变化</strong>（今天看 $A$ 点是 $2\\text{ m/s}$，一分钟后看 $A$ 点还是 $2\\text{ m/s}$）。故选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q2-3",
+    "ch": "2",
+    "date": "09-14",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "（分叉管道图：主管道流量 $Q_1$ 分成两条支管 $Q_2$ 和 $Q_3$）管中流量的描述哪个是正确的？（ ）",
+    "opts": [
+      "A. $Q_1 > Q_2 > Q_3$",
+      "B. $Q_1 = Q_2 = Q_3$",
+      "C. $Q_1 = Q_2 + Q_3$"
+    ],
+    "exp": "<strong>连续性方程（质量守恒）：</strong>流入分叉口的总流量等于流出两条支管的流量之和，即 $Q_1 = Q_2 + Q_3$。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q2-4",
+    "ch": "2",
+    "date": "09-14",
+    "type": "单选",
+    "ans": "A",
+    "mine": "A",
+    "q": "理想流体在水平管中定常流动，下列说法正确的是（ ）",
+    "opts": [
+      "A. 截面积小处，流速大，压强小。",
+      "B. 截面积小处，流速大，压强大。",
+      "C. 截面积大处，流速大，压强大。",
+      "D. 截面积大处，流速大，压强小。"
+    ],
+    "exp": "<strong>口诀秒杀：</strong>由连续性方程 $Sv=\\text{常量}$ 知“截面积小 $\\Rightarrow$ 流速大”；由水平伯努利方程 $p+\\frac{1}{2}\\rho v^2=\\text{常量}$ 知“流速大 $\\Rightarrow$ 压强小”。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q2-5",
+    "ch": "2",
+    "date": "09-14",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "理想流体通过水平细管，已知 $A$ 处的流速大于 $B$ 处的流速，则 $A$ 处的压强与 $B$ 处的压强关系是（ ）",
+    "opts": [
+      "A. $p_A > p_B$",
+      "B. $p_A < p_B$",
+      "C. $p_A = p_B$"
+    ],
+    "exp": "水平管伯努利方程：流速越快，压强越小。$v_A &gt; v_B \\implies p_A &lt; p_B$。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q2-6",
+    "ch": "2",
+    "date": "09-14",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "对着两张平行竖直放着的纸张的中间吹气，两张纸张将怎样运动？（ ）",
+    "opts": [
+      "A. 分得更开",
+      "B. 向中间靠拢"
+    ],
+    "exp": "向中间吹气使两纸间空气流速变大、压强变小；外侧空气静止压强较大，把两张纸向中间压拢。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q2-7",
+    "ch": "2",
+    "date": "09-14",
+    "type": "单选",
+    "ans": "D",
+    "mine": "D",
+    "q": "当空气通过细管在两轻球之间喷出时（ ）",
+    "opts": [
+      "A. 由伯努利原理可证两球将分开",
+      "B. 由牛顿定律可证两球将分开",
+      "C. 由牛顿定律可证两球将靠拢",
+      "D. 由伯努利原理可证两球将靠拢"
+    ],
+    "exp": "和吹纸实验同理：两球中间气流快 $\\Rightarrow$ 压强小，两侧大气压把两球向中间推拢，这是典型的<strong>伯努利原理</strong>现象。选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q2-8",
+    "ch": "2",
+    "date": "09-18",
+    "type": "多选",
+    "ans": "CD",
+    "mine": "未提交",
+    "q": "关于伯努利方程的描述，下列描述正确的是？（ ）",
+    "opts": [
+      "A. 在同一流管中就可以使用",
+      "B. 只要是理想流体就可以使用",
+      "C. 体现了能量守恒",
+      "D. 同一流管、理想流体、定常流动条件下适用"
+    ],
+    "exp": "<strong>三大适用条件缺一不可：</strong>① 理想流体（不可压缩、无黏性）；② 定常流动；③ 同一流管（同一条流线）。本质上是流体的机械能守恒。选 <strong>CD</strong>。"
+  },
+  {
+    "id": "Q2-9",
+    "ch": "2",
+    "date": "09-18",
+    "type": "单选",
+    "ans": "A",
+    "mine": "A",
+    "q": "流体在均匀管道中流动，流速不变，下列说法正确的是哪一个？（ ）",
+    "opts": [
+      "A. 高处的流体压强较小，低处的流体压强较大。",
+      "B. 高处的流体压强较大，低处的流体压强较小。",
+      "C. 各处的压强都相同。"
+    ],
+    "exp": "流速不变时，$\\frac{1}{2}\\rho v^2$ 相同，伯努利方程退化为 $p + \\rho g h = \\text{常量}$：高度 $h$ 越大，压强 $p$ 越小（高处压小、低处压大）。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q2-10",
+    "ch": "2",
+    "date": "09-18",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "实际流体作层流时，关于相邻两层间的内摩擦力说法正确的是？（ ）",
+    "opts": [
+      "A. 接触面积越大，内摩擦力越大。",
+      "B. 速度梯度越大，内摩擦力越小。",
+      "C. 内摩擦力与接触面积、速度梯度成正比。",
+      "D. 速度梯度越大，内摩擦力越大。"
+    ],
+    "exp": "<strong>牛顿黏滞定律：</strong>$f = \\eta S \\frac{dv}{dy}$，其中 $S$ 是接触面积，$\\frac{dv}{dy}$ 是速度梯度，两者同时成正比（C 表述最完整准确）。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q2-11",
+    "ch": "2",
+    "date": "09-18",
+    "type": "单选",
+    "ans": "A",
+    "mine": "A",
+    "q": "血液在生物体内流动，流量一定，下列说法正确的是哪一个？（ ）",
+    "opts": [
+      "A. 流阻越大，血压越高",
+      "B. 流阻越大，血压越低",
+      "C. 流阻与血压没关系"
+    ],
+    "exp": "<strong>泊肃叶定律类比欧姆定律：</strong>$\\Delta p = Q \\cdot R_f$（类比 $U = I\\cdot R$）。流量 $Q$ 一定时，血管流阻 $R_f$ 越大，所需血压差 $\\Delta p$ 就越高（这就是血管变窄导致高血压的物理原理）。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q3-1",
+    "ch": "3",
+    "date": "09-21",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "下列现象中，不属于表面张力现象的是：（ ）",
+    "opts": [
+      "A. 毛笔尖入水散开，出水聚合",
+      "B. 洗衣机洗衣服时，衣裤口袋被掏空",
+      "C. 雨后荷叶上的水珠呈球形",
+      "D. 面值一角的硬币能浮于水面"
+    ],
+    "exp": "A、C、D 都是液体表面张力试图缩小表面积或托住轻物的表现；B 是水流旋转离心/伯努利压强差现象，与表面张力无关。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q3-2",
+    "ch": "3",
+    "date": "09-21",
+    "type": "多选",
+    "ans": "AB",
+    "mine": "AB",
+    "q": "下列关于表面张力的说法正确的是：（ ）",
+    "opts": [
+      "A. 表面张力是液面收缩的力",
+      "B. 表面张力的方向与液面相切，并垂直表面分界线",
+      "C. 表面张力的方向与液面垂直，指向液体内部",
+      "D. 表面张力就是液体内部的分子引力"
+    ],
+    "exp": "<strong>易错概念：</strong>表面张力方向永远<strong>沿着液面（与液面相切）</strong>且垂直于分界线，使液面收缩；指向液体内部的是“表面层分子所受的合力”，不是表面张力！选 <strong>AB</strong>。"
+  },
+  {
+    "id": "Q3-3",
+    "ch": "3",
+    "date": "09-21",
+    "type": "多选",
+    "ans": "AB",
+    "mine": "AB",
+    "q": "下列关于表面能的说法正确的是：（ ）",
+    "opts": [
+      "A. 它等于增加单位液体表面积，外力所做的功。",
+      "B. 它是单位液体表面层上的分子比表面层下的分子多出的分子势能。",
+      "C. 它是表面层分子的能量"
+    ],
+    "exp": "表面能不是表面层分子的“全部能量”，而是比内部分子<strong>多出来的分子势能</strong>，数值上等于等温增加单位表面积外界所做的功。选 <strong>AB</strong>。"
+  },
+  {
+    "id": "Q3-4",
+    "ch": "3",
+    "date": "09-21",
+    "type": "多选",
+    "ans": "ABC",
+    "mine": "ABC",
+    "q": "关于表面张力系数，下列说法正确的是：（ ）",
+    "opts": [
+      "A. 它等于单位长度分界线上表面张力的大小",
+      "B. 它等于增加单位液体表面积所增加的分子势能",
+      "C. 它与液体的性质、温度、相邻物质及杂质有关"
+    ],
+    "exp": "表面张力系数 $\\alpha = \\frac{f}{l} = \\frac{\\Delta E}{\\Delta S}$，温度越高 $\\alpha$ 越小，加入肥皂等表面活性剂也会显著降低 $\\alpha$。三项全对，选 <strong>ABC</strong>。"
+  },
+  {
+    "id": "Q3-5",
+    "ch": "3",
+    "date": "09-21",
+    "type": "多选",
+    "ans": "AC",
+    "mine": "未提交",
+    "q": "关于附加压强 $p_s$，下列说法正确的是：（ ）",
+    "opts": [
+      "A. 表面张力系数一定，$p_s$ 与曲率半径成反比",
+      "B. 液面内的压强总是比液面外大，$p_s>0$",
+      "C. 空气中肥皂泡内的压强大于大气压",
+      "D. 气泡越小，内部压强越大"
+    ],
+    "exp": "<strong>本题解析（按学习通标准答案 AC）：</strong>① A 对：$p_s = 2\\alpha/R \\propto 1/R$；② B 错：凹液面下方压强小于大气压（$p_s &lt; 0$）；③ C 对：肥皂泡内压比大气压大 $4\\alpha/R$；④ D 项老师未选是因为气泡若在不同水深 $h$ 处，总内部压强还取决于水深 $\\rho gh$（单说附加压强才是半径越小越大）。选 <strong>AC</strong>。"
+  },
+  {
+    "id": "Q3-6",
+    "ch": "3",
+    "date": "09-28",
+    "type": "多选",
+    "ans": "ACD",
+    "mine": "ACD",
+    "q": "关于毛细现象，下列说法正确的是：（ ）",
+    "opts": [
+      "A. 表面张力系数一定时，管半径 $r$ 越小，管内液面上升越高",
+      "B. 温度越高，液面上升高度越高",
+      "C. 加入表面非活性物质，液面上升高度增加",
+      "D. 液体越润湿管子，液面上升高度越高"
+    ],
+    "exp": "由 $h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}$：① $r$ 越小 $h$ 越大（A 对）；② 温度升高会使 $\\alpha$ <strong>减小</strong>，所以 $h$ 降低（B 错）；③ 非活性物质（如盐）使 $\\alpha$ 增大，$h$ 增加（C 对）；④ 越润湿 $\\theta$ 越小 $\\cos\\theta$ 越大，$h$ 越高（D 对）。选 <strong>ACD</strong>。"
+  },
+  {
+    "id": "Q3-7",
+    "ch": "3",
+    "date": "09-28",
+    "type": "单选",
+    "ans": "A",
+    "mine": "A",
+    "q": "从液体内部移动一个分子到液体表面，体系的势能（ ）",
+    "opts": [
+      "A. 增加",
+      "B. 减小",
+      "C. 不变",
+      "D. 无法确定"
+    ],
+    "exp": "表面层分子受到指向液体内部的分子引力，把分子从内部拉到表面必须<strong>克服引力做正功</strong>，所以势能<strong>增加</strong>。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q3-8",
+    "ch": "3",
+    "date": "09-28",
+    "type": "单选",
+    "ans": "D",
+    "mine": "D",
+    "q": "下列有关表面张力方向的说法中，错误的是（ ）",
+    "opts": [
+      "A. 沿着液体表面",
+      "B. 与液面相切",
+      "C. 垂直于周界线",
+      "D. 指向液体内部"
+    ],
+    "exp": "表面张力是沿液面相切的拉力，绝不是指向液体内部！选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q3-9",
+    "ch": "3",
+    "date": "09-28",
+    "type": "单选",
+    "ans": "A",
+    "mine": "A",
+    "q": "一半径为 $1\\text{ mm}$ 的小水滴，分裂成 8 个小水滴，表面能是增加还是减少？（ ）",
+    "opts": [
+      "A. 增加",
+      "B. 减少"
+    ],
+    "exp": "大水滴分裂成 8 个小水滴，总体积不变但<strong>总表面积翻倍增大</strong>（变成原来的 2 倍），因此表面能 $E = \\alpha S$ <strong>增加</strong>。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q3-10",
+    "ch": "3",
+    "date": "09-28",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "毛细管插入液体，下列哪种情况下，毛细管中的液面上升？（ ）",
+    "opts": [
+      "A. 液体不润湿毛细管内壁",
+      "B. 液体润湿毛细管内壁"
+    ],
+    "exp": "润湿时接触角 $\\theta &lt; 90^\\circ \\implies \\cos\\theta &gt; 0 \\implies h &gt; 0$（上升）；不润湿时 $\\cos\\theta &lt; 0$（下降）。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q4-1",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "B",
+    "mine": "未提交",
+    "q": "一质点作简谐振动，其振动方程为 $x = A\\cos(\\omega t + \\varphi)$，则在 $t = T/2$（$T$ 为振动周期）时，质点的速度为（ ）",
+    "opts": [
+      "A. $-A\\omega\\sin\\varphi$",
+      "B. $A\\omega\\sin\\varphi$",
+      "C. $-A\\omega\\cos\\varphi$",
+      "D. $A\\omega\\cos\\varphi$"
+    ],
+    "exp": "<strong>分步求导：</strong>$v(t) = \\frac{dx}{dt} = -A\\omega\\sin(\\omega t + \\varphi)$。当 $t = T/2$ 时，$\\omega t = \\frac{2\\pi}{T}\\cdot\\frac{T}{2} = \\pi$，代入得 $v = -A\\omega\\sin(\\pi + \\varphi) = -A\\omega(-\\sin\\varphi) = \\mathbf{A\\omega\\sin\\varphi}$。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q4-2",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "B",
+    "mine": "A",
+    "q": "一质点作简谐振动，其振动方程为 $x = A\\cos(\\omega t + \\pi/4)$，则在 $t = T/2$ 时，质点的加速度为（ ）",
+    "opts": [
+      "A. $-\\frac{\\sqrt{2}}{2}A\\omega^2$",
+      "B. $\\frac{\\sqrt{2}}{2}A\\omega^2$",
+      "C. $-\\frac{\\sqrt{3}}{2}A\\omega^2$",
+      "D. $\\frac{\\sqrt{3}}{2}A\\omega^2$"
+    ],
+    "exp": "<strong>⚠️ 课堂错题重点复盘：</strong>加速度公式 $a = -\\omega^2 x = -A\\omega^2\\cos(\\omega t + \\frac{\\pi}{4})$。在 $t=T/2$ 时 $\\omega t = \\pi$，而 $\\cos(\\pi + \\frac{\\pi}{4}) = -\\cos\\frac{\\pi}{4} = -\\frac{\\sqrt{2}}{2}$；前面还有一个<strong>负号</strong>，负负得正！所以 $a = -A\\omega^2(-\\frac{\\sqrt{2}}{2}) = \\mathbf{+\\frac{\\sqrt{2}}{2}A\\omega^2}$！选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q4-3",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "一质点作简谐振动，其振动方程为 $x = A\\cos(\\omega t + \\varphi)$，已知 $t=0, y=0, v_0 < 0$，求 $\\varphi$（ ）",
+    "opts": [
+      "A. $-\\pi/2$",
+      "B. $\\pi$",
+      "C. $\\pi/2$",
+      "D. $-\\pi$"
+    ],
+    "exp": "套口诀：$\\cos\\varphi = 0$，且 $v_0 &lt; 0$（向下选上半圆）$\\implies \\varphi = \\mathbf{+\\frac{\\pi}{2}}$。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q4-4",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "A",
+    "mine": "未提交",
+    "q": "两质点在同一个方向上作同振幅、同频率的简谐振动，在振动过程中，每当它们经过振幅一半的地方时，其运动方向都相反，则这两个振动的相位差为（ ）",
+    "opts": [
+      "A. $\\pi$",
+      "B. $\\pi/2$",
+      "C. $2\\pi/3$",
+      "D. $3\\pi/2$"
+    ],
+    "exp": "注意题干写“<strong>每当</strong>它们经过振幅一半（含 $+A/2$ 和 $-A/2$）的地方时，运动方向都相反”——旋转矢量法：如果两矢量夹角为 $\\pi$（反相），一个在 $+A/2$ 向上时另一个在 $-A/2$ 向下，反相振动对应 $\\Delta\\varphi = \\pi$。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q4-5",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "一质点以周期 $T$ 作简谐振动，则质点由平衡位置正向运动到最大位移一半处的最短时间为（ ）",
+    "opts": [
+      "A. $T/6$",
+      "B. $T/12$",
+      "C. $T/8$",
+      "D. $7T/12$"
+    ],
+    "exp": "<strong>旋转矢量秒杀：</strong>平衡位置正向运动对应角度 $-\\frac{\\pi}{2}$（最下方），最大位移一半 $+A/2$（正向）对应角度 $-\\frac{\\pi}{3}$。逆时针转过角度 $\\Delta\\varphi = -\\frac{\\pi}{3} - (-\\frac{\\pi}{2}) = \\frac{\\pi}{6}$。一整圈 $2\\pi$ 用时 $T$，所以 $\\frac{\\pi}{6}$ 用时 $\\frac{\\pi/6}{2\\pi}T = \\mathbf{\\frac{T}{12}}$！选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q4-6",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "C",
+    "mine": "B",
+    "q": "一质点作简谐振动，其振动方程为 $x = 5\\cos(2\\pi t + \\pi/2)$，它从计时开始，在运动一个周期后（ ）",
+    "opts": [
+      "A. 相位为零",
+      "B. 速度为零",
+      "C. 加速度为零",
+      "D. 振动能量为零"
+    ],
+    "exp": "<strong>⚠️ 课堂错题重点复盘：</strong>运动一个完整周期后，质点回到 $t=0$ 的状态！$t=0$ 时 $x = 5\\cos(\\frac{\\pi}{2}) = 0$（正处在<strong>平衡位置</strong>）。在平衡位置：<strong>速度最大（不是 0！）</strong>，而加速度 $a = -\\omega^2 x = \\mathbf{0}$！选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q4-7",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "A",
+    "mine": "A",
+    "q": "一弹簧振子作简谐振动，当位移为振幅的一半时，其动能为总能量的（ ）",
+    "opts": [
+      "A. $3/4$",
+      "B. $1/4$",
+      "C. $1/2$",
+      "D. $1/3$"
+    ],
+    "exp": "势能占比 $\\frac{E_p}{E} = \\frac{x^2}{A^2} = \\left(\\frac{1}{2}\\right)^2 = \\frac{1}{4}$，故动能占比 $\\frac{E_k}{E} = 1 - \\frac{1}{4} = \\mathbf{\\frac{3}{4}}$。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q4-8",
+    "ch": "4",
+    "date": "10-09",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "一弹簧振子作简谐振动，其振动方程为 $x = A\\cos(\\omega t + \\pi/2)$，则该物体在 $t=0$ 时刻的动能与 $t=T/8$ 时刻的动能之比为（ ）",
+    "opts": [
+      "A. $1:4$",
+      "B. $1:2$",
+      "C. $2:1$",
+      "D. $1:1$"
+    ],
+    "exp": "$t=0$ 时 $x=0$，动能最大 $E_{k1}=E$；$t=T/8$ 时 $\\omega t = \\frac{\\pi}{4}$，$x = A\\cos(\\frac{3\\pi}{4}) = -\\frac{\\sqrt{2}}{2}A$，势能占 $\\frac{1}{2}E$，动能 $E_{k2} = \\frac{1}{2}E$。故 $E_{k1}:E_{k2} = \\mathbf{2:1}$。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q4-9",
+    "ch": "4",
+    "date": "10-12",
+    "type": "单选",
+    "ans": "C",
+    "mine": "未提交",
+    "q": "有两个同方向同频率简谐振动分别为 $x_1 = A_1\\cos(\\omega t)$ 和 $x_2 = A_2\\sin(\\omega t)$，且 $A_2 < A_1$，则它们的合振动的振幅为（ ）",
+    "opts": [
+      "A. $A_1 + A_2$",
+      "B. $A_1 - A_2$",
+      "C. $(A_1^2 + A_2^2)^{1/2}$",
+      "D. $(A_1^2 - A_2^2)^{1/2}$"
+    ],
+    "exp": "$\\sin(\\omega t) = \\cos(\\omega t - \\frac{\\pi}{2})$，说明两旋转矢量互相<strong>垂直</strong>（夹角 $90^\\circ$），由勾股定理合振幅 $A = \\sqrt{A_1^2 + A_2^2}$。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q4-10",
+    "ch": "4",
+    "date": "10-12",
+    "type": "单选",
+    "ans": "C",
+    "mine": "未提交",
+    "q": "如果两个同方向同频率简谐振动分别为 $x_1 = 1.73\\cos(3t + 3\\pi/4)\\text{ cm}$ 和 $x_2 = \\cos(3t + \\pi/4)\\text{ cm}$，则它们的合振动方程为（ ）",
+    "opts": [
+      "A. $x = 0.73\\cos(3t + 3\\pi/4)\\text{ cm}$",
+      "B. $x = 0.73\\cos(3t + \\pi/4)\\text{ cm}$",
+      "C. $x = 2\\cos(3t + 7\\pi/12)\\text{ cm}$",
+      "D. $x = 2\\cos(3t + 5\\pi/12)\\text{ cm}$"
+    ],
+    "exp": "<strong>巧算：</strong>两初相差 $\\frac{3\\pi}{4} - \\frac{\\pi}{4} = \\frac{\\pi}{2}$（垂直！），$A_1 = 1.73 \\approx \\sqrt{3}$，$A_2 = 1$，由勾股定理合振幅 $A = \\sqrt{3 + 1} = 2$；合矢量偏离 $x_2$ 的角度为 $\\arctan(\\sqrt{3}/1) = 60^\\circ = \\frac{\\pi}{3}$，故合初相 $\\frac{\\pi}{4} + \\frac{\\pi}{3} = \\mathbf{\\frac{7\\pi}{12}}$。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q4-11",
+    "ch": "4",
+    "date": "10-12",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "一正弦波在海面上沿一定方向传播，波长为 $\\lambda$，振幅为 $A$，波的传播速率为 $u$，假设海面上漂浮的一块木块随水波上下运动，则木块上下运动的周期是（ ）",
+    "opts": [
+      "A. $\\lambda / (2\\pi u)$",
+      "B. $\\lambda / u$",
+      "C. $u / (2\\pi\\lambda)$",
+      "D. $1 / (u\\lambda)$"
+    ],
+    "exp": "由波速公式 $u = \\frac{\\lambda}{T}$ 直接移项得 $T = \\mathbf{\\frac{\\lambda}{u}}$。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q4-12",
+    "ch": "4",
+    "date": "10-16",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "当 $x$ 为某一定值时，波动方程 $y = A\\cos 2\\pi(t/T - x/\\lambda)$ 所反映的物理意义是（ ）",
+    "opts": [
+      "A. 表示某时刻的波形",
+      "B. 说明能量的传播",
+      "C. 表示 $x$ 处质点的振动规律",
+      "D. 表示各质点振动状态的分布"
+    ],
+    "exp": "固定位置 $x$，只看时间 $t$ 变化，就是盯着 $x$ 处这<strong>一个质点</strong>随时间的振动方程！反之固定 $t$ 看 $x$ 才是波形图。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q4-13",
+    "ch": "4",
+    "date": "10-16",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "一平面简谐波的波动方程 $y = -0.05\\sin\\pi(t - 2x)\\text{ m}$，则此波动的频率、波速以及各质点的振幅依次为（ ）",
+    "opts": [
+      "A. $1/2,\\ 1/2,\\ -0.05$",
+      "B. $1/2,\\ 1,\\ -0.05$",
+      "C. $1/2,\\ 1/2,\\ 0.05$",
+      "D. $2,\\ 2,\\ 0.05$"
+    ],
+    "exp": "<strong>防负号坑：</strong>① 振幅永远是<strong>正数</strong> $A = 0.05\\text{ m}$（排除 A、B）；② $\\omega = 2\\pi\\nu = \\pi \\implies \\nu = 1/2\\text{ Hz}$；③ 对比 $t - x/u$ 得 $\\frac{1}{u} = 2 \\implies u = 1/2\\text{ m/s}$。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q4-14",
+    "ch": "4",
+    "date": "10-16",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "若一平面简谐波的波动方程 $y = A\\cos(bt - cx)$，式中 $A, b, c$ 为正值恒量，则（ ）",
+    "opts": [
+      "A. 波速为 $c$",
+      "B. 周期为 $1/b$",
+      "C. 波长为 $2\\pi/c$",
+      "D. 角频率为 $2\\pi/b$"
+    ],
+    "exp": "对比标准式 $y = A\\cos\\left(\\omega t - \\frac{2\\pi}{\\lambda}x\\right)$：$\\omega = b$，$T = 2\\pi/b$，$\\frac{2\\pi}{\\lambda} = c \\implies \\mathbf{\\lambda = 2\\pi/c}$，波速 $u = b/c$。只有 <strong>C</strong> 对！"
+  },
+  {
+    "id": "Q4-15",
+    "ch": "4",
+    "date": "10-16",
+    "type": "单选",
+    "ans": "B",
+    "mine": "未提交",
+    "q": "一波源在 $xOy$ 坐标系中 $(3\\text{ m}, 0)$ 处，其振动方程是 $y = \\cos(120\\pi t)\\text{ cm}$，波速 $u = 50\\text{ m/s}$，则此波在 $x < 3$ 区域内的波动方程为（ ）",
+    "opts": [
+      "A. $y = \\cos 120\\pi(t + x/50)\\text{ cm}$",
+      "B. $y = \\cos[120\\pi(t + x/50) - 7.2\\pi]\\text{ cm}$",
+      "C. $y = \\cos 120\\pi(t - x/50)\\text{ cm}$"
+    ],
+    "exp": "波源在 $x_0 = 3$ 处，在 $x &lt; 3$ 区域内波向左传播，距离波源为 $(3 - x)$，滞后时间为 $\\frac{3-x}{50}$：$$y = \\cos\\left[120\\pi\\left(t - \\frac{3-x}{50}\\right)\\right] = \\cos\\left[120\\pi\\left(t + \\frac{x}{50}\\right) - \\frac{360\\pi}{50}\\right] = \\cos\\left[120\\pi\\left(t + \\frac{x}{50}\\right) - 7.2\\pi\\right]$$选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q5-1",
+    "ch": "5",
+    "date": "10-16",
+    "type": "单选",
+    "ans": "D",
+    "mine": "D",
+    "q": "下面关于电荷的描述哪个是错误的？（ ）",
+    "opts": [
+      "A. 孤立系统中电荷量是守恒的",
+      "B. 带电体的电量与其运动状态无关",
+      "C. 带电体的电量具有量子性",
+      "D. 电量的单位 C 是基础单位"
+    ],
+    "exp": "国际单位制（SI）7 个基本单位里电学的基本单位是<strong>电流安培（A）</strong>，电量库仑（$1\\text{ C}=1\\text{ A}\\cdot\\text{s}$）是<strong>导出单位</strong>！选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q5-2",
+    "ch": "5",
+    "date": "10-19",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "两个电量均为 $1\\text{ C}$ 的电荷相距 $1\\text{ m}$，它们之间的作用力是（ ）N",
+    "opts": [
+      "A. $9.0\\times 10^{10}$",
+      "B. $9.0\\times 10^9$",
+      "C. $9.0\\times 10^8$",
+      "D. $9.0\\times 10^7$"
+    ],
+    "exp": "库仑定律 $F = k\\frac{q_1 q_2}{r^2} = 9.0\\times 10^9\\times\\frac{1\\times 1}{1^2} = \\mathbf{9.0\\times 10^9\\text{ N}}$。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q5-3",
+    "ch": "5",
+    "date": "10-19",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "下面关于电场强度的描述哪个是错误的？（ ）",
+    "opts": [
+      "A. 电场强度是一个矢量点函数",
+      "B. 电场强度与试探电荷有关",
+      "C. 电场强度与场源电荷有关",
+      "D. 电场强度满足叠加原理"
+    ],
+    "exp": "电场强度 $E = F/q_0$ 是比值定义法，只由<strong>场源电荷</strong>和空间位置决定，与放入的试探电荷 $q_0$ 无关！选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q5-4",
+    "ch": "5",
+    "date": "10-23",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "现有一均匀带电的半圆环，很细，要求解它在其中心轴线上任一点的电场强度，我们应该（ ）",
+    "opts": [
+      "A. 将半圆环视为点电荷，直接写出其电场强度",
+      "B. 将半圆环分成无穷多个小段，取任意一段线元为微元"
+    ],
+    "exp": "连续带电体且不能视为点电荷时，必须采用<strong>微元分割 + 矢量叠加（积分）</strong>法。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q5-5",
+    "ch": "5",
+    "date": "10-23",
+    "type": "多选",
+    "ans": "ACD",
+    "mine": "ACD",
+    "q": "下面关于电场线的描述哪个是正确的？（ ）",
+    "opts": [
+      "A. 电场线有始有终",
+      "B. 电场线可以闭合",
+      "C. 电场线有连续性",
+      "D. 电场线不会相交"
+    ],
+    "exp": "静电场线起于正电荷、止于负电荷（有始有终、<strong>绝不闭合</strong>，B 错！磁感线才是闭合的），且不相交。选 <strong>ACD</strong>。"
+  },
+  {
+    "id": "Q5-6",
+    "ch": "5",
+    "date": "10-23",
+    "type": "单选",
+    "ans": "C",
+    "mine": "A",
+    "q": "真空中一沿 $x$ 轴方向的静电场 $\\vec{E} = bx\\vec{i}$（$b$ 为正常数），一边长为 $a$ 的立方形封闭面（左面在 $x=0$，右面在 $x=a$），则通过右侧表面 $S_2$ 的电通量为（ ）",
+    "opts": [
+      "A. $ba^2$",
+      "B. $0$",
+      "C. $ba^3$"
+    ],
+    "exp": "<strong>⚠️ 课堂错题重点复盘：</strong>右侧表面在 $x=a$ 处，当地场强 $E = ba$，右侧表面面积 $S = a^2$，两者相乘 $\\Phi = E\\cdot S = (ba)\\cdot a^2 = \\mathbf{ba^3}$！（别少乘一个 $a$！）选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q5-7",
+    "ch": "5",
+    "date": "10-23",
+    "type": "单选",
+    "ans": "D",
+    "mine": "D",
+    "q": "静电场中高斯面上各点的电场强度是由（ ）",
+    "opts": [
+      "A. 高斯面内的电荷决定的",
+      "B. 高斯面外的电荷决定的",
+      "C. 高斯面内电荷的代数和决定的",
+      "D. 空间所有电荷决定的"
+    ],
+    "exp": "<strong>期末高频必考概念：</strong>总<strong>电通量</strong>只由高斯面内的电荷决定，但高斯面上每一点的<strong>电场强度 $\\mathbf{E}$</strong> 是由<strong>空间所有电荷（面内 + 面外）</strong>共同决定的！选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q5-8",
+    "ch": "5",
+    "date": "10-23",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "高斯定理说明静电场是（ ）",
+    "opts": [
+      "A. 保守场",
+      "B. 非保守场",
+      "C. 有源场",
+      "D. 无源场"
+    ],
+    "exp": "记住两个对应关系：① <strong>高斯定理</strong> $\\oint \\mathbf{E}\\cdot d\\mathbf{S} = q_{\\text{内}}/\\varepsilon_0 \\implies$ 静电场是<strong>有源场</strong>（电荷就是源）；② <strong>环路定理</strong> $\\oint \\mathbf{E}\\cdot d\\mathbf{l} = 0 \\implies$ 静电场是<strong>保守场</strong>。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q5-9",
+    "ch": "5",
+    "date": "10-30",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "对于无限长带电直线，高斯面的形状应该选取为（ ）",
+    "opts": [
+      "A. 直线上任意一点为球心的球形",
+      "B. 以直线为中心线的圆柱体",
+      "C. 垂直于直线的圆柱体",
+      "D. 平行于直线的圆柱体"
+    ],
+    "exp": "无限长带电直线具有轴对称性，应选<strong>以带电直线为轴线（中心线）的同轴圆柱面</strong>。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q5-10",
+    "ch": "5",
+    "date": "10-30",
+    "type": "单选",
+    "ans": "D",
+    "mine": "未提交",
+    "q": "下列说法正确的是（ ）",
+    "opts": [
+      "A. 电场强度为零处，电势一定为零；电势为零处，电场强度一定为零",
+      "B. 电势较高处电场强度一定较大，电场强度较小处电势一定较低",
+      "C. 带正电的物体电势一定为正，带负电的物体电势一定为负",
+      "D. 处于静电平衡的导体上电势一定处处相等"
+    ],
+    "exp": "A 错（带电圆环圆心 $E=0$ 但 $U\\ne 0$）；B 错（$E$ 与 $U$ 大小无必然联系，只与电势变化率有关）；C 错（电势正负与零点选取有关）；D 对（静电平衡导体是等势体）。选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q5-11",
+    "ch": "5",
+    "date": "10-30",
+    "type": "单选",
+    "ans": "B",
+    "mine": "未提交",
+    "q": "静电场力做功仅与 $q_0$ 的始末位置有关，与路径无关，说明静电场是（ ）",
+    "opts": [
+      "A. 有源场",
+      "B. 保守场"
+    ],
+    "exp": "做功与路径无关、只与始末位置有关，这就是<strong>保守力场（保守场）</strong>的定义！选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q5-12",
+    "ch": "5",
+    "date": "10-30",
+    "type": "单选",
+    "ans": "A",
+    "mine": "未提交",
+    "q": "下列说法正确的是（ ）",
+    "opts": [
+      "A. 科学中场的概念首先由物理学家法拉第提出",
+      "B. 由电场强度的定义式 $E=F/q$ 可知，电场强度 $E$ 跟 $F$ 成正比，跟 $q$ 成反比",
+      "C. 元电荷的数值最早是由库仑测得的，另外他还利用库仑扭秤发现了库仑定律"
+    ],
+    "exp": "A 对（法拉第提出“场”和力线概念）；B 错（$E$ 与 $F, q$ 无关）；C 错（元电荷数值是<strong>密立根油滴实验</strong>测得的，不是库仑）。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q6-1",
+    "ch": "6",
+    "date": "11-02",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "以下说法正确的是（ ）",
+    "opts": [
+      "A. 由定义 $B=F/(qv\\sin\\theta)$ 知，电荷 $q$ 电量越小，$B$ 越大",
+      "B. 由定义 $B=F/(qv\\sin\\theta)$ 知，力 $F$ 越大，$B$ 越大",
+      "C. 磁场中某点处磁场方向是运动正电荷在该点所受最大的力与其速度的矢积的方向",
+      "D. 以上说法都不对"
+    ],
+    "exp": "A、B 错（$B$ 是磁场本身性质，与 $q, F$ 无关）；由 $\\vec{F}_{\\max} = q\\vec{v}\\times\\vec{B}$ 且 $\\vec{v}\\perp\\vec{B}$，用右手定则知 $\\vec{F}_{\\max}\\times\\vec{v}$ 的方向恰好与 $\\vec{B}$ 同向！选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q6-2",
+    "ch": "6",
+    "date": "11-02",
+    "type": "单选",
+    "ans": "B",
+    "mine": "未提交",
+    "q": "有一电荷 $q$ 在匀强磁场中运动，下列说法正确的是（ ）",
+    "opts": [
+      "A. 只要速度大小相同，所受的洛伦兹力就相同",
+      "B. 如果电荷 $q$ 改变为 $-q$，速度 $\\vec{v}$ 反向，那么受力的大小方向均不变",
+      "C. 在洛伦兹力的作用下，粒子的动能和动量均不变",
+      "D. 以上说法都不对"
+    ],
+    "exp": "A 错（还与速度方向有关）；B 对：$(-q)(-\\vec{v})\\times\\vec{B} = q\\vec{v}\\times\\vec{B}$，负负得正完全不变！C 错（洛伦兹力不做功，动能不变，但速度方向改变故<strong>动量改变</strong>）。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q6-3",
+    "ch": "6",
+    "date": "11-06",
+    "type": "单选",
+    "ans": "D",
+    "mine": "未提交",
+    "q": "有两个平面线圈 1 和 2，将它们放置于均匀磁场中，其半径 $R_1 = 2 R_2$，则通过线圈 1 和线圈 2 的最大磁通量之比等于（ ）",
+    "opts": [
+      "A. $1:2$",
+      "B. $2:1$",
+      "C. $1:3$",
+      "D. $4:1$"
+    ],
+    "exp": "最大磁通量 $\\Phi_{\\max} = B S = B \\pi R^2 \\propto R^2$。半径比 $2:1 \\implies$ 面积比（磁通量比）$= 2^2:1^2 = \\mathbf{4:1}$。选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q6-4",
+    "ch": "6",
+    "date": "11-06",
+    "type": "单选",
+    "ans": "D",
+    "mine": "C",
+    "q": "在一个平面内，有两条垂直交叉但相互绝缘的长直导线（分别沿坐标轴方向且电流相等），问哪个区域中有些点的磁感应强度可能为零？（ ）",
+    "opts": [
+      "A. 仅在象限 1",
+      "B. 仅在象限 2",
+      "C. 仅在象限 1、3",
+      "D. 仅在象限 2、4"
+    ],
+    "exp": "<strong>⚠️ 课堂错题重点复盘：</strong>磁场可能为零的区域，就是两根导线产生的磁场<strong>方向相反（一个向里、一个向外）</strong>的象限！对照原图电流方向用右手螺旋定则：水平导线和竖直导线在象限 2、4 产生的磁场方向相反（可抵消为 0），在象限 1、3 同向相加不可能为 0。选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q6-5",
+    "ch": "6",
+    "date": "11-06",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "无限长载流导线附近，封闭球面 $S$ 向导线靠近，则穿过球面的磁通量 $\\Phi$ 和球面上各点的磁感应强度 $B$ 的大小将（ ）",
+    "opts": [
+      "A. 不变、减小",
+      "B. 不变、增大",
+      "C. 变化、减小",
+      "D. 变化、增大"
+    ],
+    "exp": "<strong>磁场高斯定理：</strong>穿过任何<strong>封闭曲面</strong>的磁通量恒等于 $0$（永远不变！）；而靠近直导线后距离 $r$ 变小，由 $B=\\frac{\\mu_0 I}{2\\pi r}$ 知球面上各点 $B$ <strong>增大</strong>。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q6-6",
+    "ch": "6",
+    "date": "11-09",
+    "type": "单选",
+    "ans": "B",
+    "mine": "未提交",
+    "q": "无限长直导线在 $P$ 处弯成半径为 $R$ 的圆（向右长直导线在上方弯成顺时针圆环），通电流 $I$，则圆心 $O$ 处磁感应强度大小为（ ）",
+    "opts": [
+      "A. $\\frac{\\mu_0 I}{4R}$",
+      "B. $\\frac{\\mu_0 I}{2R}\\left(1 - \\frac{1}{\\pi}\\right)$",
+      "C. $0$",
+      "D. $\\frac{\\mu_0 I}{2\\pi R}$"
+    ],
+    "exp": "<strong>分段叠加经典题：</strong>拆成“整根无限长直导线”+“完整圆环”。直导线在 $O$ 点产生 $B_1 = \\frac{\\mu_0 I}{2\\pi R}$（垂直纸面向外），顺时针圆环产生 $B_2 = \\frac{\\mu_0 I}{2R}$（垂直纸面向里）。方向相反相减：$B = B_2 - B_1 = \\frac{\\mu_0 I}{2R} - \\frac{\\mu_0 I}{2\\pi R} = \\mathbf{\\frac{\\mu_0 I}{2R}\\left(1 - \\frac{1}{\\pi}\\right)}$。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q6-7",
+    "ch": "6",
+    "date": "11-09",
+    "type": "单选",
+    "ans": "A",
+    "mine": "未提交",
+    "q": "逆时针闭合回路 $L$ 内有 $I_1$ 向上（出纸面）、$I_2$ 向下、$I_3$ 向下；回路外有 $I_4$ 向下、$I_5$ 向上，则 $\\oint_L \\vec{B}\\cdot d\\vec{l}$ 等于（ ）",
+    "opts": [
+      "A. $\\mu_0(I_1 - I_2 - I_3)$",
+      "B. $\\mu_0(I_2 - I_1 - I_3)$",
+      "C. $\\mu_0(I_2 - I_1 + I_3)$"
+    ],
+    "exp": "<strong>安培环路定理：</strong>只算回路<strong>内部</strong>的电流（外面的 $I_4, I_5$ 一概不算！）。右手四指沿逆时针回路绕行，大拇指指向出纸面（向上）为正，所以 $I_1$ 取正，$I_2, I_3$ 取负，得 $\\mathbf{\\mu_0(I_1 - I_2 - I_3)}$。选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q6-8",
+    "ch": "6",
+    "date": "11-09",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "在磁场空间分别取两个闭合回路，若两个回路各自包围载流导线的条数不同，但电流的代数和相同，则由安培环路定理可知（ ）",
+    "opts": [
+      "A. $\\vec{B}$ 沿闭合回路的线积分不同，回路上各点的磁场分布相同",
+      "B. $\\vec{B}$ 沿闭合回路的线积分相同，回路上各点的磁场分布相同",
+      "C. $\\vec{B}$ 沿闭合回路的线积分相同，回路上各点的磁场分布不同",
+      "D. $\\vec{B}$ 沿闭合回路的线积分不同，回路上各点的磁场分布不同"
+    ],
+    "exp": "线积分 $\\oint \\vec{B}\\cdot d\\vec{l} = \\mu_0 \\sum I_{\\text{内}}$ 只看内部电流代数和，所以<strong>线积分相同</strong>；但回路上各点的磁场 $\\vec{B}$ 是由空间所有电流位置共同决定的，所以<strong>磁场分布不同</strong>。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q6-9",
+    "ch": "6",
+    "date": "11-09",
+    "type": "多选",
+    "ans": "BD",
+    "mine": "BD",
+    "q": "关于洛伦兹力，下列说法正确的是（ ）",
+    "opts": [
+      "A. 改变带电粒子的速率",
+      "B. 改变带电粒子的动量",
+      "C. 增加带电粒子的动能",
+      "D. 对带电粒子不做功"
+    ],
+    "exp": "洛伦兹力永远垂直于速度 $\\vec{v}$，所以<strong>永远不做功</strong>（D 对），不改变速率和动能（A、C 错），但改变速度方向，故改变矢量<strong>动量</strong>（B 对）。选 <strong>BD</strong>。"
+  },
+  {
+    "id": "Q6-10",
+    "ch": "6",
+    "date": "11-09",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "两个带电粒子以相同的速率进入匀强磁场，它们的质量之比为 $2:3$，所带电荷之比为 $4:1$，则它们的回旋半径比为（ ）",
+    "opts": [
+      "A. $8:3$",
+      "B. $1:6$",
+      "C. $1:4$",
+      "D. $3:2$"
+    ],
+    "exp": "回旋半径 $R = \\frac{mv}{qB} \\propto \\frac{m}{q}$，所以 $\\frac{R_1}{R_2} = \\frac{m_1/q_1}{m_2/q_2} = \\frac{2/4}{3/1} = \\frac{1/2}{3} = \\mathbf{1:6}$。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q6-11",
+    "ch": "6",
+    "date": "11-13",
+    "type": "多选",
+    "ans": "AC",
+    "mine": "未提交",
+    "q": "关于安培力，下列说法正确的是（ ）",
+    "opts": [
+      "A. 安培力可对导线做功",
+      "B. 由于洛伦兹力不做功，所以安培力也不做功",
+      "C. 平行放置的两根直导线，电流方向相同时相互吸引，电流相反时相互排斥",
+      "D. 平行放置的两根直导线，电流方向相同时相互排斥，电流相反时相互吸引"
+    ],
+    "exp": "洛伦兹力总功为 0，但安培力作为宏观力<strong>可以对通电导线做功</strong>（比如电动机转动，A 对 B 错）；平行电流“同向相吸、反向相斥”（C 对 D 错）。选 <strong>AC</strong>。"
+  },
+  {
+    "id": "Q6-12",
+    "ch": "6",
+    "date": "11-13",
+    "type": "单选",
+    "ans": "A",
+    "mine": "未提交",
+    "q": "一长直电流 $I_1$ 与圆形电流 $I_2$ 共面，并与其一直径重合（两者绝缘），设长直电流固定不动，则圆形电流将（ ）",
+    "opts": [
+      "A. 向右运动",
+      "B. 向左运动",
+      "C. 不动",
+      "D. 绕直导线转动"
+    ],
+    "exp": "利用“同向相吸、反向相斥”：直导线一侧的半圆电流与 $I_1$ 同向被拉向直导线，另一侧半圆电流与 $I_1$ 反向被推离直导线——两侧合力方向<strong>一致向右</strong>，因此圆环向右平移！选 <strong>A</strong>。"
+  },
+  {
+    "id": "Q7-1",
+    "ch": "7",
+    "date": "11-20",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "一导体圆线圈在均匀磁场中运动，能使其中产生感应电流的一种情况是（ ）",
+    "opts": [
+      "A. 线圈绕自身直径轴转动，轴与磁场方向平行",
+      "B. 线圈绕自身直径轴转动，轴与磁场方向垂直",
+      "C. 线圈平面垂直于磁场并沿垂直磁场方向平移",
+      "D. 线圈平面平行于磁场并沿垂直磁场方向平移"
+    ],
+    "exp": "产生感应电流的唯一条件是<strong>磁通量 $\\Phi = BS\\cos\\theta$ 发生变化</strong>！A、C、D 过程中 $\\Phi$ 始终不变；只有 B 中转轴垂直磁场，转动时夹角 $\\theta$ 不断变化，$\\Phi$ 变化产生感应电流。选 <strong>B</strong>。"
+  },
+  {
+    "id": "Q7-2",
+    "ch": "7",
+    "date": "11-20",
+    "type": "单选",
+    "ans": "B",
+    "mine": "D",
+    "q": "通过导体线圈的磁感线减少了，则线圈内感应电动势的方向为：（ ）（注：原题默认垂直纸面向外的磁感线减少，且选项 C 原图为空白）",
+    "opts": [
+      "A. 顺时针",
+      "B. 逆时针",
+      "C. （原图空白）",
+      "D. 无法判断"
+    ],
+    "exp": "<strong>⚠️ 课堂错题说明：</strong>严格来说没给原磁场方向确实无法判断，但本题原题配图设定为向外的磁感线减少（增反减同 $\\Rightarrow$ 感应磁场也向外 $\\Rightarrow$ 逆时针），学习通系统标准答案为 <strong>B</strong>，考试遇到有配图的题一定要先看清原磁场是 $\\otimes$（向里）还是 $\\odot$（向外）！"
+  },
+  {
+    "id": "Q7-3",
+    "ch": "7",
+    "date": "11-20",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "在无限长载流直导线旁，放置一圆形导体线框且共面。下列情况中线框会产生感应电动势的是：（ ）",
+    "opts": [
+      "A. 线框与直导线相对静止",
+      "B. 线框的速度 $v$ 沿纸面向上运动（平行直导线）",
+      "C. 直导线的电流增大，线框与直导线相对静止",
+      "D. 线框绕过圆心 $O$ 且垂直纸面的轴转动"
+    ],
+    "exp": "A、B、D 中线框距直导线的距离分布都没变，穿过线框的磁通量 $\\Phi$ 不变；只有 C 中直导线电流增大，磁场变强导致 $\\Phi$ 增大，从而产生感应电动势！选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q7-4",
+    "ch": "7",
+    "date": "11-20",
+    "type": "单选",
+    "ans": "C",
+    "mine": "A",
+    "q": "一个圆形线环，一半放在方形区域的匀强磁场中（磁场 $\\vec{B}$ 垂直指向纸内），另一半在磁场外。欲使圆线环中产生逆时针方向的感应电流，应使（ ）",
+    "opts": [
+      "A. 线环向右平移",
+      "B. 线环向上平移",
+      "C. 线环向左平移",
+      "D. 磁场强度减弱"
+    ],
+    "exp": "<strong>⚠️ 课堂错题重点复盘：</strong>要产生<strong>逆时针</strong>感应电流 $\\implies$ 感应磁场指向<strong>纸外</strong>（与原向里磁场<strong>相反</strong>）$\\implies$ 由“增反减同”说明<strong>原向里磁通量必须增大</strong>！结合原图（磁场在左侧），只有将线环<strong>向左平移</strong>进入磁场，才能使磁通量增大。选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q7-5",
+    "ch": "7",
+    "date": "11-20",
+    "type": "单选",
+    "ans": "D",
+    "mine": "B",
+    "q": "长度为 $l$ 的直导线 $ab$ 在均匀磁场中以速度 $v$ 在纸面内移动（图中磁场 $\\vec{B}$ 也在纸面内，与速度、导线共面），直导线 $ab$ 中的电动势为（ ）",
+    "opts": [
+      "A. $Blv$",
+      "B. $Blv\\sin\\alpha$",
+      "C. $Blv\\cos\\alpha$",
+      "D. $0$"
+    ],
+    "exp": "<strong>⚠️ 课堂错题重点复盘：</strong>记住动生电动势的几何意义——$\\mathcal{E} = (\\vec{v}\\times\\vec{B})\\cdot\\vec{l}$！只要 $\\vec{v}、\\vec{B}、\\vec{l}$ 三个矢量<strong>共面</strong>（都在纸面内），$\\vec{v}\\times\\vec{B}$ 垂直于纸面，和纸面内的导线 $\\vec{l}$ 垂直，点乘必为 <strong>$0$</strong>（根本没有切割磁感线）！选 <strong>D</strong>。"
+  },
+  {
+    "id": "Q7-6",
+    "ch": "7",
+    "date": "11-20",
+    "type": "单选",
+    "ans": "C",
+    "mine": "C",
+    "q": "激发涡旋电场的场源是（ ）",
+    "opts": [
+      "A. 静止电荷",
+      "B. 运动电荷",
+      "C. 变化的磁场",
+      "D. 电流"
+    ],
+    "exp": "<strong>麦克斯韦核心概念：</strong>静止电荷激发静电场（保守场）；<strong>变化的磁场</strong>激发<strong>涡旋电场（感生电场，非保守场）</strong>！选 <strong>C</strong>。"
+  },
+  {
+    "id": "Q7-7",
+    "ch": "7",
+    "date": "11-20",
+    "type": "单选",
+    "ans": "B",
+    "mine": "B",
+    "q": "一载流螺线管的旁边有一圆形线圈，欲使线圈产生图示方向的感应电流 $i$（其感应磁场与螺线管磁场同向），下列哪一种情况可以做到？（ ）",
+    "opts": [
+      "A. 载流螺线管向线圈靠近",
+      "B. 载流螺线管离开线圈",
+      "C. 载流螺线管中电流增大"
+    ],
+    "exp": "感应磁场与原磁场<strong>同向</strong> $\\implies$ 由“增反减同”说明穿过线圈的原磁通量正在<strong>减少</strong>，只有将螺线管<strong>离开线圈</strong>才能使磁通量减少。选 <strong>B</strong>。"
+  }
+];
+    const STORE_KEY = 'u_physics_quiz_state_v1';
+    let qState = JSON.parse(localStorage.getItem(STORE_KEY) || '{"answers":{},"starred":{},"multiTemp":{}}');
+    let dark = JSON.parse(localStorage.getItem('u_physics_review_state_v1') || '{"dark":false}').dark;
+    let modeFilter = 'all';
+    let chFilter = 'all';
+    let revealAll = false;
+
+    function save() {
+      localStorage.setItem(STORE_KEY, JSON.stringify(qState));
+      updateStats();
+    }
+
+    function isClassWrong(q) {
+      return q.mine !== '未提交' && q.mine !== q.ans;
+    }
+
+    function updateStats() {
+      const answered = QUIZZES.filter(q => qState.answers[q.id]).length;
+      const right = QUIZZES.filter(q => qState.answers[q.id] === q.ans).length;
+      const pct = Math.round((right / QUIZZES.length) * 100);
+      document.getElementById('progText').textContent = `已答 ${answered} / ${QUIZZES.length} · 答对 ${right} 题 (${pct}%)`;
+      document.getElementById('progFill').style.width = `${pct}%`;
+    }
+
+    function renderMath(el) {
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function render() {
+      const list = QUIZZES.filter(q => {
+        if (chFilter !== 'all' && q.ch !== chFilter) return false;
+        if (modeFilter === 'class_wrong') return isClassWrong(q);
+        if (modeFilter === 'class_unsub') return q.mine === '未提交';
+        if (modeFilter === 'starred') return !!qState.starred[q.id];
+        if (modeFilter === 'unanswered') return !qState.answers[q.id];
+        return true;
+      });
+      document.getElementById('countInfo').textContent = `当前显示：${list.length} 题`;
+      const box = document.getElementById('quizList');
+      if (!list.length) {
+        box.innerHTML = '<div class="q-card" style="text-align:center;color:var(--muted);">当前筛选下暂无题目 🎉</div>';
+        return;
+      }
+
+      box.innerHTML = list.map((q, idx) => {
+        const userAns = qState.answers[q.id] || '';
+        const submitted = !!userAns;
+        const isRight = submitted && userAns === q.ans;
+        const showExp = submitted || revealAll;
+        const multiSel = qState.multiTemp[q.id] || [];
+        const cw = isClassWrong(q);
+        const star = !!qState.starred[q.id];
+
+        const optHtml = q.opts.map((opt, oi) => {
+          const letter = String.fromCharCode(65 + oi);
+          let cls = 'opt-btn';
+          if (showExp) {
+            if (q.ans.includes(letter)) cls += ' is-right';
+            else if (userAns.includes(letter)) cls += ' is-wrong';
+          } else if (q.type === '多选' && multiSel.includes(letter)) {
+            cls += ' selected';
+          }
+          const fn = q.type === '单选'
+            ? `pickSingle('${q.id}','${letter}')`
+            : `toggleMulti('${q.id}','${letter}')`;
+          return `<button class="${cls}" onclick="${fn}">${opt}</button>`;
+        }).join('');
+
+        return `
+          <div class="q-card ${submitted ? (isRight ? 'correct' : 'wrong') : ''}">
+            <div class="q-head">
+              <span class="q-num">#${idx + 1} · 第 ${q.ch} 章（${q.date} 随堂练习）</span>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="badge">${q.type}题</span>
+                ${cw ? `<span class="badge badge-danger">课堂曾错(选${q.mine})</span>` : ''}
+                ${q.mine === '未提交' ? '<span class="badge badge-warn">课堂未交</span>' : ''}
+                ${submitted ? (isRight ? '<span class="badge badge-success">✅ 答对</span>' : `<span class="badge badge-danger">❌ 选了 ${userAns}</span>`) : ''}
+              </div>
+            </div>
+            <div class="q-stem">${q.q}</div>
+            <div class="opts">${optHtml}</div>
+            <div class="q-actions">
+              ${q.type === '多选' && !submitted ? `<button class="btn btn-primary" onclick="submitMulti('${q.id}')">✅ 确认多选答案</button>` : ''}
+              <button class="btn" onclick="document.getElementById('exp-${q.id}').classList.toggle('open')">📖 展开/收起答案与解析</button>
+              <button class="btn ${star ? 'btn-warn' : ''}" onclick="toggleStar('${q.id}')">${star ? '⭐ 已在错题本' : '☆ 加入错题本'}</button>
+            </div>
+            <div class="q-exp ${showExp ? 'open' : ''}" id="exp-${q.id}">
+              <strong>🎯 正确答案：${q.ans}</strong>（课堂记录：${q.mine}）<br/>
+              ${q.exp}
+            </div>
+          </div>`;
+      }).join('');
+      renderMath(box);
+    }
+
+    window.pickSingle = (id, letter) => {
+      qState.answers[id] = letter;
+      save(); render();
+    };
+    window.toggleMulti = (id, letter) => {
+      if (qState.answers[id]) return;
+      const arr = qState.multiTemp[id] || [];
+      const i = arr.indexOf(letter);
+      if (i >= 0) arr.splice(i, 1); else arr.push(letter);
+      arr.sort();
+      qState.multiTemp[id] = arr;
+      render();
+    };
+    window.submitMulti = (id) => {
+      const arr = qState.multiTemp[id] || [];
+      if (!arr.length) return;
+      qState.answers[id] = arr.join('');
+      save(); render();
+    };
+    window.toggleStar = (id) => {
+      qState.starred[id] = !qState.starred[id];
+      save(); render();
+    };
+
+    document.querySelectorAll('#modeFilters .chip').forEach(c => c.addEventListener('click', () => {
+      document.querySelectorAll('#modeFilters .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active'); modeFilter = c.dataset.mode; render();
+    }));
+    document.querySelectorAll('#chFilters .chip').forEach(c => c.addEventListener('click', () => {
+      document.querySelectorAll('#chFilters .chip').forEach(x => x.classList.remove('active'));
+      c.classList.add('active'); chFilter = c.dataset.ch; render();
+    }));
+    document.getElementById('revealAllBtn').addEventListener('click', (e) => {
+      revealAll = !revealAll;
+      e.target.textContent = revealAll ? '🙈 一键隐藏答案与解析' : '👁️ 一键显示全部答案与解析';
+      render();
+    });
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      if (confirm('确定清空本次在网页上的刷题作答记录吗？（错题本会保留）')) {
+        qState.answers = {}; qState.multiTemp = {}; save(); render();
+      }
+    });
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      dark = !dark;
+      document.body.classList.toggle('dark', dark);
+      document.getElementById('themeBtn').textContent = dark ? '☀️ 日间模式' : '🌙 夜间模式';
+      const mainState = JSON.parse(localStorage.getItem('u_physics_review_state_v1') || '{}');
+      mainState.dark = dark;
+      localStorage.setItem('u_physics_review_state_v1', JSON.stringify(mainState));
+    });
+
+    window.addEventListener('load', () => {
+      if (dark) {
+        document.body.classList.add('dark');
+        document.getElementById('themeBtn').textContent = '☀️ 日间模式';
+      }
+      updateStats();
+      render();
+    });
+  </script>
+</body>
+</html>
