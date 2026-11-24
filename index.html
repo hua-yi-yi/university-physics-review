@@ -576,6 +576,55 @@
     .fc-sub { font-size: 13.5px; color: var(--muted); margin-top: 10px; }
     .fc-controls { display: flex; justify-content: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
 
+    
+    .sym-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .sym-item {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 7px 10px;
+      font-size: 12.5px;
+    }
+    .sym-item strong { color: var(--primary); font-size: 14px; }
+    .formula-detail {
+      margin-top: 6px;
+      padding: 8px 10px;
+      background: var(--surface-2);
+      border-radius: 6px;
+      border-left: 3px solid var(--primary);
+      font-size: 12.5px;
+      line-height: 1.55;
+    }
+    .formula-detail .ex-line {
+      margin-top: 4px;
+      color: var(--success);
+      font-weight: 600;
+    }
+    .fc-detail {
+      width: 100%;
+      text-align: left;
+      margin-top: 14px;
+      padding: 12px 14px;
+      background: var(--surface-2);
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+    .fc-detail .fc-row { margin-bottom: 6px; }
+    .fc-detail .fc-row:last-child { margin-bottom: 0; }
+    .fc-detail .fc-lbl {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--primary);
+      margin-right: 4px;
+    }
+
     @media print {
       header, .filter-bar, .p-actions, .progress-strip { display: none !important; }
       .p-sol { display: block !important; }
@@ -644,6 +693,30 @@
         <div class="roadmap-list" id="roadmapList"></div>
       </div>
 
+      <div class="card">
+        <div class="card-header">
+          <h3>🔤 零基础必看：全书高频符号字典（先认字母，再背公式！）</h3>
+          <span class="badge badge-success">再也不怕看不懂希腊字母</span>
+        </div>
+        <div class="sym-grid">
+          <div class="sym-item"><strong>$\rho$（读 rōu）</strong><br/>密度（水 $1000\text{ kg/m}^3$）</div>
+          <div class="sym-item"><strong>$p$ / $\Delta p$</strong><br/>压强 / 压强差（单位 $\text{Pa}$）</div>
+          <div class="sym-item"><strong>$S$ / $Q$</strong><br/>截面积（$\text{m}^2$）/ 流量（$\text{m}^3/\text{s}$）</div>
+          <div class="sym-item"><strong>$\alpha$（阿尔法）</strong><br/>表面张力系数（$\text{N/m}$）</div>
+          <div class="sym-item"><strong>$\theta$（西塔）</strong><br/>接触角或圆心角（角度/弧度）</div>
+          <div class="sym-item"><strong>$A$ / $T$ / $\nu$</strong><br/>振幅 / 周期($\text{s}$) / 频率($\text{Hz}$)</div>
+          <div class="sym-item"><strong>$\omega$（欧米伽）</strong><br/>角频率（$\omega=2\pi/T$，$\text{rad/s}$）</div>
+          <div class="sym-item"><strong>$\varphi_0$（fai）</strong><br/>初相（$t=0$ 时的初始角度）</div>
+          <div class="sym-item"><strong>$\lambda$（拉姆达）</strong><br/>第4章=波长；第5章=电荷线密度</div>
+          <div class="sym-item"><strong>$\sigma$（西格玛）</strong><br/>电荷面密度（$\text{C/m}^2$）</div>
+          <div class="sym-item"><strong>$E$ / $U$</strong><br/>电场强度（$\text{N/C}$）/ 电势（$\text{V}$）</div>
+          <div class="sym-item"><strong>$\varepsilon_0$（艾普西隆）</strong><br/>真空介电常数（$8.85\times 10^{-12}$）</div>
+          <div class="sym-item"><strong>$B$ / $\mu_0$</strong><br/>磁感应强度($\text{T}$) / 磁导率($4\pi\times 10^{-7}$)</div>
+          <div class="sym-item"><strong>$\Phi$（大 fai）</strong><br/>通量（电通量或磁通量 $\text{Wb}$）</div>
+          <div class="sym-item"><strong>$\mathcal{E}$</strong><br/>感应电动势（相当于电压，单位 $\text{V}$）</div>
+        </div>
+      </div>
+
       <div class="grid-2">
         <div class="card">
           <div class="card-header">
@@ -652,10 +725,34 @@
           </div>
           <div class="intuition-box"><strong>人话直觉：</strong>管子越细流速越快（挤得快），流速越快压强越小（顾不上压管壁）。</div>
           <table>
-            <tr><th>公式</th><th>表达式</th></tr>
-            <tr><td>连续性方程</td><td>$S_1 v_1 = S_2 v_2 = Q$</td></tr>
-            <tr><td>伯努利方程</td><td>$p + \frac{1}{2}\rho v^2 + \rho g h = \text{常量}$</td></tr>
-            <tr><td>托里拆利公式</td><td>$v = \sqrt{2gh}$，$Q = Sv$</td></tr>
+            <tr><th style="width:26%">公式</th><th>表达式 · 符号含义 · 数值实例</th></tr>
+            <tr>
+              <td><strong>连续性方程</strong></td>
+              <td>$S_1 v_1 = S_2 v_2 = Q$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$S$=截面积($\text{m}^2$)，$v$=流速($\text{m/s}$)，$Q$=每秒流过的水体积($\text{m}^3/\text{s}$)。
+                  <div class="ex-line">📌 实例：粗管面积是细管 3 倍，粗管流速 $2\text{ m/s}$ $\Rightarrow$ 细管流速 $v_2 = 3\times 2 = 6\text{ m/s}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>伯努利方程</strong></td>
+              <td>$p + \frac{1}{2}\rho v^2 + \rho g h = \text{常量}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$p$=压强($\text{Pa}$)，$\rho$=密度($1000$)，$v$=流速，$g=9.8$，$h$=高度($\text{m}$)。水平管 $h$ 相同直接消去 $\rho gh$。
+                  <div class="ex-line">📌 实例：水平管粗处 $v=2$、细处 $v=6$ $\Rightarrow$ 细处压强比粗处低 $\frac{1}{2}\times 1000\times(6^2-2^2)=16000\text{ Pa}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>托里拆利公式</strong></td>
+              <td>$v = \sqrt{2gh}$，$Q = Sv$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$h$=小孔到水面的垂直深度($\text{m}$)，$v$=小孔喷出速度($\text{m/s}$)。
+                  <div class="ex-line">📌 实例：水面下 $0.2\text{ m}$ 开小孔 $\Rightarrow$ 出流速度 $v=\sqrt{2\times 9.8\times 0.2}\approx 1.98\text{ m/s}$。</div>
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
 
@@ -666,10 +763,34 @@
           </div>
           <div class="intuition-box"><strong>人话直觉：</strong>液面像绷紧的橡皮膜总想缩小；弯曲液面永远向<strong>凹</strong>的一侧多施压。</div>
           <table>
-            <tr><th>公式</th><th>表达式与避坑</th></tr>
-            <tr><td>表面能做功</td><td>$W = \alpha \Delta S$（<strong>肥皂泡 2 个面</strong>：$8\pi\alpha r^2$）</td></tr>
-            <tr><td>球面附加压强</td><td>液滴 $\frac{2\alpha}{r}$；肥皂泡 $\frac{4\alpha}{r}$</td></tr>
-            <tr><td>毛细管高度</td><td>$h = \frac{2\alpha\cos\theta}{\rho g r}$（注意直径 $d/2=r$）</td></tr>
+            <tr><th style="width:26%">公式</th><th>表达式 · 符号含义 · 数值实例</th></tr>
+            <tr>
+              <td><strong>表面能做功</strong></td>
+              <td>$W = \alpha \Delta S$（肥皂泡 $W = 8\pi\alpha r^2$）
+                <div class="formula-detail">
+                  <strong>符号</strong>：$W$=做的功($\text{J}$)，$\alpha$=表面张力系数($\text{N/m}$)，$\Delta S$=表面积变化量，$r$=球半径($\text{m}$)。<strong>肥皂泡有内外2个面</strong>！
+                  <div class="ex-line">📌 实例：吹半径 $0.05\text{ m}$ 肥皂泡($\alpha=0.04$) $\Rightarrow$ $W=8\pi\times 0.04\times 0.05^2\approx 2.51\times 10^{-3}\text{ J}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>球面附加压强</strong></td>
+              <td>液滴/气泡 $\Delta p = \frac{2\alpha}{r}$；肥皂泡 $\Delta p = \frac{4\alpha}{r}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$\Delta p$=球内比球外多出来的压强($\text{Pa}$)，$r$=半径($\text{m}$)。
+                  <div class="ex-line">📌 实例：半径 $0.05\text{ m}$ 肥皂泡($\alpha=0.04$) $\Rightarrow$ 内外压差 $\Delta p=\frac{4\times 0.04}{0.05}=3.2\text{ Pa}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>毛细管高度</strong></td>
+              <td>$h = \frac{2\alpha\cos\theta}{\rho g r}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$h$=液面上升(正)或下降(负)高度，$\theta$=接触角(水完全润湿 $\theta=0^\circ,\cos\theta=1$；水银不润湿 $\theta=180^\circ,\cos\theta=-1$)，$r$=管内<strong>半径</strong>。
+                  <div class="ex-line">📌 实例：半径 $0.5\text{ mm}$ 玻璃管插水中 $\Rightarrow$ $h=\frac{2\times 0.073\times 1}{1000\times 9.8\times 0.0005}\approx 0.03\text{ m}=3\text{ cm}$。</div>
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
 
@@ -680,10 +801,34 @@
           </div>
           <div class="intuition-box"><strong>人话直觉：</strong>振动是一个点原地晃；波动是前面的点带着后面的点依次延时晃。</div>
           <table>
-            <tr><th>考点</th><th>公式与口诀</th></tr>
-            <tr><td>简谐振动</td><td>$y = A\cos(\omega t + \varphi_0)$；$v_0 &gt; 0$ 选下半圆，$v_0 &lt; 0$ 选上半圆</td></tr>
-            <tr><td>平面简谐波</td><td>$y(x,t) = A\cos[\omega(t \mp x/u) + \varphi_0]$；向右传：<strong>上坡下、下坡上</strong></td></tr>
-            <tr><td>干涉相消</td><td>$\Delta r = (2k+1)\frac{\lambda}{2}$，最小消音差 $\Delta l_{\min} = \frac{\lambda}{2}$</td></tr>
+            <tr><th style="width:26%">公式</th><th>表达式 · 符号含义 · 数值实例</th></tr>
+            <tr>
+              <td><strong>简谐振动方程</strong></td>
+              <td>$y = A\cos(\omega t + \varphi_0)$，$\omega = \frac{2\pi}{T} = 2\pi\nu$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$y$=某时刻偏离平衡位置的位移，$A$=最大振幅，$\omega$=角频率(每秒转多少弧度)，$t$=时间，$\varphi_0$=初相($t=0$时位置)。
+                  <div class="ex-line">📌 实例：振幅 $6\text{ m}$、周期 $2\text{ s}$($\omega=\pi$)、初相 $\frac{2\pi}{3}$ $\Rightarrow$ $y=6\cos(\pi t+\frac{2\pi}{3})\text{ m}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>平面简谐波</strong></td>
+              <td>$y(x,t) = A\cos\left[\omega\left(t \mp \frac{x}{u}\right) + \varphi_0\right]$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$x$=质点位置，$u$=波速($u=\lambda\nu$)。波沿 $+x$ 向右传用“$-$”(右侧点比原点晚动 $x/u$ 秒)，向左传用“$+$”。
+                  <div class="ex-line">📌 实例：原点 $y_0=0.05\cos(200\pi t-\frac{\pi}{2})$，向右波速 $400\text{ m/s}$ $\Rightarrow$ 把 $t$ 换成 $t-\frac{x}{400}$ 即可！</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>干涉相消条件</strong></td>
+              <td>$\Delta r = (2k+1)\frac{\lambda}{2}$，$\lambda = \frac{u}{\nu}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$\Delta r$=两路波走的路程差，$\lambda$=波长($\text{m}$)，$k=0,1,2\dots$。最小消音差取 $k=0$ 即半波长 $\frac{\lambda}{2}$。
+                  <div class="ex-line">📌 实例：消除 $300\text{ Hz}$ 噪声(声速 $340\text{ m/s}$) $\Rightarrow$ $\lambda=\frac{340}{300}$，最小差 $\frac{\lambda}{2}=\frac{17}{30}\approx 0.567\text{ m}$。</div>
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
 
@@ -694,10 +839,34 @@
           </div>
           <div class="intuition-box"><strong>人话直觉：</strong>球/柱/无限大平板闭眼用<strong>高斯定理</strong>；有限长棒/圆环老实切微元<strong>积分</strong>。</div>
           <table>
-            <tr><th>模型</th><th>结论</th></tr>
-            <tr><td>高斯定理</td><td>$\oint \mathbf{E}\cdot d\mathbf{S} = \frac{\sum q_{\text{内}}}{\varepsilon_0}$</td></tr>
-            <tr><td>无限大平板</td><td>单板 $E = \frac{\sigma}{2\varepsilon_0}$（多板矢量叠加）</td></tr>
-            <tr><td>电势叠加</td><td>标量直接加！圆环圆心 $U = \frac{\lambda}{2\varepsilon_0}$</td></tr>
+            <tr><th style="width:26%">公式</th><th>表达式 · 符号含义 · 数值实例</th></tr>
+            <tr>
+              <td><strong>高斯定理</strong></td>
+              <td>$\oint \mathbf{E}\cdot d\mathbf{S} = \frac{\sum q_{\text{内}}}{\varepsilon_0}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$\oint \mathbf{E}\cdot d\mathbf{S}$=穿出封闭曲面的总电通量 $\Phi$，$\sum q_{\text{内}}$=曲面<strong>内部</strong>包住的净电荷总量($\text{C}$)，$\varepsilon_0$=真空介电常数。
+                  <div class="ex-line">📌 实例：球壳半径 $0.1\text{ m}$ 带电 $10^{-8}\text{ C}$，球外 $r=0.2\text{ m}$ 处 $E=k\frac{q}{r^2}=\frac{9\times 10^9\times 10^{-8}}{0.2^2}=2250\text{ N/C}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>无限大带电平板</strong></td>
+              <td>$E = \frac{\sigma}{2\varepsilon_0}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$\sigma$=电荷面密度(每平方米带多少库仑电，$\text{C/m}^2$)。特点：场强大小与离板远近<strong>无关</strong>！
+                  <div class="ex-line">📌 实例：两块正板 $+\sigma$ 和 $+2\sigma$，板间方向相反 $\Rightarrow$ 合场强 $\frac{2\sigma}{2\varepsilon_0}-\frac{\sigma}{2\varepsilon_0}=\frac{\sigma}{2\varepsilon_0}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>电势叠加(标量)</strong></td>
+              <td>$U = \int \frac{dq}{4\pi\varepsilon_0 r}$（圆环圆心 $U = \frac{\lambda}{2\varepsilon_0}$）
+                <div class="formula-detail">
+                  <strong>符号</strong>：$U$=电势($\text{V}$)，$dq$=一小段电荷，$r$=到所求点的距离，$\lambda$=电荷线密度($\text{C/m}$)。电势<strong>没有方向</strong>直接加！
+                  <div class="ex-line">📌 实例：半径 $R$ 圆环总电量 $Q=\lambda\cdot 2\pi R$，圆心处 $U=\frac{\lambda\cdot 2\pi R}{4\pi\varepsilon_0 R}=\frac{\lambda}{2\varepsilon_0}$。</div>
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
 
@@ -706,12 +875,36 @@
             <h3>第六章 稳恒磁场</h3>
             <span class="badge badge-danger">难度 ★★★★☆ 高频计算大题</span>
           </div>
-          <div class="intuition-box"><strong>人话直觉：</strong>与静电场对应，电荷换电流，方向全靠<strong>右手螺旋定则</strong>。</div>
+          <div class="intuition-box"><strong>人话直觉：</strong>与静电场对应，电荷换电流，方向全靠<strong>右手螺旋定则</strong>（大拇指指电流，四指卷向磁场）。</div>
           <table>
-            <tr><th>经典结论</th><th>表达式</th></tr>
-            <tr><td>直导线 &amp; 圆弧</td><td>无限长 $\frac{\mu_0 I}{2\pi r}$；半无限长 $\frac{\mu_0 I}{4\pi r}$；圆弧 $\frac{\theta}{2\pi}\frac{\mu_0 I}{2R}$</td></tr>
-            <tr><td>长直圆柱</td><td>柱内 $\frac{\mu_0 I r}{2\pi R^2}$；柱外 $\frac{\mu_0 I}{2\pi r}$；<strong>表面最大</strong></td></tr>
-            <tr><td>安培力/洛伦兹力</td><td>$d\vec{F}=I\,d\vec{l}\times\vec{B}$（同向相吸）；$\vec{F}=q\vec{v}\times\vec{B}$</td></tr>
+            <tr><th style="width:26%">公式</th><th>表达式 · 符号含义 · 数值实例</th></tr>
+            <tr>
+              <td><strong>直导线 &amp; 圆弧</strong></td>
+              <td>无限长 $B=\frac{\mu_0 I}{2\pi r}$；半无限长 $\frac{\mu_0 I}{4\pi r}$；圆弧 $\frac{\theta}{2\pi}\frac{\mu_0 I}{2R}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$B$=磁感应强度($\text{T}$)，$\mu_0=4\pi\times 10^{-7}$($\frac{\mu_0}{2\pi}=2\times 10^{-7}$)，$I$=电流($\text{A}$)，$r$=点到导线垂直距离($\text{m}$)，$\theta$=圆弧圆心角(弧度)。
+                  <div class="ex-line">📌 实例：$I=10\text{ A}$ 无限长直导线旁 $r=0.02\text{ m}$ 处 $\Rightarrow$ $B=2\times 10^{-7}\times\frac{10}{0.02}=1.0\times 10^{-4}\text{ T}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>长直载流圆柱</strong></td>
+              <td>柱内 $B=\frac{\mu_0 I r}{2\pi R^2}$；柱外 $B=\frac{\mu_0 I}{2\pi r}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$R$=圆柱导体<strong>半径</strong>(直径除以2)，$r$=所求点到轴线的距离。在表面 $r=R$ 处磁场最大！
+                  <div class="ex-line">📌 实例：直径 $4\text{ cm}$($R=0.02\text{ m}$)、电流 $10\text{ A}$ $\Rightarrow$ 表面最大 $B_{\max}=\frac{2\times 10^{-7}\times 10}{0.02}=1.0\times 10^{-4}\text{ T}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>磁通量 &amp; 安培力</strong></td>
+              <td>$\Phi = \int B\,dS$；$d\vec{F} = I\,d\vec{l}\times\vec{B}$；$\vec{F}=q\vec{v}\times\vec{B}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$\Phi$=穿过面积的磁感线条数(磁通量，$\text{Wb}$)，$d\vec{l}$=一小段导线矢量，$q$=电荷量，$\vec{v}$=电荷运动速度。
+                  <div class="ex-line">📌 实例：两根同向平行电流导线，相距 $0.1\text{ m}$、电流 $5\text{ A}$ 和 $10\text{ A}$ $\Rightarrow$ 每米吸引力 $f=\frac{2\times 10^{-7}\times 5\times 10}{0.1}=10^{-4}\text{ N/m}$。</div>
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
 
@@ -720,12 +913,36 @@
             <h3>第七章 电磁感应定律</h3>
             <span class="badge badge-danger">难度 ★★★★☆ 期末压轴常客</span>
           </div>
-          <div class="intuition-box"><strong>人话直觉：</strong>磁通量变了就求导（感生）；导体棒切磁感线就积分（动生）。</div>
+          <div class="intuition-box"><strong>人话直觉：</strong>磁通量变了就对时间求导（感生电动势）；导体棒切磁感线就积分（动生电动势）。</div>
           <table>
-            <tr><th>题型</th><th>标准解法</th></tr>
-            <tr><td>感生电动势</td><td>先算 $\Phi(t)=\int B\,dS$，再 $\mathcal{E}=-\frac{d\Phi}{dt}$，楞次定律判方向</td></tr>
-            <tr><td>旋转金属棒</td><td>绕端点 $\frac{1}{2}B\omega L^2$；绕中间点两段相减 $\frac{1}{2}B\omega(l_2^2-l_1^2)$</td></tr>
-            <tr><td>斜棒平动切割</td><td>$\mathcal{E}=\int(\vec{v}\times\vec{B})\cdot d\vec{l}$，投影到垂直 $\vec{v}$ 方向积分</td></tr>
+            <tr><th style="width:26%">公式</th><th>表达式 · 符号含义 · 数值实例</th></tr>
+            <tr>
+              <td><strong>法拉第定律</strong></td>
+              <td>$\mathcal{E} = -\frac{d\Phi}{dt}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$\mathcal{E}$=感应电动势($\text{V}$)，$\frac{d\Phi}{dt}$=磁通量随时间的变化率(对 $t$ 求导)，负号表示楞次定律“增反减同”。
+                  <div class="ex-line">📌 实例：若 $\Phi(t)=0.02(1+5t)\text{ Wb}$ $\Rightarrow$ 对 $t$ 求导得电动势大小 $\mathcal{E}=0.02\times 5=0.1\text{ V}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>旋转导体棒</strong></td>
+              <td>绕端点 $\mathcal{E}=\frac{1}{2}B\omega L^2$；绕中间点 $\frac{1}{2}B\omega(l_2^2-l_1^2)$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$B$=垂直旋转面的磁场($\text{T}$)，$\omega$=旋转角速度($\text{rad/s}$)，$L$=棒长($\text{m}$)，$l_1, l_2$=转轴两侧各自的长度。
+                  <div class="ex-line">📌 实例：$B=0.5\times 10^{-4}\text{ T}$，$\omega=4\pi$，两侧长 $0.4\text{ m}$ 和 $0.1\text{ m}$ $\Rightarrow$ $|U|=\frac{1}{2}\times 0.5\times 10^{-4}\times 4\pi\times(0.16-0.01)\approx 4.71\times 10^{-5}\text{ V}$。</div>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td><strong>平动切割积分</strong></td>
+              <td>$\mathcal{E} = \int (\vec{v}\times\vec{B})\cdot d\vec{l}$
+                <div class="formula-detail">
+                  <strong>符号</strong>：$\vec{v}$=棒移动速度，$\vec{B}$=磁场，$d\vec{l}$=棒上微元。叉乘 $\vec{v}\times\vec{B}$ 的方向永远指向<strong>高电势端（正极）</strong>！
+                  <div class="ex-line">📌 实例：均匀磁场中 $L=0.5\text{ m}$ 直棒以 $4\text{ m/s}$ 垂直切割 $B=0.2\text{ T}$ $\Rightarrow$ 直接退化成 $\mathcal{E}=BLv=0.2\times 0.5\times 4=0.4\text{ V}$。</div>
+                </div>
+              </td>
+            </tr>
           </table>
         </div>
       </div>
@@ -1005,21 +1222,105 @@
 
     // --- DATA: Flashcards ---
     let FLASHCARDS = [
-      { q: '水平管伯努利方程 & 连续性方程', a: '$S_1 v_1 = S_2 v_2$，$p_1 + \\frac{1}{2}\\rho v_1^2 = p_2 + \\frac{1}{2}\\rho v_2^2$', sub: '管越细流速越快、压强越小' },
-      { q: '托里拆利小孔出流速度公式', a: '$v = \\sqrt{2gh}$，$Q = Sv$', sub: '水不溢出临界条件：流出流量 = 注入流量' },
-      { q: '肥皂泡吹泡做功 & 内外压强差', a: '$W = 8\\pi\\alpha r^2$，$\\Delta p = \\frac{4\\alpha}{r}$', sub: '注意肥皂泡有内外 2 个液面！液滴/气泡只有 1 个面' },
-      { q: '毛细管液面上升/下降高度公式', a: '$h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}$', sub: '完全润湿 $\\theta=0^\\circ$，完全不润湿 $\\theta=180^\\circ$；直径先除以 2' },
-      { q: '简谐振动用旋转矢量判初相 $\\varphi_0$ 象限', a: '$v_0 &gt; 0$（向上）选下半圆；$v_0 &lt; 0$（向下）选上半圆', sub: '记住标准方程 $y=A\\cos(\\omega t+\\varphi_0)$' },
-      { q: '波向右传时，由波形图判质点运动方向口诀', a: '“上坡下、下坡上”', sub: '沿 $+x$ 传播，把 $t$ 换成 $t - x/u$' },
-      { q: '同相波源声波干涉相消条件（消音器）', a: '$\\Delta r = (2k+1)\\frac{\\lambda}{2}$，最小差 $\\Delta l_{\\min} = \\frac{\\lambda}{2} = \\frac{u}{2\\nu}$', sub: '干涉加强为 $\\Delta r = k\\lambda$' },
-      { q: '静电场高斯定理', a: '$\\oint \\mathbf{E}\\cdot d\\mathbf{S} = \\frac{\\sum q_{\\text{内}}}{\\varepsilon_0}$', sub: '球对称、柱对称、无限大平板直接用' },
-      { q: '无限大均匀带电平板场强 & 均匀带电圆环圆心电势', a: '平板 $E = \\frac{\\sigma}{2\\varepsilon_0}$；圆环圆心 $U = \\frac{\\lambda}{2\\varepsilon_0}$', sub: '电势是标量，直接叠加不考虑方向' },
-      { q: '无限长 & 半无限长直导线磁场', a: '无限长 $B=\\frac{\\mu_0 I}{2\\pi r}$；半无限长 $B=\\frac{\\mu_0 I}{4\\pi r}$', sub: '延长线上 $B=0$；牢记 $\\frac{\\mu_0}{2\\pi}=2\\times 10^{-7}$' },
-      { q: '圆心角 $\\theta$ 圆弧电流在圆心处的磁场', a: '$B = \\frac{\\theta}{2\\pi}\\cdot\\frac{\\mu_0 I}{2R}$', sub: '四分之一圆弧为 $\\frac{\\mu_0 I}{8R}$' },
-      { q: '极长均匀载流圆柱导体的磁场分布', a: '柱内 $\\frac{\\mu_0 I r}{2\\pi R^2}$，柱外 $\\frac{\\mu_0 I}{2\\pi r}$，表面 $r=R$ 最大', sub: '最大值 $B_{\\max}=\\frac{\\mu_0 I}{2\\pi R}$，别把直径当半径' },
-      { q: '法拉第电磁感应定律（感生电动势）', a: '$\\mathcal{E} = -\\frac{d\\Phi}{dt}$', sub: '先积分求 $\\Phi(t)$ 再对 $t$ 求导；楞次定律“增反减同”' },
-      { q: '旋转导体棒的动生电动势', a: '绕端点 $\\frac{1}{2}B\\omega L^2$；绕中间点两段相减 $\\frac{1}{2}B\\omega(l_2^2 - l_1^2)$', sub: '非静电力方向 $\\vec{v}\\times\\vec{B}$ 指向高电势端' }
-    ];
+  {
+    "q": "水平管伯努利方程 & 连续性方程",
+    "a": "$S_1 v_1 = S_2 v_2$，$p_1 + \\frac{1}{2}\\rho v_1^2 = p_2 + \\frac{1}{2}\\rho v_2^2$",
+    "sym": "$S$=截面积($\\text{m}^2$)，$v$=流速($\\text{m/s}$)，$p$=压强($\\text{Pa}$)，$\\rho$=液体密度(水为 $1000\\text{ kg/m}^3$)",
+    "ex": "粗管面积是细管 3 倍，粗管流速 $2\\text{ m/s}$ $\\Rightarrow$ 细管流速 $6\\text{ m/s}$，压强降低 $\\frac{1}{2}\\times 1000\\times(36-4)=16000\\text{ Pa}$。",
+    "sub": "管越细流速越快、压强越小；低于大气压开小孔会吸进空气"
+  },
+  {
+    "q": "托里拆利小孔出流速度 & 流量公式",
+    "a": "$v = \\sqrt{2gh}$，$Q = Sv$",
+    "sym": "$v$=小孔出流速度($\\text{m/s}$)，$g=9.8\\text{ m/s}^2$，$h$=小孔距水面深度($\\text{m}$)，$Q$=体积流量($\\text{m}^3/\\text{s}$)，$S$=孔面积",
+    "ex": "水深 $h=0.2\\text{ m}$，孔面积 $10^{-4}\\text{ m}^2$ $\\Rightarrow$ $v=\\sqrt{2\\times 9.8\\times 0.2}\\approx 1.98\\text{ m/s}$，$Q\\approx 1.98\\times 10^{-4}\\text{ m}^3/\\text{s}$。",
+    "sub": "容器不溢出临界条件：底部流出流量 = 顶部注入流量"
+  },
+  {
+    "q": "肥皂泡吹泡做功 & 内外压强差",
+    "a": "$W = 8\\pi\\alpha r^2$，$\\Delta p = \\frac{4\\alpha}{r}$",
+    "sym": "$W$=做功($\\text{J}$)，$\\alpha$=表面张力系数($\\text{N/m}$)，$r$=球半径($\\text{m}$)，$\\Delta p$=泡内外压强差($\\text{Pa}$)",
+    "ex": "直径 $10\\text{ cm}$($r=0.05\\text{ m}$)，$\\alpha=0.04\\text{ N/m}$ $\\Rightarrow$ $W\\approx 2.51\\times 10^{-3}\\text{ J}$，$\\Delta p=\\frac{4\\times 0.04}{0.05}=3.2\\text{ Pa}$。",
+    "sub": "肥皂泡有内外 2 个液面！如果是水滴或水中气泡只有 1 个面（$4\\pi\u0007lpha r^2$ 和 $\frac{2\u0007lpha}{r}$）"
+  },
+  {
+    "q": "毛细管液面上升 / 下降高度公式",
+    "a": "$h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}$",
+    "sym": "$h$=上升(正)或下降(负)高度($\\text{m}$)，$\\alpha$=表面张力系数，$\\theta$=接触角，$\\rho$=密度，$r$=管内半径",
+    "ex": "水银($\\rho=13600,\\alpha=0.49,\\theta=180^\\circ$)在内径 $10^{-4}\\text{ m}$($r=5\\times 10^{-5}\\text{ m}$)管中下降 $h\\approx 0.147\\text{ m}$。",
+    "sub": "完全润湿 $\theta=0^\\circ(\\cos\theta=1)$，完全不润湿 $\theta=180^\\circ(\\cos\theta=-1)$；直径别忘除以 2！"
+  },
+  {
+    "q": "简谐振动标准方程 & 初相象限判断",
+    "a": "$y = A\\cos(\\omega t + \\varphi_0)$，$v_0 &gt; 0$ 选下半圆，$v_0 &lt; 0$ 选上半圆",
+    "sym": "$y$=位移，$A$=振幅，$\\omega=\\frac{2\\pi}{T}$=角频率($\\text{rad/s}$)，$t$=时间，$\\varphi_0$=初相($t=0$时旋转矢量角度)",
+    "ex": "$t=0$ 时 $y=-A/2$ 且向下运动($v_0 &lt; 0$) $\\Rightarrow$ $\\cos\\varphi_0=-1/2$ 且在上半圆 $\\Rightarrow$ $\\varphi_0=\\frac{2\\pi}{3}$。",
+    "sub": "记住 $v = -\\omega A\\sin(\\omega t+\u000barphi_0)$，所以 $v_0$ 的符号和 $\\sin\u000barphi_0$ 相反"
+  },
+  {
+    "q": "平面简谐波函数 & 波形图判方向口诀",
+    "a": "$y(x,t) = A\\cos\\left[\\omega\\left(t \\mp \\frac{x}{u}\\right) + \\varphi_0\\right]$；向右传：上坡下、下坡上",
+    "sym": "$x$=质点坐标($\\text{m}$)，$u=\\lambda\\nu$=波速($\\text{m/s}$)，$\\lambda$=波长($\\text{m}$)，$\\nu$=频率($\\text{Hz}$)",
+    "ex": "原点 $y_0=0.05\\cos(200\\pi t-\\frac{\\pi}{2})$，沿 $+x$ 波速 $400\\text{ m/s}$ $\\Rightarrow$ 把 $t$ 换成 $t-\\frac{x}{400}$。",
+    "sub": "沿 $+x$ 传取“$-$”，沿 $-x$ 传取“$+$”"
+  },
+  {
+    "q": "同相波源干涉相消条件（消音器）",
+    "a": "$\\Delta r = (2k+1)\\frac{\\lambda}{2}$，最小差 $\\Delta l_{\\min} = \\frac{\\lambda}{2} = \\frac{u}{2\\nu}$",
+    "sym": "$\\Delta r$=两路波程差($\\text{m}$)，$\\lambda$=波长，$u$=声速($340\\text{ m/s}$)，$\\nu$=频率($\\text{Hz}$)，$k=0,1,2\\dots$",
+    "ex": "消除 $\\nu=300\\text{ Hz}$ 噪声 $\\Rightarrow$ $\\Delta l_{\\min}=\\frac{340}{2\\times 300}=\\frac{17}{30}\\approx 0.567\\text{ m}$。",
+    "sub": "干涉加强条件是 $\\Delta r = k\\lambda$（波程差为波长的整数倍）"
+  },
+  {
+    "q": "静电场高斯定理",
+    "a": "$\\oint \\mathbf{E}\\cdot d\\mathbf{S} = \\frac{\\sum q_{\\text{内}}}{\\varepsilon_0}$",
+    "sym": "$\\mathbf{E}$=电场强度($\\text{N/C}$)，$d\\mathbf{S}$=面积微元，$\\sum q_{\\text{内}}$=高斯面内部净电荷($\\text{C}$)，$\\varepsilon_0=8.85\\times 10^{-12}$",
+    "ex": "立方体总电通量 $\\Phi=ba^3$ $\\Rightarrow$ 内部净电量 $Q=\\varepsilon_0\\Phi=\\varepsilon_0 ba^3$。",
+    "sub": "球对称、柱对称、无限大平板直接闭眼套高斯定理"
+  },
+  {
+    "q": "无限大带电平板场强 & 圆环圆心电势",
+    "a": "平板 $E = \\frac{\\sigma}{2\\varepsilon_0}$；圆环圆心 $U = \\frac{\\lambda}{2\\varepsilon_0}$",
+    "sym": "$\\sigma$=面电荷密度($\\text{C/m}^2$)，$\\lambda$=线电荷密度($\\text{C/m}$)，$E$=场强(矢量)，$U$=电势(标量，$\\text{V}$)",
+    "ex": "两平行正板 $+\\sigma$ 和 $+2\\sigma$，板间场强反向相减得 $E=\\frac{\\sigma}{2\\varepsilon_0}$。",
+    "sub": "电势是标量，不需要考虑方向，直接代数相加"
+  },
+  {
+    "q": "无限长 & 半无限长直导线磁场",
+    "a": "无限长 $B=\\frac{\\mu_0 I}{2\\pi r}$；半无限长 $B=\\frac{\\mu_0 I}{4\\pi r}$",
+    "sym": "$B$=磁感应强度($\\text{T}$)，$\\mu_0=4\\pi\\times 10^{-7}$（记住 $\\frac{\\mu_0}{2\\pi}=2\\times 10^{-7}$），$I$=电流($\\text{A}$)，$r$=垂直距离($\\text{m}$)",
+    "ex": "$I=10\\text{ A}$ 无限长导线旁 $r=0.05\\text{ m}$ 处 $\\Rightarrow$ $B=2\\times 10^{-7}\\times\\frac{10}{0.05}=4\\times 10^{-5}\\text{ T}$。",
+    "sub": "点在直导线延长线上时 $B=0$；方向用右手螺旋定则判断"
+  },
+  {
+    "q": "圆弧电流在圆心处的磁场",
+    "a": "$B = \\frac{\\theta}{2\\pi}\\cdot\\frac{\\mu_0 I}{2R}$",
+    "sym": "$\\theta$=圆弧所对圆心角(弧度，整圆 $2\\pi$，四分之一圆 $\\frac{\\pi}{2}$)，$R$=圆弧半径($\\text{m}$)，$I$=电流($\\text{A}$)",
+    "ex": "四分之一圆弧($\\theta=\\frac{\\pi}{2}$)，$I=10\\text{ A}, R=0.05\\text{ m}$ $\\Rightarrow$ $B=\\frac{\\mu_0 I}{8R}=\\frac{4\\pi\\times 10^{-7}\\times 10}{0.4}\\approx 3.14\\times 10^{-5}\\text{ T}$。",
+    "sub": "多段折线+圆弧组成的导线，分段算完再按方向加减"
+  },
+  {
+    "q": "极长均匀载流圆柱导体的磁场分布",
+    "a": "柱内 $B=\\frac{\\mu_0 I r}{2\\pi R^2}$，柱外 $B=\\frac{\\mu_0 I}{2\\pi r}$，表面 $r=R$ 最大",
+    "sym": "$R$=圆柱导体半径($\\text{m}$)，$r$=到轴线的距离($\\text{m}$)，$I$=总电流($\\text{A}$)",
+    "ex": "直径 $4\\text{ cm}$($R=0.02\\text{ m}$)、$I=10\\text{ A}$ $\\Rightarrow$ 表面最大 $B_{\\max}=2\\times 10^{-7}\\times\\frac{10}{0.02}=1.0\\times 10^{-4}\\text{ T}$。",
+    "sub": "千万别把直径 $d$ 当成半径 $R$ 代入！"
+  },
+  {
+    "q": "法拉第电磁感应定律（感生电动势）",
+    "a": "$\\mathcal{E} = -\\frac{d\\Phi}{dt}$",
+    "sym": "$\\mathcal{E}$=感应电动势($\\text{V}$)，$\\Phi=\\int B\\,dS$=磁通量($\\text{Wb}$)，$\\frac{d\\Phi}{dt}$=对时间 $t$ 求导",
+    "ex": "直导线电流 $I=I_0+kt$，旁矩形框磁通量 $\\Phi\\propto(I_0+kt)$ $\\Rightarrow$ 求导把 $I_0$ 消掉，留常数 $k$。",
+    "sub": "负号代表楞次定律“增反减同”（向里磁通增大则感应出逆时针电流）"
+  },
+  {
+    "q": "旋转导体棒的动生电动势",
+    "a": "绕端点 $\\frac{1}{2}B\\omega L^2$；绕中间点两段相减 $\\frac{1}{2}B\\omega(l_2^2 - l_1^2)$",
+    "sym": "$B$=匀强磁场($\\text{T}$)，$\\omega$=角速度($\\text{rad/s}$)，$L$=棒长($\\text{m}$)，$l_1,l_2$=转轴两侧各自长度",
+    "ex": "$B=0.5\\times 10^{-4}\\text{ T},\\omega=4\\pi, l_2=0.4\\text{ m}, l_1=0.1\\text{ m}$ $\\Rightarrow$ $|U|=\\frac{1}{2}B\\omega(0.16-0.01)\\approx 4.71\\times 10^{-5}\\text{ V}$。",
+    "sub": "非静电力方向 $\u000bec{v}\times\u000bec{B}$ 永远指向高电势端（电源正极）"
+  }
+];
 
     // --- STATE ---
     const STORE_KEY = 'u_physics_review_state_v1';
@@ -1289,9 +1590,15 @@
     function renderFlashcard() {
       const card = FLASHCARDS[fcIdx];
       document.getElementById('fcTag').textContent =
-        `第 ${fcIdx + 1} / ${FLASHCARDS.length} 张 · ${fcFlipped ? '公式答案（点击翻回）' : '考点提问（点击翻转）'}`;
+        `第 ${fcIdx + 1} / ${FLASHCARDS.length} 张 · ${fcFlipped ? '公式 + 符号解释 + 实例（点击翻回）' : '考点提问（点击翻转查看公式与实例）'}`;
       document.getElementById('fcContent').innerHTML = fcFlipped ? card.a : card.q;
-      document.getElementById('fcSub').innerHTML = fcFlipped ? `💡 ${card.sub}` : '先在脑中默念公式，再点击翻转核对';
+      document.getElementById('fcSub').innerHTML = fcFlipped
+        ? `<div class="fc-detail">
+             <div class="fc-row"><span class="fc-lbl">🔤 符号含义：</span>${card.sym}</div>
+             <div class="fc-row"><span class="fc-lbl">🧮 数值实例：</span>${card.ex}</div>
+             <div class="fc-row"><span class="fc-lbl">💡 避坑提醒：</span>${card.sub}</div>
+           </div>`
+        : '先在脑中默念公式与每个符号的含义，再点击翻转核对';
       renderMath(document.getElementById('flashcard'));
     }
 
