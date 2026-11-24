@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>《大学物理》零基础交互式期末复习台</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" />
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"></script>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --surface: #ffffff;
+      --surface-2: #f8fafc;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --primary: #2563eb;
+      --primary-soft: #eff6ff;
+      --success: #16a34a;
+      --success-soft: #f0fdf4;
+      --warn: #d97706;
+      --warn-soft: #fffbeb;
+      --danger: #dc2626;
+      --danger-soft: #fef2f2;
+      --shadow: 0 2px 10px rgba(15, 23, 42, 0.06);
+    }
+
+    body.dark {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-2: #0f172a;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --border: #334155;
+      --primary: #60a5fa;
+      --primary-soft: rgba(59, 130, 246, 0.16);
+      --success: #4ade80;
+      --success-soft: rgba(34, 197, 94, 0.14);
+      --warn: #fbbf24;
+      --warn-soft: rgba(245, 158, 11, 0.14);
+      --danger: #f87171;
+      --danger-soft: rgba(239, 68, 68, 0.14);
+      --shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    /* Top Nav */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      box-shadow: var(--shadow);
+    }
+
+    .nav-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 12px 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, #1d4ed8, #3b82f6);
+      color: #fff;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .brand small {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tab-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 7px 14px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .tab-btn.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .icon-btn:hover { border-color: var(--primary); }
+
+    /* Container */
+    main {
+      max-width: 1120px;
+      margin: 20px auto 60px auto;
+      padding: 0 18px;
+    }
+
+    /* Progress Bar Strip */
+    .progress-strip {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 18px;
+      margin-bottom: 18px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .prog-left {
+      flex: 1;
+      min-width: 240px;
+    }
+
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .prog-track {
+      height: 10px;
+      background: var(--border);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .prog-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #2563eb, #16a34a);
+      border-radius: 999px;
+      transition: width 0.3s ease;
+    }
+
+    .stat-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .stat-pill {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+    }
+
+    .stat-pill span { color: var(--primary); font-size: 14px; }
+
+    /* Alert */
+    .alert {
+      border-radius: 10px;
+      padding: 12px 16px;
+      margin-bottom: 18px;
+      font-size: 13.5px;
+      border-left: 4px solid;
+    }
+
+    .alert-danger {
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .alert-info {
+      background: var(--primary-soft);
+      border-color: var(--primary);
+    }
+
+    .alert h4 { margin: 0 0 6px 0; font-size: 14px; }
+    .alert ul { margin: 0; padding-left: 18px; }
+
+    /* Views */
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* Cards Grid */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      box-shadow: var(--shadow);
+      margin-bottom: 16px;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border);
+    }
+
+    .card-header h3 {
+      margin: 0;
+      font-size: 16px;
+      color: var(--primary);
+    }
+
+    .badge {
+      font-size: 12px;
+      padding: 2px 9px;
+      border-radius: 999px;
+      font-weight: 600;
+      background: var(--primary-soft);
+      color: var(--primary);
+    }
+
+    .badge-danger {
+      background: var(--danger-soft);
+      color: var(--danger);
+    }
+
+    .badge-warn {
+      background: var(--warn-soft);
+      color: var(--warn);
+    }
+
+    .badge-success {
+      background: var(--success-soft);
+      color: var(--success);
+    }
+
+    .intuition-box {
+      background: var(--surface-2);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 13.5px;
+      margin-bottom: 10px;
+      border-left: 3px solid var(--primary);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th, td {
+      border: 1px solid var(--border);
+      padding: 7px 9px;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      background: var(--surface-2);
+      font-weight: 700;
+    }
+
+    /* 7-Day Checklist */
+    .roadmap-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .day-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px;
+      background: var(--surface-2);
+      cursor: pointer;
+      transition: all 0.15s;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+
+    .day-card.done {
+      background: var(--success-soft);
+      border-color: var(--success);
+    }
+
+    .day-card input { margin-top: 4px; cursor: pointer; }
+    .day-card strong { display: block; font-size: 13.5px; }
+    .day-card span { font-size: 12px; color: var(--muted); }
+
+    /* Filter Bar for Problems */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      background: var(--surface);
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+
+    .filter-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .chip {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 5px 11px;
+      border-radius: 999px;
+      font-size: 12.5px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .chip.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    /* Problem Card */
+    .problem-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 14px;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s;
+    }
+
+    .problem-card.mastered {
+      border-left: 4px solid var(--success);
+    }
+
+    .problem-card.starred {
+      border-right: 4px solid var(--warn);
+    }
+
+    .p-top {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .p-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--primary);
+    }
+
+    .p-stem {
+      background: var(--surface-2);
+      padding: 10px 14px;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      font-size: 14px;
+    }
+
+    .p-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn {
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text);
+      padding: 6px 12px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .btn:hover { border-color: var(--primary); color: var(--primary); }
+    .btn-primary { background: var(--primary); color: #fff; border-color: var(--primary); }
+    .btn-primary:hover { opacity: 0.92; color: #fff; }
+    .btn-success { background: var(--success-soft); color: var(--success); border-color: var(--success); }
+    .btn-warn { background: var(--warn-soft); color: var(--warn); border-color: var(--warn); }
+
+    .p-hint, .p-sol {
+      display: none;
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: 8px;
+      font-size: 13.8px;
+    }
+
+    .p-hint.open {
+      display: block;
+      background: var(--warn-soft);
+      border-left: 4px solid var(--warn);
+    }
+
+    .p-sol.open {
+      display: block;
+      background: var(--success-soft);
+      border-left: 4px solid var(--success);
+    }
+
+    .p-err {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: var(--danger-soft);
+      border-left: 3px solid var(--danger);
+      font-size: 13px;
+    }
+
+    /* Interactive Lab */
+    .lab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+      align-items: start;
+    }
+
+    .slider-row {
+      margin-bottom: 12px;
+    }
+
+    .slider-row label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    .sim-output {
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 13.5px;
+      margin-top: 10px;
+    }
+
+    canvas {
+      width: 100%;
+      height: auto;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      display: block;
+    }
+
+    /* Flashcards */
+    .flashcard-wrap {
+      max-width: 640px;
+      margin: 10px auto;
+      text-align: center;
+    }
+
+    .flashcard {
+      min-height: 240px;
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: 16px;
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: transform 0.15s;
+      user-select: none;
+    }
+
+    .flashcard:hover { transform: translateY(-2px); }
+    .fc-side-tag { font-size: 12px; color: var(--muted); margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+    .fc-content { font-size: 18px; font-weight: 700; }
+    .fc-sub { font-size: 13.5px; color: var(--muted); margin-top: 10px; }
+    .fc-controls { display: flex; justify-content: center; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+
+    @media print {
+      header, .filter-bar, .p-actions, .progress-strip { display: none !important; }
+      .p-sol { display: block !important; }
+      .view { display: block !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-icon">物</div>
+        <div>
+          <h1>《大学物理》零基础交互复习台</h1>
+          <small>软件学院 2026（杨艳-2班）· 第 2~7 章 · 共 27 道真题</small>
+        </div>
+      </div>
+      <div class="nav-tabs">
+        <button class="tab-btn active" data-view="guide">📖 零基础重点</button>
+        <button class="tab-btn" data-view="problems">📝 27题刷题模式</button>
+        <button class="tab-btn" data-view="lab">⚡ 物理直觉实验室</button>
+        <button class="tab-btn" data-view="flashcards">🃏 公式闪卡自测</button>
+      </div>
+      <div class="nav-actions">
+        <button class="icon-btn" id="themeBtn" title="切换深浅色">🌙 夜间模式</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Progress Dashboard -->
+    <div class="progress-strip">
+      <div class="prog-left">
+        <div class="prog-label">
+          <span>🎯 27 道作业真题掌握进度（自动保存在本地浏览器）</span>
+          <span id="progText">0 / 27 (0%)</span>
+        </div>
+        <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+      </div>
+      <div class="stat-pills">
+        <div class="stat-pill">已掌握 <span id="statMastered">0</span></div>
+        <div class="stat-pill">错题本 <span id="statStarred">0</span></div>
+        <div class="stat-pill">7天计划 <span id="statDays">0/5</span></div>
+      </div>
+    </div>
+
+    <!-- Urgent Notice -->
+    <div class="alert alert-danger">
+      <h4>⚠️ 考前紧急提醒（来自你的学习通作业检查）</h4>
+      <ul>
+        <li><strong>第七章《电磁感应定律》待提交</strong>：共 3 题，截止 <strong>2026-11-30 07:51</strong>（在“27题刷题模式”中筛选第七章即可查看完整推导）。</li>
+        <li><strong>第六章已交作业有 2 处错误</strong>：第 3 题（6-19）最大值应为 $1.0\times 10^{-4}\text{ T}$；第 5 题（6-21）合力方向应为<strong>向左的吸引力</strong>。</li>
+        <li><strong>第五章第 3 题（5-14）手写笔误</strong>：末行净电量 $Q$ 应为 $\varepsilon_0 ba^3$（不是 $\varepsilon_0 ba^2$）。</li>
+      </ul>
+    </div>
+
+    <!-- VIEW 1: STUDY GUIDE -->
+    <section id="view-guide" class="view active">
+      <div class="card">
+        <div class="card-header">
+          <h3>🗓️ 零基础 7 天期末冲刺打卡计划（点击打卡）</h3>
+          <span class="badge">先拿送分章，再攻电磁大题</span>
+        </div>
+        <div class="roadmap-list" id="roadmapList"></div>
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <div class="card-header">
+            <h3>第二章 流体力学基础</h3>
+            <span class="badge badge-success">难度 ★☆☆☆☆ 必拿满分</span>
+          </div>
+          <div class="intuition-box"><strong>人话直觉：</strong>管子越细流速越快（挤得快），流速越快压强越小（顾不上压管壁）。</div>
+          <table>
+            <tr><th>公式</th><th>表达式</th></tr>
+            <tr><td>连续性方程</td><td>$S_1 v_1 = S_2 v_2 = Q$</td></tr>
+            <tr><td>伯努利方程</td><td>$p + \frac{1}{2}\rho v^2 + \rho g h = \text{常量}$</td></tr>
+            <tr><td>托里拆利公式</td><td>$v = \sqrt{2gh}$，$Q = Sv$</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>第三章 液体的表面现象</h3>
+            <span class="badge badge-success">难度 ★★☆☆☆ 必拿满分</span>
+          </div>
+          <div class="intuition-box"><strong>人话直觉：</strong>液面像绷紧的橡皮膜总想缩小；弯曲液面永远向<strong>凹</strong>的一侧多施压。</div>
+          <table>
+            <tr><th>公式</th><th>表达式与避坑</th></tr>
+            <tr><td>表面能做功</td><td>$W = \alpha \Delta S$（<strong>肥皂泡 2 个面</strong>：$8\pi\alpha r^2$）</td></tr>
+            <tr><td>球面附加压强</td><td>液滴 $\frac{2\alpha}{r}$；肥皂泡 $\frac{4\alpha}{r}$</td></tr>
+            <tr><td>毛细管高度</td><td>$h = \frac{2\alpha\cos\theta}{\rho g r}$（注意直径 $d/2=r$）</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>第四章 振动与波动</h3>
+            <span class="badge badge-warn">难度 ★★★☆☆ 套路最固定</span>
+          </div>
+          <div class="intuition-box"><strong>人话直觉：</strong>振动是一个点原地晃；波动是前面的点带着后面的点依次延时晃。</div>
+          <table>
+            <tr><th>考点</th><th>公式与口诀</th></tr>
+            <tr><td>简谐振动</td><td>$y = A\cos(\omega t + \varphi_0)$；$v_0 &gt; 0$ 选下半圆，$v_0 &lt; 0$ 选上半圆</td></tr>
+            <tr><td>平面简谐波</td><td>$y(x,t) = A\cos[\omega(t \mp x/u) + \varphi_0]$；向右传：<strong>上坡下、下坡上</strong></td></tr>
+            <tr><td>干涉相消</td><td>$\Delta r = (2k+1)\frac{\lambda}{2}$，最小消音差 $\Delta l_{\min} = \frac{\lambda}{2}$</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>第五章 静电场</h3>
+            <span class="badge badge-danger">难度 ★★★★☆ 高频计算大题</span>
+          </div>
+          <div class="intuition-box"><strong>人话直觉：</strong>球/柱/无限大平板闭眼用<strong>高斯定理</strong>；有限长棒/圆环老实切微元<strong>积分</strong>。</div>
+          <table>
+            <tr><th>模型</th><th>结论</th></tr>
+            <tr><td>高斯定理</td><td>$\oint \mathbf{E}\cdot d\mathbf{S} = \frac{\sum q_{\text{内}}}{\varepsilon_0}$</td></tr>
+            <tr><td>无限大平板</td><td>单板 $E = \frac{\sigma}{2\varepsilon_0}$（多板矢量叠加）</td></tr>
+            <tr><td>电势叠加</td><td>标量直接加！圆环圆心 $U = \frac{\lambda}{2\varepsilon_0}$</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>第六章 稳恒磁场</h3>
+            <span class="badge badge-danger">难度 ★★★★☆ 高频计算大题</span>
+          </div>
+          <div class="intuition-box"><strong>人话直觉：</strong>与静电场对应，电荷换电流，方向全靠<strong>右手螺旋定则</strong>。</div>
+          <table>
+            <tr><th>经典结论</th><th>表达式</th></tr>
+            <tr><td>直导线 &amp; 圆弧</td><td>无限长 $\frac{\mu_0 I}{2\pi r}$；半无限长 $\frac{\mu_0 I}{4\pi r}$；圆弧 $\frac{\theta}{2\pi}\frac{\mu_0 I}{2R}$</td></tr>
+            <tr><td>长直圆柱</td><td>柱内 $\frac{\mu_0 I r}{2\pi R^2}$；柱外 $\frac{\mu_0 I}{2\pi r}$；<strong>表面最大</strong></td></tr>
+            <tr><td>安培力/洛伦兹力</td><td>$d\vec{F}=I\,d\vec{l}\times\vec{B}$（同向相吸）；$\vec{F}=q\vec{v}\times\vec{B}$</td></tr>
+          </table>
+        </div>
+
+        <div class="card">
+          <div class="card-header">
+            <h3>第七章 电磁感应定律</h3>
+            <span class="badge badge-danger">难度 ★★★★☆ 期末压轴常客</span>
+          </div>
+          <div class="intuition-box"><strong>人话直觉：</strong>磁通量变了就求导（感生）；导体棒切磁感线就积分（动生）。</div>
+          <table>
+            <tr><th>题型</th><th>标准解法</th></tr>
+            <tr><td>感生电动势</td><td>先算 $\Phi(t)=\int B\,dS$，再 $\mathcal{E}=-\frac{d\Phi}{dt}$，楞次定律判方向</td></tr>
+            <tr><td>旋转金属棒</td><td>绕端点 $\frac{1}{2}B\omega L^2$；绕中间点两段相减 $\frac{1}{2}B\omega(l_2^2-l_1^2)$</td></tr>
+            <tr><td>斜棒平动切割</td><td>$\mathcal{E}=\int(\vec{v}\times\vec{B})\cdot d\vec{l}$，投影到垂直 $\vec{v}$ 方向积分</td></tr>
+          </table>
+        </div>
+      </div>
+
+      <div class="alert alert-info">
+        <h4>📌 考场必背物理常数与 5 条避坑铁律</h4>
+        <ul>
+          <li><strong>常数</strong>：$\rho_{\text{水}}=1.0\times 10^3\text{ kg/m}^3$；$\rho_{\text{Hg}}=13.6\times 10^3\text{ kg/m}^3$；$k=\frac{1}{4\pi\varepsilon_0}=9\times 10^9\text{ N}\cdot\text{m}^2/\text{C}^2$；$\mu_0=4\pi\times 10^{-7}\text{ T}\cdot\text{m/A}$（$\frac{\mu_0}{2\pi}=2\times 10^{-7}$）。</li>
+          <li><strong>铁律</strong>：① 直径 $d$ 先除以 2；② 肥皂泡乘 2 个面；③ $\text{cm/mm/km}^2$ 先换算国际单位；④ 矢量计算题必写方向；⑤ 算完合力用“离导线越近磁场越强”复查方向。</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- VIEW 2: 27 PROBLEMS -->
+    <section id="view-problems" class="view">
+      <div class="filter-bar">
+        <div class="filter-group" id="chapterFilters">
+          <button class="chip active" data-ch="all">全部 (27)</button>
+          <button class="chip" data-ch="2">第二章 (3)</button>
+          <button class="chip" data-ch="3">第三章 (5)</button>
+          <button class="chip" data-ch="4">第四章 (5)</button>
+          <button class="chip" data-ch="5">第五章 (6)</button>
+          <button class="chip" data-ch="6">第六章 (5)</button>
+          <button class="chip" data-ch="7">第七章 (3)</button>
+          <button class="chip" data-ch="starred">⭐ 错题本</button>
+          <button class="chip" data-ch="unmastered">⬜ 未掌握</button>
+          <button class="chip" data-ch="errors">⚠️ 作业纠错题</button>
+        </div>
+        <div class="filter-group">
+          <button class="btn" id="toggleAllSolBtn">👁️ 一键展开全部解析</button>
+        </div>
+      </div>
+      <div id="problemContainer"></div>
+    </section>
+
+    <!-- VIEW 3: INTERACTIVE LAB -->
+    <section id="view-lab" class="view">
+      <div class="lab-grid">
+        <!-- Sim 1: Bernoulli -->
+        <div class="card">
+          <div class="card-header">
+            <h3>💧 实验一：伯努利细管压强模拟器（对应题 2-2）</h3>
+            <span class="badge">实时计算</span>
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin-top:0;">拖动滑块改变管子粗细比和出口流速，直观观察为什么最细处开小孔反而会<strong>吸进空气</strong>！</p>
+          <div class="slider-row">
+            <label><span>出口/最细处截面积比 $S_{\text{出}}/S_{\text{细}}$</span><span id="bRatioVal">3.0 倍</span></label>
+            <input type="range" id="bRatio" min="1" max="5" step="0.5" value="3" />
+          </div>
+          <div class="slider-row">
+            <label><span>出口流速 $v_{\text{出}}$</span><span id="bVoutVal">2.0 m/s</span></label>
+            <input type="range" id="bVout" min="0.5" max="5" step="0.5" value="2" />
+          </div>
+          <canvas id="bernoulliCanvas" width="460" height="150"></canvas>
+          <div class="sim-output" id="bernoulliOut"></div>
+        </div>
+
+        <!-- Sim 2: SHM Rotating Vector -->
+        <div class="card">
+          <div class="card-header">
+            <h3>🌀 实验二：简谐振动与旋转矢量联动（对应题 4-1）</h3>
+            <span class="badge">动态演示</span>
+          </div>
+          <p style="font-size:13px;color:var(--muted);margin-top:0;">零基础 10 秒看懂初相：观察 $t=0$ 时矢量落在<strong>上半圆（向下动）</strong>还是<strong>下半圆（向上动）</strong>。</p>
+          <div class="slider-row">
+            <label><span>初相 $\varphi_0$</span><span id="shmPhiVal">120° (2π/3)</span></label>
+            <input type="range" id="shmPhi" min="-180" max="180" step="15" value="120" />
+          </div>
+          <div class="slider-row">
+            <label><span>动画速度</span><span id="shmSpeedVal">正常</span></label>
+            <input type="range" id="shmSpeed" min="0" max="2" step="0.2" value="1" />
+          </div>
+          <canvas id="shmCanvas" width="460" height="190"></canvas>
+          <div class="sim-output" id="shmOut"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- VIEW 4: FLASHCARDS -->
+    <section id="view-flashcards" class="view">
+      <div class="flashcard-wrap">
+        <p style="color:var(--muted);font-size:13.5px;">点击卡片翻转，考前 5 分钟快速检验必背公式！</p>
+        <div class="flashcard" id="flashcard">
+          <div class="fc-side-tag" id="fcTag">第 1 / 14 张 · 点击翻转查看公式</div>
+          <div class="fc-content" id="fcContent"></div>
+          <div class="fc-sub" id="fcSub"></div>
+        </div>
+        <div class="fc-controls">
+          <button class="btn" id="fcPrev">⬅️ 上一张</button>
+          <button class="btn btn-primary" id="fcFlip">🔄 翻转卡片</button>
+          <button class="btn" id="fcNext">下一张 ➡️</button>
+          <button class="btn btn-warn" id="fcShuffle">🔀 随机打乱</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    // --- DATA: 7-Day Roadmap ---
+    const ROADMAP = [
+      { id: 'd1', day: '第 1 天', title: '流体力学 + 表面现象', desc: '共 8 题，纯代数公式，先拿满基本盘' },
+      { id: 'd2', day: '第 2~3 天', title: '振动与波动', desc: '共 5 题，掌握旋转矢量与“上坡下、下坡上”' },
+      { id: 'd3', day: '第 4~5 天', title: '静电场', desc: '共 6 题，吃透高斯定理与对称性微元积分' },
+      { id: 'd4', day: '第 6 天', title: '稳恒磁场', desc: '共 5 题，分段叠加、安培环路与磁通量' },
+      { id: 'd5', day: '第 7 天', title: '电磁感应 + 闭卷复盘', desc: '共 3 题，完成第 7 章作业并重刷错题本' }
+    ];
+
+    // --- DATA: 27 Problems ---
+    const PROBLEMS = [
+      {
+        id: '2-1', ch: '2', orig: '2.8', tag: '托里拆利公式 · 流量',
+        stem: '一个装满水的容器的侧壁有一面积为 $1.0\\times 10^{-4}\\text{ m}^2$、位于水面下 $0.20\\text{ m}$ 处的小孔。求从孔的出流速度及流量。',
+        hint: '直接套用托里拆利公式 $v = \\sqrt{2gh}$ 和体积流量 $Q = Sv$。',
+        sol: '<ol><li>出流速度：$v = \\sqrt{2gh} = \\sqrt{2\\times 9.8\\times 0.20} = \\sqrt{3.92} \\approx \\mathbf{1.98\\text{ m/s}}$（取 $g=10$ 则 $2.0\\text{ m/s}$）。</li><li>体积流量：$Q = Sv = 1.0\\times 10^{-4}\\times 1.98 \\approx \\mathbf{1.98\\times 10^{-4}\\text{ m}^3/\\text{s}}$。</li></ol>'
+      },
+      {
+        id: '2-2', ch: '2', orig: '2-9', tag: '连续性方程 · 伯努利方程',
+        stem: '水在截面不同的水平管中做稳定流动，出口处的截面积为管的最细处的 3 倍。若出口处的流速为 $2\\text{ m}\\cdot\\text{s}^{-1}$，则最细处的压强为多少？若在最细处开一小孔，水会不会流出来？',
+        hint: '先用 $S_1v_1=S_2v_2$ 算最细处流速 $6\\text{ m/s}$，再用水平管伯努利方程与大气压 $p_0$ 比较。',
+        sol: '<ol><li>由连续性方程：$v_{\\text{细}} = 3v_{\\text{出}} = 6\\text{ m/s}$。</li><li>由水平管伯努利方程：$p_{\\text{细}} = p_0 + \\frac{1}{2}\\rho(v_{\\text{出}}^2 - v_{\\text{细}}^2) = p_0 - 1.6\\times 10^4\\text{ Pa} \\approx \\mathbf{8.53\\times 10^4\\text{ Pa}}$。</li><li>因 $p_{\\text{细}} &lt; p_0$，开小孔后<strong>水不会流出，外界空气会被吸入管内</strong>。</li></ol>'
+      },
+      {
+        id: '2-3', ch: '2', orig: '2-10', tag: '流量平衡 · 最小深度',
+        stem: '匀速地将流量为 $Q=1.5\\times 10^{-4}\\text{ m}^3\\cdot\\text{s}^{-1}$ 的水注入一容器中，容器底有一面积为 $S=0.5\\times 10^{-4}\\text{ m}^2$ 的小孔，使水不断流出，试求：该容器的深度至少为多少米水才不会溢出？',
+        hint: '不溢出临界条件：流出流量 $S\\sqrt{2gh}$ 等于注入流量 $Q$。',
+        sol: '$$Q = S\\sqrt{2gh} \\implies h = \\frac{Q^2}{2gS^2} = \\frac{(1.5\\times 10^{-4})^2}{2\\times 9.8\\times (0.5\\times 10^{-4})^2} \\approx \\mathbf{0.459\\text{ m}}$$（若取 $g=10$ 则为 $0.45\\text{ m}$）。'
+      },
+      {
+        id: '3-1', ch: '3', orig: '3.6', tag: '肥皂泡双液面 · 附加压强',
+        stem: '吹一个直径为 $10\\text{ cm}$ 的肥皂泡，设肥皂液的表面张力系数 $\\alpha=40\\times 10^{-3}\\text{ N/m}$，试求吹此肥皂泡所做的功，以及泡内外的压强差。',
+        hint: '肥皂泡有内外 <strong>2 个球面</strong>！而且题目给的是直径 $d=10\\text{ cm}$，先除以 2 得 $r=0.05\\text{ m}$。',
+        sol: '<ol><li>做功：$W = \\alpha\\cdot 2(4\\pi r^2) = 8\\pi\\alpha r^2 = 8\\pi\\times 0.04\\times 0.05^2 \\approx \\mathbf{2.51\\times 10^{-3}\\text{ J}}$。</li><li>压强差：$\\Delta p = \\frac{4\\alpha}{r} = \\frac{4\\times 0.04}{0.05} = \\mathbf{3.2\\text{ Pa}}$。</li></ol>'
+      },
+      {
+        id: '3-2', ch: '3', orig: '3-7', tag: '雨滴合并 · 表面能释放',
+        stem: '在 $10\\text{ km}^2$ 的湖面上，下了一场 $25\\text{ mm}$ 的大雨，雨滴直径为 $1\\text{ mm}$，设过程是等温的，求释放出来的能量（$\\alpha=7.3\\times 10^{-2}\\text{ N/m}$）。',
+        hint: '全部雨滴总表面积 $S_{\\text{总}} = \\frac{3V}{r}$，乘以 $\\alpha$ 即可！注意单位换算：$10\\text{ km}^2 = 10^7\\text{ m}^2$。',
+        sol: '<ol><li>总降雨体积：$V = 10^7 \\times 0.025 = 2.5\\times 10^5\\text{ m}^3$。</li><li>雨滴总表面积：$S_{\\text{总}} = \\frac{3V}{r} = \\frac{3\\times 2.5\\times 10^5}{0.5\\times 10^{-3}} = 1.5\\times 10^9\\text{ m}^2$。</li><li>释放表面能：$\\Delta E = \\alpha S_{\\text{总}} = \\mathbf{1.095\\times 10^8\\text{ J}}$（约 $1.10\\times 10^8\\text{ J}$）。</li></ol>'
+      },
+      {
+        id: '3-3', ch: '3', orig: '3-9', tag: '毛细现象 · 水银下降',
+        stem: '将内径为 $d=10^{-4}\\text{ m}$ 的管子插入水银中，求水银面在管中下降的高度（水银完全不润湿管壁，$\\alpha=4.9\\times 10^{-1}\\text{ N/m}$）。',
+        hint: '套用 $h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}$，完全不润湿 $\\cos\\theta = -1$，$r = d/2 = 0.5\\times 10^{-4}\\text{ m}$。',
+        sol: '$$h = \\frac{2\\times 0.49\\times (-1)}{13.6\\times 10^3\\times 9.8\\times 0.5\\times 10^{-4}} \\approx -0.147\\text{ m}$$即水银面下降 <strong>$0.147\\text{ m}$（$14.7\\text{ cm}$）</strong>。'
+      },
+      {
+        id: '3-4', ch: '3', orig: '3-10', tag: '双弯曲液面平衡',
+        stem: '在半径 $r=0.3\\text{ mm}$ 的玻璃毛细管中注水一部分，下端形成半径 $R=3.0\\text{ mm}$ 的凸弧面，求管中所悬水柱的高度 $h$（$\\alpha=7.3\\times 10^{-2}\\text{ N/m}$，水完全润湿玻璃）。',
+        hint: '上凹液面下方 $p_B = p_0 - \\frac{2\\alpha}{r}$，下凸液面上方 $p_A = p_0 + \\frac{2\\alpha}{R}$，由 $p_A - p_B = \\rho g h$ 求解。',
+        sol: '$$h = \\frac{2\\alpha}{\\rho g}\\left(\\frac{1}{r} + \\frac{1}{R}\\right) = \\frac{2\\times 7.3\\times 10^{-2}}{10^3\\times 9.8}\\left(\\frac{1}{3\\times 10^{-4}} + \\frac{1}{3\\times 10^{-3}}\\right) \\approx \\mathbf{5.46\\text{ cm}}$$'
+      },
+      {
+        id: '3-5', ch: '3', orig: '3-11', tag: 'U 形毛细管高度差',
+        stem: '将 U 形管竖直放置并灌入水。两管内直径分别为 $10^{-3}\\text{ m}$ 和 $3\\times 10^{-3}\\text{ m}$，接触角为零，求两管水面高度差（$\\alpha=7.3\\times 10^{-2}\\text{ N/m}$）。',
+        hint: '细管升得高，两管高度差 $\\Delta h = \\frac{2\\alpha}{\\rho g}(\\frac{1}{r_1} - \\frac{1}{r_2})$。',
+        sol: '$$\\Delta h = \\frac{2\\times 7.3\\times 10^{-2}}{10^3\\times 9.8}\\left(\\frac{1}{0.5\\times 10^{-3}} - \\frac{1}{1.5\\times 10^{-3}}\\right) \\approx \\mathbf{1.99\\times 10^{-2}\\text{ m} \\approx 2.0\\text{ cm}}$$'
+      },
+      {
+        id: '4-1', ch: '4', orig: '4-22', tag: '振动曲线 · 旋转矢量法',
+        stem: '简谐振动曲线：$A=6\\text{ m}$，$T=2\\text{ s}$，$t=0$ 时 $y=-3\\text{ m}$ 且向下运动，$a$ 为波谷 $y=-6\\text{ m}$，$b$ 在 $t=1\\text{ s}$ 处（$y=+3\\text{ m}$ 向上运动）。求：(1) 初相与角频率；(2) 振动方程；(3) $a,b$ 相位；(4) $a$ 对应时刻；(5) $a$ 到 $b$ 所需时间。',
+        hint: '$t=0$ 时 $y=-A/2$ 且向下（$v_0 &lt; 0$），旋转矢量在第二象限 $\\varphi_0 = 2\\pi/3$。去“物理直觉实验室”拖动初相到 $120^\\circ$ 亲自看看！',
+        sol: '<ol><li>$\\omega = \\frac{2\\pi}{T} = \\mathbf{\\pi\\text{ rad/s}}$，$\\mathbf{\\varphi_0 = \\frac{2\\pi}{3}}$。</li><li>$y = \\mathbf{6\\cos\\left(\\pi t + \\frac{2\\pi}{3}\\right)\\text{ m}}$。</li><li>$\\varphi_a = \\mathbf{\\pi}$，$\\varphi_b = \\pi\\times 1 + \\frac{2\\pi}{3} = \\mathbf{\\frac{5\\pi}{3}}$。</li><li>$\\pi t_a + \\frac{2\\pi}{3} = \\pi \\implies \\mathbf{t_a = \\frac{1}{3}\\text{ s}}$。</li><li>$\\Delta t = \\frac{\\varphi_b - \\varphi_a}{\\omega} = \\mathbf{\\frac{2}{3}\\text{ s}}$。</li></ol>'
+      },
+      {
+        id: '4-2', ch: '4', orig: '4-24', tag: '同方向同频率振动合成',
+        stem: '两个同方向的简谐振动方程分别为 $y_1=0.12\\cos(\\pi t+\\pi/3)\\text{ cm}$ 和 $y_2=0.15\\cos(\\pi t+\\pi/4)\\text{ cm}$，求合振动的振幅、初相及表达式。',
+        hint: '直接套用余弦定理求合振幅，用正切公式求合初相。',
+        sol: '<ol><li>合振幅：$A = \\sqrt{0.12^2 + 0.15^2 + 2\\times 0.12\\times 0.15\\cos 15^\\circ} \\approx \\mathbf{0.268\\text{ cm}}$。</li><li>合初相：$\\tan\\varphi = \\frac{0.12\\sin 60^\\circ + 0.15\\sin 45^\\circ}{0.12\\cos 60^\\circ + 0.15\\cos 45^\\circ} \\approx 1.264 \\implies \\mathbf{\\varphi \\approx 0.902\\text{ rad}}$。</li><li>表达式：$\\mathbf{y = 0.268\\cos(\\pi t + 0.902)\\text{ cm}}$。</li></ol>'
+      },
+      {
+        id: '4-3', ch: '4', orig: '4-26', tag: '由振求波 · 波动方程',
+        stem: '平面简谐波 $A=5\\text{ cm}$，$\\nu=100\\text{ Hz}$，$u=400\\text{ m/s}$，沿 $+x$ 传播，以波源在平衡位置且正向 $+y$ 运动为计时起点，求：(1) 波源初相；(2) 波源振动方程；(3) 波动方程。',
+        hint: '$t=0$ 时 $y_0=0, v_0 &gt; 0$ 选下半圆 $\\varphi_0 = -\\pi/2$；沿 $+x$ 传播把 $t$ 换成 $t - x/u$。',
+        sol: '<ol><li>$\\omega = 200\\pi\\text{ rad/s}$，$\\mathbf{\\varphi_0 = -\\frac{\\pi}{2}}$。</li><li>$y_0(t) = \\mathbf{0.05\\cos(200\\pi t - \\pi/2)\\text{ m}}$。</li><li>$y(x,t) = \\mathbf{0.05\\cos\\left(200\\pi t - \\frac{\\pi}{2}x - \\frac{\\pi}{2}\\right)\\text{ m}}$。</li></ol>'
+      },
+      {
+        id: '4-4', ch: '4', orig: '4-28', tag: '波形图 · 质点运动方向',
+        stem: '$t=0$ 时刻波形：$A=0.04\\text{ m}$，$\\lambda=0.4\\text{ m}$，$u=0.08\\text{ m/s}$ 向右传播，$x=0$ 处 $y=0$，$x=0.1\\text{ m}$ 为波峰，$x=0.4\\text{ m}$ 为 $P$ 点；$a$ 在上升段 $0 &lt; x &lt; 0.1$，$b$ 在下降段 $0.1 &lt; x &lt; 0.2$。求：(1) $O$ 点振动方程；(2) 波函数；(3) $a,b,P$ 运动方向；(4) $P$ 点振动方程；(5) $P$ 点振动图线；(6) $t=3T/4$ 波形。',
+        hint: '记住波向右传的口诀：<strong>上坡下、下坡上</strong>！所以 $O$ 点向下动，$\\varphi_O = +\\pi/2$。',
+        sol: '<ol><li>$T=5\\text{ s}, \\omega=0.4\\pi\\text{ rad/s}$，$y_O(t)=\\mathbf{0.04\\cos(0.4\\pi t + \\pi/2)\\text{ m}}$。</li><li>波函数：$y(x,t)=\\mathbf{0.04\\cos(0.4\\pi t - 5\\pi x + \\pi/2)\\text{ m}}$。</li><li>方向：$a$ <strong>向下</strong>，$b$ <strong>向上</strong>，$P$ <strong>向下</strong>。</li><li>$P$ 点（$x=0.4=\\lambda$）：$y_P(t)=\\mathbf{0.04\\cos(0.4\\pi t + \\pi/2)\\text{ m}}$。</li><li>$P$ 点振动图线：从原点向下画负正弦曲线（$T=5\\text{ s}$）。</li><li>$t=3T/4$ 波形：右移 $0.3\\text{ m}$，方程 $y=0.04\\cos(5\\pi x)$。</li></ol>'
+      },
+      {
+        id: '4-5', ch: '4', orig: '4-29', tag: '声波干涉相消',
+        stem: '干涉型消音器中，声波在 $A$ 点分两路在 $B$ 点干涉相消。要消除 $300\\text{ Hz}$ 噪声，求弯道与直管最小长度差（声速 $340\\text{ m/s}$）。',
+        hint: '同相分出，干涉相消最小路程差就是半个波长 $\\lambda/2$。',
+        sol: '$$\\Delta l_{\\min} = \\frac{\\lambda}{2} = \\frac{u}{2\\nu} = \\frac{340}{600} = \\mathbf{\\frac{17}{30}\\text{ m} \\approx 0.567\\text{ m}}$$'
+      },
+      {
+        id: '5-1', ch: '5', orig: '5-12', tag: '带电直棒延长线积分',
+        stem: '正电荷均匀分布在长 $L$、线密度 $\\lambda$ 的直棒上，求右侧延长线上距右端 $L$ 处 $P$ 点的电场强度。',
+        hint: '以 $P$ 为原点向左建坐标 $r\\in[L,2L]$，对 $\\frac{\\lambda\\,dr}{4\\pi\\varepsilon_0 r^2}$ 积分。',
+        sol: '$$E = \\int_L^{2L}\\frac{\\lambda\\,dr}{4\\pi\\varepsilon_0 r^2} = \\mathbf{\\frac{\\lambda}{8\\pi\\varepsilon_0 L}}\\text{（沿棒延长线向右）}$$'
+      },
+      {
+        id: '5-2', ch: '5', orig: '5-13', tag: '对称性 · 半圆环积分',
+        stem: '半径为 $R$ 的上半圆环，左半环均匀带正电 $+\\lambda$，右半环均匀带负电 $-\\lambda$，求圆心 $O$ 处电场强度。',
+        hint: '竖直分量抵消，水平分量向右叠加！两半环贡献相等，算一半再乘 2。',
+        sol: '$$E = 2\\int_0^{\\pi/2}\\frac{\\lambda R\\,d\\theta}{4\\pi\\varepsilon_0 R^2}\\sin\\theta = \\mathbf{\\frac{\\lambda}{2\\pi\\varepsilon_0 R}}\\text{（水平向右）}$$'
+      },
+      {
+        id: '5-3', ch: '5', orig: '5-14', tag: '电通量 · 高斯定理', hasErr: true,
+        stem: '真空中静电场 $\\mathbf{E}=bx\\mathbf{i}$，边长 $a$ 的立方体（左面 $x=0$，右面 $S_1$ 在 $x=a$），求通过 $S_1$ 的电通量 $\\Phi_1$、上表面 $S_2$ 的电通量 $\\Phi_2$ 及内部净电量 $Q$。',
+        hint: '只有右面 $S_1$ 有通量（$E=ba$ 乘以面积 $a^2$），其余 5 个面通量全为 0。',
+        sol: '$\\Phi_1 = ba\\cdot a^2 = \\mathbf{ba^3}$；$\\Phi_2 = \\mathbf{0}$；由高斯定理 $\\mathbf{Q = \\varepsilon_0 ba^3}$。',
+        errNote: '⚠️ 你的手写稿末行笔误写成了 $\\varepsilon_0 ba^2$，正确结果是 $\\varepsilon_0 ba^3$，考试千万别丢指数！'
+      },
+      {
+        id: '5-4', ch: '5', orig: '5-15', tag: '同心球壳 · 高斯定理',
+        stem: '两个均匀带电同心球面 $R_1=0.10\\text{ m}, R_2=0.30\\text{ m}$，$q_1=1.0\\times 10^{-8}\\text{ C}, q_2=1.5\\times 10^{-8}\\text{ C}$。求 $r_1=0.05\\text{ m}, r_2=0.20\\text{ m}, r_3=0.50\\text{ m}$ 处场强。',
+        hint: '看半径为 $r$ 的高斯球面“包住了多少电荷”，套 $E = k q_{\\text{内}}/r^2$。',
+        sol: '<ul><li>$r_1=0.05\\text{ m}$：$q_{\\text{内}}=0 \\implies \\mathbf{E_1=0}$；</li><li>$r_2=0.20\\text{ m}$：$q_{\\text{内}}=q_1 \\implies \\mathbf{E_2 = 2.25\\times 10^3\\text{ N/C}}$（向外）；</li><li>$r_3=0.50\\text{ m}$：$q_{\\text{内}}=q_1+q_2 \\implies \\mathbf{E_3 = 9.0\\times 10^2\\text{ N/C}}$（向外）。</li></ul>'
+      },
+      {
+        id: '5-5', ch: '5', orig: '5-17', tag: '无限大带电平板叠加',
+        stem: '真空中两块互相平行的无限大均匀带电平板，电荷面密度分别为 $+\\sigma$ 和 $+2\\sigma$，求板间电场强度大小。',
+        hint: '单板场强 $\\frac{\\sigma}{2\\varepsilon_0}$，两块正电板在板间场强反向相减。',
+        sol: '$$E = \\frac{2\\sigma}{2\\varepsilon_0} - \\frac{\\sigma}{2\\varepsilon_0} = \\mathbf{\\frac{\\sigma}{2\\varepsilon_0}}\\text{（由 }+2\\sigma\\text{ 指向 }+\\sigma\\text{）}$$'
+      },
+      {
+        id: '5-6', ch: '5', orig: '5-18', tag: '电势标量叠加',
+        stem: '半径为 $R$ 的均匀带电圆环，电荷线密度为 $\\lambda$，无穷远电势为零，求圆心处电势。',
+        hint: '电势是标量！所有电荷到圆心距离都是 $R$，直接 $U = Q/(4\\pi\\varepsilon_0 R)$。',
+        sol: '$$U = \\frac{\\lambda\\cdot 2\\pi R}{4\\pi\\varepsilon_0 R} = \\mathbf{\\frac{\\lambda}{2\\varepsilon_0}}$$'
+      },
+      {
+        id: '6-1', ch: '6', orig: '6-14', tag: '非均匀磁场 · 磁通量积分',
+        stem: '载有电流 $I$ 的无限长直导线旁有共面等腰直角三角形回路 $MNO$，$MN$ 平行导线相距 $a$，$MN=MO=a$，求通过回路的磁通量。',
+        hint: '在 $x\\in[a,2a]$ 处切竖直窄条，高度 $h(x)=2a-x$，乘以 $B=\\frac{\\mu_0 I}{2\\pi x}$ 积分。',
+        sol: '$$\\Phi = \\int_a^{2a}\\frac{\\mu_0 I}{2\\pi x}(2a-x)\\,dx = \\mathbf{\\frac{\\mu_0 Ia}{2\\pi}(2\\ln 2 - 1)}\\text{（垂直纸面向里）}$$'
+      },
+      {
+        id: '6-2', ch: '6', orig: '6-16', tag: '毕奥-萨伐尔 · 分段叠加',
+        stem: '无限长直导线弯成：半无限长直导线 $ab$ + 半径 $R=5\\text{ cm}$ 的四分之一圆弧 $bc$ + 延长线过圆心 $O$ 的半无限长直导线 $cd$，电流 $I=10\\text{ A}$，求 $O$ 点磁感应强度。',
+        hint: '三段分别算：$ab$ 贡献 $\\frac{\\mu_0 I}{4\\pi R}$，$bc$ 贡献 $\\frac{\\mu_0 I}{8R}$，$cd$ 延长线过 $O$ 贡献 0。',
+        sol: '$$B = \\frac{\\mu_0 I}{4\\pi R}\\left(1 + \\frac{\\pi}{2}\\right) = \\frac{10^{-7}\\times 10}{0.05}\\left(1 + \\frac{\\pi}{2}\\right) \\approx \\mathbf{5.14\\times 10^{-5}\\text{ T}}\\text{（向里）}$$'
+      },
+      {
+        id: '6-3', ch: '6', orig: '6-19', tag: '安培环路定理 · 圆柱导体', hasErr: true,
+        stem: '真空中 $10\\text{ A}$ 电流均匀流过极长圆柱形导体（直径 $d=4\\text{ cm}$），求磁感应强度最大的位置及最大值。',
+        hint: '柱内 $B\\propto r$，柱外 $B\\propto 1/r$，故在圆柱表面 $r=R=0.02\\text{ m}$ 最大！注意 $\\frac{\\mu_0}{2\\pi}=2\\times 10^{-7}$。',
+        sol: '最大位置在圆柱表面 $\\mathbf{r=R=2\\text{ cm}}$；最大值：$$B_{\\max} = \\frac{\\mu_0 I}{2\\pi R} = \\frac{2\\times 10^{-7}\\times 10}{0.02} = \\mathbf{1.0\\times 10^{-4}\\text{ T}}$$',
+        errNote: '⚠️ 你提交的第六章作业误算成了 $5\\times 10^{-5}\\text{ T}$（直径当半径或漏了 2 倍），正确答案是 $1.0\\times 10^{-4}\\text{ T}$！'
+      },
+      {
+        id: '6-4', ch: '6', orig: '6-20', tag: '霍尔效应 · 载流子电性',
+        stem: '载流体横截面中电流垂直纸面向外，加铅直向上磁场 $\\vec{B}$，左侧堆积负电荷、右侧堆积正电荷，问运动电荷的性质。',
+        hint: '不管正负电荷，相同电流在向上磁场中均受向左洛伦兹力，因此左侧堆积什么电荷，载流子就带什么电！',
+        sol: '所有运动载流子均向左偏转，左侧堆积负电荷，说明载流子是<strong>负电荷（自由电子）</strong>。'
+      },
+      {
+        id: '6-5', ch: '6', orig: '6-21', tag: '安培力积分 · 方向判断', hasErr: true,
+        stem: '向上电流 $I_1$ 长直导线旁有共面等腰三角形回路（顺时针电流 $I_2$），顶点 $C$ 距导线 $a$，底边 $DE$ 长 $d$ 平行导线距 $b$，求回路所受磁力。',
+        hint: '底边反向相斥，两斜边竖直分量与 $I_1$ 同向相吸；因为斜边离导线更近、磁场更强，所以合力一定是<strong>吸引力</strong>！',
+        sol: '$$F = F_{\\text{斜}} - F_{DE} = \\mathbf{\\frac{\\mu_0 I_1 I_2 d}{2\\pi}\\left(\\frac{\\ln(b/a)}{b-a} - \\frac{1}{b}\\right)}$$方向：<strong>垂直直导线向左（吸引力）</strong>。',
+        errNote: '⚠️ 你提交的第六章作业大小算对了，但方向误写成了“斥力”，正确方向应为<strong>吸引力（向左指向直导线）</strong>！'
+      },
+      {
+        id: '7-1', ch: '7', orig: '7-17', tag: '感生电动势 · 待交作业',
+        stem: '长直导线 $PQ$ 电流 $I=I_0+kt$（向上），旁有共面矩形框 $ABCD$（宽 $AB=a$，高 $BC=b$，$AD$ 距 $PQ$ 为 $l$）。求任意时刻感应电动势。',
+        hint: '先对 $x\\in[l,l+a]$ 积分求磁通量 $\\Phi(t)$，再对 $t$ 求导得 $\\mathcal{E}$，方向用楞次定律“增反减同”。',
+        sol: '<ol><li>$\\Phi(t) = \\int_l^{l+a}\\frac{\\mu_0(I_0+kt)}{2\\pi x}b\\,dx = \\frac{\\mu_0 b(I_0+kt)}{2\\pi}\\ln\\frac{l+a}{l}$。</li><li>大小：$\\mathcal{E} = \\left|-\\frac{d\\Phi}{dt}\\right| = \\mathbf{\\frac{\\mu_0 kb}{2\\pi}\\ln\\left(1+\\frac{a}{l}\\right)}$。</li><li>方向：向里磁通增大，感应电动势为<strong>逆时针</strong>（$A\\to D\\to C\\to B\\to A$）。</li></ol>'
+      },
+      {
+        id: '7-2', ch: '7', orig: '7-18', tag: '旋转金属棒 · 待交作业',
+        stem: '水平金属棒 $ab=0.5\\text{ m}$，绕棒上 $M$ 点竖直轴以 $\\omega=4\\pi\\text{ rad/s}$ 匀角速度转动，$aM=0.1\\text{ m}$，竖直向上磁场 $B=0.5\\times 10^{-4}\\text{ T}$，求 $ab$ 两端电势差。',
+        hint: '分成 $Ma=0.1\\text{ m}$ 和 $Mb=0.4\\text{ m}$ 两段，电动势方向相反相减：$\\frac{1}{2}B\\omega(l_2^2 - l_1^2)$。',
+        sol: '$$|U_{ab}| = \\frac{1}{2}B\\omega(0.4^2 - 0.1^2) = \\frac{1}{2}\\times 0.5\\times 10^{-4}\\times 4\\pi\\times 0.15 = \\mathbf{1.5\\pi\\times 10^{-5}\\text{ V} \\approx 4.71\\times 10^{-5}\\text{ V}}$$'
+      },
+      {
+        id: '7-3', ch: '7', orig: '7-19', tag: '斜棒平动切割 · 待交作业',
+        stem: '无限长直导线通向上电流 $I$，右侧倾斜直棒 $ab$ 长 $L$，最近端 $a$ 距导线 $d$，与水平夹角 $\\alpha$，以速度 $\\vec{v}$ 向上运动，求感应电动势。',
+        hint: '有效切割长度为水平投影 $dr = dl\\cos\\alpha$，对 $r\\in[d, d+L\\cos\\alpha]$ 积分；$\\vec{v}\\times\\vec{B}$ 指向左，故 $a$ 端电势高。',
+        sol: '$$\\mathcal{E} = \\int_d^{d+L\\cos\\alpha}\\frac{\\mu_0 I v}{2\\pi r}\\,dr = \\mathbf{\\frac{\\mu_0 I v}{2\\pi}\\ln\\frac{d+L\\cos\\alpha}{d}}$$方向：由 $b\\to a$，<strong>$a$ 端电势高于 $b$ 端</strong>。'
+      }
+    ];
+
+    // --- DATA: Flashcards ---
+    let FLASHCARDS = [
+      { q: '水平管伯努利方程 & 连续性方程', a: '$S_1 v_1 = S_2 v_2$，$p_1 + \\frac{1}{2}\\rho v_1^2 = p_2 + \\frac{1}{2}\\rho v_2^2$', sub: '管越细流速越快、压强越小' },
+      { q: '托里拆利小孔出流速度公式', a: '$v = \\sqrt{2gh}$，$Q = Sv$', sub: '水不溢出临界条件：流出流量 = 注入流量' },
+      { q: '肥皂泡吹泡做功 & 内外压强差', a: '$W = 8\\pi\\alpha r^2$，$\\Delta p = \\frac{4\\alpha}{r}$', sub: '注意肥皂泡有内外 2 个液面！液滴/气泡只有 1 个面' },
+      { q: '毛细管液面上升/下降高度公式', a: '$h = \\frac{2\\alpha\\cos\\theta}{\\rho g r}$', sub: '完全润湿 $\\theta=0^\\circ$，完全不润湿 $\\theta=180^\\circ$；直径先除以 2' },
+      { q: '简谐振动用旋转矢量判初相 $\\varphi_0$ 象限', a: '$v_0 &gt; 0$（向上）选下半圆；$v_0 &lt; 0$（向下）选上半圆', sub: '记住标准方程 $y=A\\cos(\\omega t+\\varphi_0)$' },
+      { q: '波向右传时，由波形图判质点运动方向口诀', a: '“上坡下、下坡上”', sub: '沿 $+x$ 传播，把 $t$ 换成 $t - x/u$' },
+      { q: '同相波源声波干涉相消条件（消音器）', a: '$\\Delta r = (2k+1)\\frac{\\lambda}{2}$，最小差 $\\Delta l_{\\min} = \\frac{\\lambda}{2} = \\frac{u}{2\\nu}$', sub: '干涉加强为 $\\Delta r = k\\lambda$' },
+      { q: '静电场高斯定理', a: '$\\oint \\mathbf{E}\\cdot d\\mathbf{S} = \\frac{\\sum q_{\\text{内}}}{\\varepsilon_0}$', sub: '球对称、柱对称、无限大平板直接用' },
+      { q: '无限大均匀带电平板场强 & 均匀带电圆环圆心电势', a: '平板 $E = \\frac{\\sigma}{2\\varepsilon_0}$；圆环圆心 $U = \\frac{\\lambda}{2\\varepsilon_0}$', sub: '电势是标量，直接叠加不考虑方向' },
+      { q: '无限长 & 半无限长直导线磁场', a: '无限长 $B=\\frac{\\mu_0 I}{2\\pi r}$；半无限长 $B=\\frac{\\mu_0 I}{4\\pi r}$', sub: '延长线上 $B=0$；牢记 $\\frac{\\mu_0}{2\\pi}=2\\times 10^{-7}$' },
+      { q: '圆心角 $\\theta$ 圆弧电流在圆心处的磁场', a: '$B = \\frac{\\theta}{2\\pi}\\cdot\\frac{\\mu_0 I}{2R}$', sub: '四分之一圆弧为 $\\frac{\\mu_0 I}{8R}$' },
+      { q: '极长均匀载流圆柱导体的磁场分布', a: '柱内 $\\frac{\\mu_0 I r}{2\\pi R^2}$，柱外 $\\frac{\\mu_0 I}{2\\pi r}$，表面 $r=R$ 最大', sub: '最大值 $B_{\\max}=\\frac{\\mu_0 I}{2\\pi R}$，别把直径当半径' },
+      { q: '法拉第电磁感应定律（感生电动势）', a: '$\\mathcal{E} = -\\frac{d\\Phi}{dt}$', sub: '先积分求 $\\Phi(t)$ 再对 $t$ 求导；楞次定律“增反减同”' },
+      { q: '旋转导体棒的动生电动势', a: '绕端点 $\\frac{1}{2}B\\omega L^2$；绕中间点两段相减 $\\frac{1}{2}B\\omega(l_2^2 - l_1^2)$', sub: '非静电力方向 $\\vec{v}\\times\\vec{B}$ 指向高电势端' }
+    ];
+
+    // --- STATE ---
+    const STORE_KEY = 'u_physics_review_state_v1';
+    let state = JSON.parse(localStorage.getItem(STORE_KEY) || '{"mastered":{},"starred":{},"days":{},"dark":false}');
+    let currentFilter = 'all';
+    let allSolOpen = false;
+    let fcIdx = 0;
+    let fcFlipped = false;
+
+    function saveState() {
+      localStorage.setItem(STORE_KEY, JSON.stringify(state));
+      updateStats();
+    }
+
+    function renderMath(el = document.body) {
+      if (window.renderMathInElement) {
+        renderMathInElement(el, {
+          delimiters: [
+            { left: '$$', right: '$$', display: true },
+            { left: '$', right: '$', display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    function updateStats() {
+      const mCount = Object.values(state.mastered).filter(Boolean).length;
+      const sCount = Object.values(state.starred).filter(Boolean).length;
+      const dCount = Object.values(state.days).filter(Boolean).length;
+      const pct = Math.round((mCount / PROBLEMS.length) * 100);
+      document.getElementById('progText').textContent = `${mCount} / ${PROBLEMS.length} (${pct}%)`;
+      document.getElementById('progFill').style.width = `${pct}%`;
+      document.getElementById('statMastered').textContent = mCount;
+      document.getElementById('statStarred').textContent = sCount;
+      document.getElementById('statDays').textContent = `${dCount}/${ROADMAP.length}`;
+    }
+
+    // --- RENDER ROADMAP ---
+    function renderRoadmap() {
+      const el = document.getElementById('roadmapList');
+      el.innerHTML = ROADMAP.map(item => {
+        const done = !!state.days[item.id];
+        return `
+          <label class="day-card ${done ? 'done' : ''}">
+            <input type="checkbox" ${done ? 'checked' : ''} onchange="toggleDay('${item.id}')" />
+            <div>
+              <strong>${item.day}：${item.title}</strong>
+              <span>${item.desc}</span>
+            </div>
+          </label>`;
+      }).join('');
+    }
+    window.toggleDay = (id) => {
+      state.days[id] = !state.days[id];
+      saveState();
+      renderRoadmap();
+    };
+
+    // --- RENDER PROBLEMS ---
+    function renderProblems() {
+      const box = document.getElementById('problemContainer');
+      const list = PROBLEMS.filter(p => {
+        if (currentFilter === 'all') return true;
+        if (currentFilter === 'starred') return !!state.starred[p.id];
+        if (currentFilter === 'unmastered') return !state.mastered[p.id];
+        if (currentFilter === 'errors') return !!p.hasErr;
+        return p.ch === currentFilter;
+      });
+      if (!list.length) {
+        box.innerHTML = '<div class="card" style="text-align:center;color:var(--muted);">当前筛选条件下暂无题目 🎉</div>';
+        return;
+      }
+      box.innerHTML = list.map(p => {
+        const m = !!state.mastered[p.id];
+        const s = !!state.starred[p.id];
+        return `
+          <div class="problem-card ${m ? 'mastered' : ''} ${s ? 'starred' : ''}" id="card-${p.id}">
+            <div class="p-top">
+              <span class="p-title">第 ${p.id} 题（原题号 ${p.orig}）</span>
+              <div style="display:flex;gap:6px;flex-wrap:wrap;">
+                <span class="badge">${p.tag}</span>
+                ${p.hasErr ? '<span class="badge badge-danger">作业纠错</span>' : ''}
+              </div>
+            </div>
+            <div class="p-stem">${p.stem}</div>
+            <div class="p-actions">
+              <button class="btn" onclick="toggleBox('hint-${p.id}')">💡 解题提示</button>
+              <button class="btn btn-primary" onclick="toggleBox('sol-${p.id}')">📖 展开/收起解析</button>
+              <button class="btn ${m ? 'btn-success' : ''}" onclick="toggleMaster('${p.id}')">${m ? '✅ 已掌握' : '⬜ 标记已掌握'}</button>
+              <button class="btn ${s ? 'btn-warn' : ''}" onclick="toggleStar('${p.id}')">${s ? '⭐ 已在错题本' : '☆ 加入错题本'}</button>
+            </div>
+            <div class="p-hint" id="hint-${p.id}"><strong>思路提示：</strong>${p.hint}</div>
+            <div class="p-sol ${allSolOpen ? 'open' : ''}" id="sol-${p.id}">
+              <strong>【完整解析】</strong><br/>${p.sol}
+              ${p.errNote ? `<div class="p-err">${p.errNote}</div>` : ''}
+            </div>
+          </div>`;
+      }).join('');
+      renderMath(box);
+    }
+
+    window.toggleBox = (id) => {
+      document.getElementById(id).classList.toggle('open');
+    };
+    window.toggleMaster = (id) => {
+      state.mastered[id] = !state.mastered[id];
+      saveState();
+      renderProblems();
+    };
+    window.toggleStar = (id) => {
+      state.starred[id] = !state.starred[id];
+      saveState();
+      renderProblems();
+    };
+
+    // --- SIM 1: BERNOULLI ---
+    function updateBernoulli() {
+      const ratio = parseFloat(document.getElementById('bRatio').value);
+      const vOut = parseFloat(document.getElementById('bVout').value);
+      document.getElementById('bRatioVal').textContent = `${ratio.toFixed(1)} 倍`;
+      document.getElementById('bVoutVal').textContent = `${vOut.toFixed(1)} m/s`;
+      const vThin = ratio * vOut;
+      const p0 = 101300;
+      const pThin = p0 + 0.5 * 1000 * (vOut * vOut - vThin * vThin);
+      const dp = pThin - p0;
+      const status = pThin < p0
+        ? `<strong style="color:var(--danger)">低于大气压！开小孔不会出水，反而吸入空气</strong>`
+        : `<strong style="color:var(--success)">等于大气压，不会吸水</strong>`;
+      document.getElementById('bernoulliOut').innerHTML =
+        `最细处流速：$v_{\\text{细}} = \\mathbf{${vThin.toFixed(1)}\\text{ m/s}}$<br/>` +
+        `最细处压强：$p_{\\text{细}} = \\mathbf{${(pThin/1000).toFixed(2)}\\text{ kPa}}$（相对大气压 ${(dp/1000).toFixed(2)} kPa）<br/>` +
+        `开孔现象：${status}`;
+      renderMath(document.getElementById('bernoulliOut'));
+
+      const c = document.getElementById('bernoulliCanvas');
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+      const midY = 75;
+      const hOut = 48;
+      const hThin = Math.max(14, hOut / Math.sqrt(ratio));
+      // Pipe shape
+      ctx.fillStyle = 'rgba(59, 130, 246, 0.22)';
+      ctx.strokeStyle = '#2563eb';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.moveTo(20, midY - hOut);
+      ctx.lineTo(130, midY - hOut);
+      ctx.lineTo(175, midY - hThin);
+      ctx.lineTo(285, midY - hThin);
+      ctx.lineTo(330, midY - hOut);
+      ctx.lineTo(440, midY - hOut);
+      ctx.lineTo(440, midY + hOut);
+      ctx.lineTo(330, midY + hOut);
+      ctx.lineTo(285, midY + hThin);
+      ctx.lineTo(175, midY + hThin);
+      ctx.lineTo(130, midY + hOut);
+      ctx.lineTo(20, midY + hOut);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+
+      // Hole & air arrow
+      ctx.strokeStyle = pThin < p0 ? '#dc2626' : '#16a34a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(230, 12);
+      ctx.lineTo(230, midY - hThin - 3);
+      ctx.stroke();
+      if (pThin < p0) {
+        ctx.fillStyle = '#dc2626';
+        ctx.beginPath();
+        ctx.moveTo(230, midY - hThin - 1);
+        ctx.lineTo(225, midY - hThin - 10);
+        ctx.lineTo(235, midY - hThin - 10);
+        ctx.fill();
+        ctx.font = '12px Microsoft YaHei';
+        ctx.fillText('空气被吸入', 240, 24);
+      }
+      ctx.fillStyle = '#1e293b';
+      ctx.font = 'bold 12px Microsoft YaHei';
+      ctx.fillText(`v细=${vThin.toFixed(1)} m/s`, 192, midY + 4);
+      ctx.fillText(`v出=${vOut.toFixed(1)} m/s`, 352, midY + 4);
+    }
+
+    // --- SIM 2: SHM ROTATING VECTOR ---
+    let shmT = 0;
+    function drawSHM() {
+      const phiDeg = parseFloat(document.getElementById('shmPhi').value);
+      const speed = parseFloat(document.getElementById('shmSpeed').value);
+      const phiRad = (phiDeg * Math.PI) / 180;
+      document.getElementById('shmPhiVal').textContent = `${phiDeg}° (${(phiDeg/180).toFixed(2)}π)`;
+      document.getElementById('shmSpeedVal').textContent = speed === 0 ? '暂停' : `${speed.toFixed(1)}x`;
+
+      const y0 = Math.cos(phiRad);
+      const v0 = -Math.sin(phiRad);
+      const dirText = Math.abs(v0) < 0.01 ? '瞬时静止（端点）' : (v0 > 0 ? '向上运动（下半圆）' : '向下运动（上半圆）');
+      document.getElementById('shmOut').innerHTML =
+        `$t=0$ 时位移 $y_0 = ${y0.toFixed(2)}A$，运动方向：<strong>${dirText}</strong>`;
+      renderMath(document.getElementById('shmOut'));
+
+      const c = document.getElementById('shmCanvas');
+      const ctx = c.getContext('2d');
+      ctx.clearRect(0, 0, c.width, c.height);
+      const cx = 85, cy = 95, R = 56;
+
+      // Circle
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1.5;
+      ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx - R - 12, cy); ctx.lineTo(cx + R + 12, cy); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(cx, cy - R - 12); ctx.lineTo(cx, cy + R + 12); ctx.stroke();
+
+      // Current angle (counter-clockwise)
+      const ang = phiRad + shmT;
+      // Note: standard SHM x = A cos(wt+phi) projects onto horizontal or vertical.
+      // Let's project y = A cos(ang) onto vertical axis (top = +A, bottom = -A) so wave matches!
+      // Wait: if top is +A (cos=1 at ang=0), let's draw standard physics circle where 0° is RIGHT (+A) and wave plots x(t) = cos(ang) vertically!
+      const vx = cx + R * Math.cos(ang);
+      const vy = cy - R * Math.sin(ang);
+
+      ctx.strokeStyle = '#2563eb';
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(cx, cy); ctx.lineTo(vx, vy); ctx.stroke();
+      ctx.fillStyle = '#dc2626';
+      ctx.beginPath(); ctx.arc(vx, vy, 5, 0, Math.PI * 2); ctx.fill();
+
+      // Wave graph on right: y(t) = A cos(ang)
+      const gx = 180, gw = 260;
+      ctx.strokeStyle = '#94a3b8';
+      ctx.lineWidth = 1;
+      ctx.beginPath(); ctx.moveTo(gx, cy); ctx.lineTo(gx + gw, cy); ctx.stroke();
+      ctx.beginPath(); ctx.moveTo(gx, cy - R - 10); ctx.lineTo(gx, cy + R + 10); ctx.stroke();
+
+      ctx.strokeStyle = '#16a34a';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let i = 0; i <= gw; i++) {
+        const t = (i / gw) * Math.PI * 4;
+        const val = Math.cos(phiRad + t);
+        const py = cy - val * R;
+        if (i === 0) ctx.moveTo(gx + i, py);
+        else ctx.lineTo(gx + i, py);
+      }
+      ctx.stroke();
+
+      // Moving dot on wave
+      const curPhase = shmT % (Math.PI * 4);
+      const dotX = gx + (curPhase / (Math.PI * 4)) * gw;
+      const dotY = cy - Math.cos(phiRad + curPhase) * R;
+      ctx.fillStyle = '#dc2626';
+      ctx.beginPath(); ctx.arc(dotX, dotY, 5, 0, Math.PI * 2); ctx.fill();
+
+      ctx.fillStyle = '#64748b';
+      ctx.font = '11px Microsoft YaHei';
+      ctx.fillText('旋转矢量（逆时针）', 32, 178);
+      ctx.fillText('y = A cos(ωt + φ₀) 振动曲线', 240, 178);
+
+      shmT += 0.025 * speed;
+      requestAnimationFrame(drawSHM);
+    }
+
+    // --- FLASHCARDS ---
+    function renderFlashcard() {
+      const card = FLASHCARDS[fcIdx];
+      document.getElementById('fcTag').textContent =
+        `第 ${fcIdx + 1} / ${FLASHCARDS.length} 张 · ${fcFlipped ? '公式答案（点击翻回）' : '考点提问（点击翻转）'}`;
+      document.getElementById('fcContent').innerHTML = fcFlipped ? card.a : card.q;
+      document.getElementById('fcSub').innerHTML = fcFlipped ? `💡 ${card.sub}` : '先在脑中默念公式，再点击翻转核对';
+      renderMath(document.getElementById('flashcard'));
+    }
+
+    // --- EVENTS ---
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        btn.classList.add('active');
+        document.getElementById(`view-${btn.dataset.view}`).classList.add('active');
+      });
+    });
+
+    document.querySelectorAll('#chapterFilters .chip').forEach(chip => {
+      chip.addEventListener('click', () => {
+        document.querySelectorAll('#chapterFilters .chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        currentFilter = chip.dataset.ch;
+        renderProblems();
+      });
+    });
+
+    document.getElementById('toggleAllSolBtn').addEventListener('click', (e) => {
+      allSolOpen = !allSolOpen;
+      e.target.textContent = allSolOpen ? '🙈 一键收起全部解析' : '👁️ 一键展开全部解析';
+      renderProblems();
+    });
+
+    document.getElementById('themeBtn').addEventListener('click', () => {
+      state.dark = !state.dark;
+      document.body.classList.toggle('dark', state.dark);
+      document.getElementById('themeBtn').textContent = state.dark ? '☀️ 日间模式' : '🌙 夜间模式';
+      saveState();
+    });
+
+    document.getElementById('bRatio').addEventListener('input', updateBernoulli);
+    document.getElementById('bVout').addEventListener('input', updateBernoulli);
+
+    document.getElementById('flashcard').addEventListener('click', () => { fcFlipped = !fcFlipped; renderFlashcard(); });
+    document.getElementById('fcFlip').addEventListener('click', () => { fcFlipped = !fcFlipped; renderFlashcard(); });
+    document.getElementById('fcPrev').addEventListener('click', () => { fcIdx = (fcIdx - 1 + FLASHCARDS.length) % FLASHCARDS.length; fcFlipped = false; renderFlashcard(); });
+    document.getElementById('fcNext').addEventListener('click', () => { fcIdx = (fcIdx + 1) % FLASHCARDS.length; fcFlipped = false; renderFlashcard(); });
+    document.getElementById('fcShuffle').addEventListener('click', () => {
+      FLASHCARDS.sort(() => Math.random() - 0.5);
+      fcIdx = 0; fcFlipped = false; renderFlashcard();
+    });
+
+    // --- INIT ---
+    window.addEventListener('load', () => {
+      if (state.dark) {
+        document.body.classList.add('dark');
+        document.getElementById('themeBtn').textContent = '☀️ 日间模式';
+      }
+      renderRoadmap();
+      renderProblems();
+      updateStats();
+      updateBernoulli();
+      renderFlashcard();
+      renderMath(document.body);
+      requestAnimationFrame(drawSHM);
+    });
+  </script>
+</body>
+</html>
